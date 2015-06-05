@@ -1,0 +1,21 @@
+# ==============================================================================
+# fact_types.txt
+#
+# structure from create_facts_table migration
+#
+# $table->string( 'name' );
+# $table->string( 'statement_fmt');
+# $table->string( 'question_fmt' );
+# $table->string( 'desc' );
+#
+# $val_types = array( 'bool', 'string', 'num', 'time' );
+# $table->enum( 'val_type', $val_types );
+#
+# ==============================================================================
+
+birth:$s was born on $date:When was $s born:desc:time
+employment:$s worked for $o as $work_role:Did $s worked at $o:desc:bool
+employment_role:$s worked for $o as $work_role:Did $s was a $work_role at $o:desc:bool
+employment_title:$s was $work_title at $o:Was $s title at $o, $work_title:desc:bool
+employment_period:$s worked for $o from $time_start to $end_date:Did $s worked for $o between $time_start to $end_time:desc:bool
+friendship:$s and $o are friends:Are $s and $o friends:desc:bool

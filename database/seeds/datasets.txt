@@ -1,0 +1,24 @@
+# ==============================================================================
+# datasets.txt
+#
+# structure name:code:driver
+# ==============================================================================
+
+# self
+famous:fm:
+
+# Major social datasets
+facebook:fb:
+linkedin:in:
+twitter:tw:
+
+# Interests
+qoura:qr:
+
+# Engineering
+stackoverflow:so:
+github:gt:
+
+# Google
+gmail:gm:
+goolgle+:g+:

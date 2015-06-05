@@ -1,0 +1,39 @@
+# ==============================================================================
+# personality_types.txt
+# Based on © 2009 HOGAN ASSESSMENT SYSTEMS INC.
+# structure sys:name:display:desc
+# ==============================================================================
+
+# Personality:
+hpi:adjustment:adjustment:conﬁdence, self-esteem, and composure under pressure
+hpi:ambltlon:ambltlon:initiative, competitiveness, and desire for leadership roles
+hpi:sociability:sociability:extraversion, gregarious, and need for social interaction
+hpi:sensitivity:sensitivity:tact, perceptiveness, and ability to maintain relationships
+hpi:prudence:prudence:self-discipline, responsibility and conscientiousness
+hpi:inquisitlve:inquisitlve:imagination, curiosity, and creative potential
+hpi:learning:learning:achievement-oriented, stays up-to-date on business and technical matters
+
+# Development
+hpi:excitable:excitable:moody, easily annoyed, hard to please, and emotionally volatile
+hpi:skeptical:skeptical:distrustful, cynical, sensitive to criticism, and focused on the negative
+hpi:cautious:cautious:unassertive, resistant to change, risk-averse, and slow to make decisions
+hpi:reserved:reserved:aloof, indifferent to the feelings of others, and uncommunicative
+hpi:lelsurely:lelsurely:overtly cooperative, but privately irritable, stubborn, and uncooperative
+hpi:bold:bold:overly self-conﬁdent, arrogant, with inflated feelings of self-worth
+hpi:mischievous:mischievous:charming, risk-taking, limit-testing and excitement-seeking
+hpi:colorful:colorful:dramatic, attention-seeking, interruptive, and poor listening skills
+hpi:imaglnatlve:imaglnatlve:creative, but thinking and acting in unusual or eccentric ways
+hpi:diligent:diligent:meticulous, precise, hard to please, and tends to micromanage
+hpi:dutiful:dutiful:eager to please and reluctant to act independently or against popular opinion
+
+# Motives, Values & Preferences
+hpi:recognltlon:recognltlon:responsive to attention, approval, and praise
+hpi:power:power:desire for success, accomplishment, status and control
+hpi:hedonism:hedonism:orientation for fun, pleasure, and enjoyment
+hpi:altrulstlc:altrulstlc:desire to help others and contribute to society
+hpi:afilllatlon:afilllatlon:desire for and enjoyment of social interaction
+hpi:tradition:tradition:dedication, strong personal beliefs, and obligation
+hpi:security:security:need for predictability, structure, and order
+hpi:commerce:commerce:interest in money, profits, investment, and business opportunities
+hpi:aesthetics:aesthetics:need for self-expression, concern over look, feel, and design of work products
+hpi:science:science:quest for knowledge, research, technology, and data
