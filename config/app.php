@@ -136,8 +136,12 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
     
-        'Laravel\Socialite\SocialiteServiceProvider',
-
+        /* 
+         * Using SocialiteProviders http://socialiteproviders.github.io/
+         * Replaced 'Laravel\Socialite\SocialiteServiceProvider',
+         */
+        'SocialiteProviders\Manager\ServiceProvider',
+    
 		/*
 		 * Application Service Providers...
 		 */

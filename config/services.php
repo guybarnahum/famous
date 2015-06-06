@@ -37,13 +37,18 @@ return [
     'twitter' => [
         'client_id'     => env('TWITTER_CLIENT_ID'),
         'client_secret' => env('TWITTER_CLIENT_SECRET'),
-        'redirect'      => 'login/twitter',
+        'redirect'      => env('OATH_REDIRECT_URL') . '/login/twitter',
     ],
 
     'facebook' => [
     'client_id'     => env('FACEBOOK_CLIENT_ID'),
     'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-    'redirect'      => 'login/facebook',
-    ]
+    'redirect'      => env('OATH_REDIRECT_URL') . '/login/facebook',
+    ],
 
+    'linkedin' => [
+        'client_id'     => env('LINKEDIN_CLIENT_ID'),
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
+        'redirect'      => env('OATH_REDIRECT_URL') . '/login/linkedin',
+    ]
 ];

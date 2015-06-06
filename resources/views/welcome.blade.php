@@ -42,6 +42,9 @@
 			<div class="content">
 				<div class="title">Laravel 5</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
+                <div><a href="/login/twitter">Login in with Twitter</a></div>
+                <div><a href="/login/facebook">Login in with Facebook</a></div>
+                <div><a href="/login/linkedin">Login in with LinkedIn</a></div>
 			</div>
 		</div>
 	</body>
