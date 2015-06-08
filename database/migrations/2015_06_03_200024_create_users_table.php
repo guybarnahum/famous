@@ -33,26 +33,26 @@ class CreateUsersTable extends Migration {
                        $table->increments('id');
                        
                        $table->string( 'email'   )->unique();
+                       $table->string( 'emails'  );
                        $table->string( 'password', 60);
                        
                        $table->string( 'name'    );
                        $table->string( 'slogan'  );
-                       $table->string( 'contact' ); # need to be multiple
                        
-                       $table->longText( 'personality_desc');
-                       $table->longText( 'skill_desc');
+                       $table->longText( 'personality_desc')->nullable();
+                       $table->longText( 'skill_desc')->nullable();
                        
-                       $table->integer( 'bio_id'  );
-                       $table->string( 'bio_url'  );// auto generated and structured (xml?)
-                       $table->string( 'wiki_url' );// wikipedia style entry
+                       $table->integer( 'bio_id'   )->nullable();
+                       $table->string ( 'bio_url'  )->nullable();// auto generated and structured (xml?)
+                       $table->string ( 'wiki_url' )->nullable();// wikipedia style entry
                        
                        // major state
-                       $table->boolean( 'opt_out' );
+                       $table->boolean( 'opt_out' )->default(false);
                        
                        // cached photo
-                       $table->string ( 'pri_photo_large' );
-                       $table->string ( 'pri_photo_medium' );
-                       $table->string ( 'pri_photo_small' );
+                       $table->string ( 'pri_photo_large'  )->nullable();
+                       $table->string ( 'pri_photo_medium' )->nullable();
+                       $table->string ( 'pri_photo_small'  )->nullable();
                        
                        $table->rememberToken();
                        $table->timestamps();
@@ -66,24 +66,35 @@ class CreateUsersTable extends Migration {
                        {
                        $table->increments('id');
 
-                       // account owner id
+                       // owner id in our system
                        $table->unsignedInteger('uid');
                        $table->foreign('uid')->references('id')
                                              ->on('users');
-                       // dataset id
-                       $table->unsignedInteger('ds_id');
-                       $table->foreign('ds_id')->references('id')
-                                               ->on('datasets');
                        
-                       // dataset access & state
-                       $table->string('token');
-                       $table->string('auth');
+                       // dataset provider
+                       $table->string ('provider');
+                       $table->foreign('provider')->references('provider')
+                                                  ->on('datasets');
+                       // dataset provider access
+                       $table->string('provider_uid' );
+                       $table->string('access_token' )->nullable();
                        
-                       $account_states =
-                       array( 'pending', 'active', 'suspended', 'disabled' );
+                       // provider user info
+                       $table->string('avatar'  )->nullable();
+                       $table->string('email'   )->nullable();
+                       $table->string('username')->nullable();
+                       $table->string('name'    )->nullable();
 
-                       $table->enum( 'state'   , $account_states ); // in 'fm' system
-                       $table->enum( 'ds_state', $account_states ); // in 'dataset'
+                       // accoutn state
+                       $account_states = array( 'pending'   ,
+                                                'active'    ,
+                                                'suspended' ,
+                                                'disabled'  );
+
+                       $table->enum( 'state'         , $account_states );
+                       $table->enum( 'provider_state', $account_states );
+                       
+                       $table->timestamps();
                        });
         
         // .............................................................. photos
@@ -126,6 +137,7 @@ class CreateUsersTable extends Migration {
                         // in profile. User may chose to display or hide photos
                         // for various profile display modes
                         $table->integer( 'permission' );
+                        $table->timestamps();
                         });
 	}
 

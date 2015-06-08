@@ -10,4 +10,20 @@ class Account extends Model {
      * @var string
      */
     protected $table = 'accounts';
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [ 'uid'           ,
+                            'provider'      ,
+                            'provider_uid'  ,
+                            'access_token'  ,
+                            'email'         ,
+                            'username'      ,
+                            'name'          ,
+                            'state'         ,
+                            'provider_state'
+    ];
 }

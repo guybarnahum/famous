@@ -9,5 +9,9 @@ class Dataset extends Model {
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'code' ];
+    protected $fillable = [ 'provider'  ,
+                            'api_key'   , 'api_secret',
+                            'driver'    ,
+                            'oath_callback_uri'
+                        ];
 }

@@ -27,9 +27,14 @@ class CreateDatasetsTable extends Migration {
                        
                        $table->increments('id');
                        
-                       $table->string( 'name'   )->unique();
-                       $table->string( 'code'   )->unique();
+                       $table->string( 'provider' )->unique()
+                                                   ->index ();
+                       
+                       $table->string( 'api_key'    );
+                       $table->string( 'api_secret' );
+
                        $table->string( 'driver' ); // code to handle the dataset api
+                       $table->string( 'oath_callback_uri' );
                        
                        $table->timestamps();
                        });

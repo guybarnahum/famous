@@ -4461,6 +4461,8 @@
 		64A818E01B20F28C00FEA5D7 /* FactType.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FactType.php; sourceTree = "<group>"; };
 		64A818E11B20F35A00FEA5D7 /* fact_types.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = fact_types.txt; sourceTree = "<group>"; };
 		64A818E41B225B7000FEA5D7 /* AccountRepository.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AccountRepository.php; sourceTree = "<group>"; };
+		64A818E61B26494E00FEA5D7 /* index.blade.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = index.blade.php; sourceTree = "<group>"; };
+		64A818E71B264E1100FEA5D7 /* UserController.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = UserController.php; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -4502,7 +4504,6 @@
 			isa = PBXGroup;
 			children = (
 				64A8038C1B0677C000FEA5D7 /* Commands */,
-				64A8038E1B0677C000FEA5D7 /* Console */,
 				64A803921B0677C000FEA5D7 /* Events */,
 				64A803941B0677C000FEA5D7 /* Exceptions */,
 				64A803961B0677C000FEA5D7 /* Handlers */,
@@ -4530,7 +4531,8 @@
 				64A8038F1B0677C000FEA5D7 /* Commands */,
 				64A803911B0677C000FEA5D7 /* Kernel.php */,
 			);
-			path = Console;
+			name = Console;
+			path = ../Console;
 			sourceTree = "<group>";
 		};
 		64A8038F1B0677C000FEA5D7 /* Commands */ = {
@@ -4544,6 +4546,7 @@
 		64A803921B0677C000FEA5D7 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				64A8038E1B0677C000FEA5D7 /* Console */,
 				64A803931B0677C000FEA5D7 /* Event.php */,
 			);
 			path = Events;
@@ -4600,6 +4603,7 @@
 				64A8039D1B0677C000FEA5D7 /* Auth */,
 				64A803A01B0677C000FEA5D7 /* Controller.php */,
 				64A803A11B0677C000FEA5D7 /* HomeController.php */,
+				64A818E71B264E1100FEA5D7 /* UserController.php */,
 				64A803A21B0677C000FEA5D7 /* WelcomeController.php */,
 			);
 			path = Controllers;
@@ -4879,12 +4883,13 @@
 			isa = PBXGroup;
 			children = (
 				64A804361B0677C000FEA5D7 /* app.blade.php */,
+				64A804401B0677C000FEA5D7 /* home.blade.php */,
+				64A804431B0677C000FEA5D7 /* welcome.blade.php */,
 				64A804371B0677C000FEA5D7 /* auth */,
 				64A8043C1B0677C000FEA5D7 /* emails */,
 				64A8043E1B0677C000FEA5D7 /* errors */,
-				64A804401B0677C000FEA5D7 /* home.blade.php */,
 				64A804411B0677C000FEA5D7 /* vendor */,
-				64A804431B0677C000FEA5D7 /* welcome.blade.php */,
+				64A818E51B2648A300FEA5D7 /* user */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -16850,6 +16855,14 @@
 				64A818E41B225B7000FEA5D7 /* AccountRepository.php */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		64A818E51B2648A300FEA5D7 /* user */ = {
+			isa = PBXGroup;
+			children = (
+				64A818E61B26494E00FEA5D7 /* index.blade.php */,
+			);
+			path = user;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

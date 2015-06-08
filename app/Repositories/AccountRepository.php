@@ -1,54 +1,99 @@
 <?php namespace App\Repositories;
 
-use App\User;
-
+use App\Models\Account;
+use App\Models\User;
+use Hash;
+    
 class AccountRepository {
     
-    public function findByAccountOrCreate( $userData )
+    public function find_userBySociliteUser( $userData      ,
+                                             $update = true ,
+                                             $create = false)
     {
-        $user = User::where('provider_id', '=', $userData->id)->first();
-        if(!$user) {
-            $user = User::create([
-                                 'provider_id' => $userData->id,
-                                 'name' => $userData->name,
-                                 'username' => $userData->nickname,
-                                 'email' => $userData->email,
-                                 'avatar' => $userData->avatar,
-                                 'active' => 1,
-                                 ]);
+        // attempt to locate the user for the socialite account
+        // by email, need a better way to decide what is the current logged in user
+        
+        $user = User::where( 'emails', 'LIKE', '%' . $userData->email . '%' )->first();
+        
+        // no user for this socialite account?
+        // if we are in create mode than make one!
+        if ( !$user && $create ){
+            $user = User::create( [
+                                 'email'     => $userData->email,
+                                 'emails'    => $userData->email,
+                                 'password'  => Hash::make(''), // no password (yet?)
+                                 'name'      => $userData->name,
+                                 'slogan'    => '',
+                                 
+                                 'pri_photo_large' => $userData->avatar,
+                                 'pri_photo_medium'=> $userData->avatar,
+                                 'pri_photo_small' => $userData->avatar
+                         ]);
         }
         
-        $this->checkIfAccountNeedsUpdating( $userData, $user );
+        // locate account
+        $account = Account::where( 'provider_uid', $userData->id)->first();
+        
+        // no account?
+        // if we have a user and in create mode than make one!
+        
+        if( !$account && isset($user->id) && $create ) {
+            $account = Account::create([
+                                         'uid'          => $user->id,
+                                         'provider'     => $userData->provider,
+                                         'provider_uid' => $userData->id,
+                                         'access_token' => $userData->token,
+                                         'name'         => $userData->name,
+                                         'username'     => $userData->nickname,
+                                         'email'        => $userData->email,
+                                         'avatar'       => $userData->avatar,
+                                         'active' => 1,
+                                ]);
+        }
+        
+        if ( $account && $update ){
+            $this->update_accountBySociliteUser( $account, $userData );
+        }
+    
+        // get all the account(s) information we have for user
+        if ($user){
+            $accounts = Account::where( 'uid', $user->id )->get();
+            $user->accounts= $accounts;
+        }
+        
         return $user;
     }
     
-    public function checkIfUserNeedsUpdating($userData, $user)
+    public function update_accountBySociliteUser( $account, $userData )
     {
-        $socialData = [
-        'avatar'   => $userData->avatar,
-        'email'    => $userData->email,
-        'name'     => $userData->name,
-        'username' => $userData->nickname,
+        $socialiteData = [
+        'avatar'       => $userData->avatar,
+        'email'        => $userData->email,
+        'access_token' => $userData->token,
+        'username'     => $userData->nickname,
+        'name'         => $userData->name,
         ];
         
         $dbData = [
-        'avatar'   => $user->avatar,
-        'email'    => $user->email,
-        'name'     => $user->name,
-        'username' => $user->username,
+        'avatar'       => $account->avatar,
+        'email'        => $account->email,
+        'access_token' => $userData->token,
+        'username'     => $account->username,
+        'name'         => $account->name,
         ];
         
-        $diff   = array_diff($socialData, $dbData);
+        $diff   = array_diff($socialiteData, $dbData);
         $update = !empty( $diff );
         
         if ( $update ) {
             
-            $user->avatar   = $userData->avatar;
-            $user->email    = $userData->email;
-            $user->name     = $userData->name;
-            $user->username = $userData->nickname;
+            $account->avatar       = $userData->avatar;
+            $account->email        = $userData->email;
+            $account->access_token = $userData->token;
+            $account->name         = $userData->name;
+            $account->username     = $userData->nickname;
             
-            $user->save();
+            $account->save();
         }
     }
 };

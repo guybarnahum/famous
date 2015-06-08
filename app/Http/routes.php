@@ -13,7 +13,8 @@
 
 Route::get('/'   , 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
-
+Route::get('user', 'UserController@index' );
+    
 // ........................................................... login/{provider?}
 //
 // Used to login for third party service, see config/services.php

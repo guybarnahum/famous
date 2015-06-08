@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use View;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Http\Request;
@@ -40,5 +41,12 @@ class AuthController extends Controller {
     public function login(AuthenticateUser $au, Request $req, $provider = null)
     {
         return $au->execute($req->all(), $this, $provider);
+    }
+    
+    public function userHasLoggedIn($user)
+    {
+        \Session::flash('message', 'Welcome, ' . $user->username);
+        return View::make('user.index', ['user' => $user] );
+        // return redirect('/user')->with( 'user', $user );
     }
 }

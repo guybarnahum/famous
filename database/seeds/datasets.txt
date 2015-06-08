@@ -1,24 +1,32 @@
 # ==============================================================================
 # datasets.txt
 #
-# structure name:code:driver
+# structure
+#
+# $table->string( 'provider' )->unique();
+#
+# $table->string( 'api_key'    );
+# $table->atring( 'api_secret' );
+#
+# $table->string( 'driver' ); // code to handle the dataset api
+# $table->string( 'oath_callback_uri' );
+#
 # ==============================================================================
 
 # self
-famous:fm:
+famous:0:0::
 
 # Major social datasets
-facebook:fb:
-linkedin:in:
-twitter:tw:
+facebook::::
+linkedin::::
+twitter::::
 
 # Interests
-qoura:qr:
+qoura::::
 
 # Engineering
-stackoverflow:so:
-github:gt:
+stackoverflow::::
+github::::
 
 # Google
-gmail:gm:
-goolgle+:g+:
+google::::

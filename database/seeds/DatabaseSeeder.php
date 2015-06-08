@@ -192,7 +192,12 @@ class DatasetTableSeeder extends ParserSeeder {
         $this->msg   = '';
         $this->file  = 'database/seeds/datasets.txt';
         $this->table = 'datasets';
-        $this->fmt   = array( 'name', 'code', 'driver' );
+
+        $this->fmt   = array( 'provider',
+                              'api_key' , 'api_secret',
+                              'driver'  ,
+                              'oath_callback_uri' );
+        
         $this->model = 'App\Models\Dataset';
         
         ParserSeeder::run();
