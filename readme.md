@@ -4,7 +4,7 @@
 
 #### Deployments ####
 
-In the project root of the project, run the following commands:
+In the project root of the project, run the following commands (NOTE: this is for Debian systems only):
 
     make clean
     make
