@@ -1,3 +1,17 @@
+# Famous... The People Disease #
+
+## Developer Quick Start Guide ##
+
+#### Deployments ####
+
+In the project root of the project, run the following commands:
+
+    make clean
+    make
+    sudo dpkg -i famous.deb
+
+That will install the package via DEBIAN package manager. The install will place files/folders in /var/www/famous, and any .ini files will be placed in /var/conf/famous.
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

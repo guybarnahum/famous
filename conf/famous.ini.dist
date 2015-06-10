@@ -1,0 +1,14 @@
+[famous]
+some_ini_key="blah"
+
+[facebook]
+key=""
+secret=""
+
+[linkedin]
+key=""
+secret=""
+
+[twitter]
+key=""
+secret=""]
