@@ -1,0 +1,3 @@
+sudo chown --recursive www-data:www-data /var/www/famous
+cd /var/www/famous
+sudo cp --no-clobber --parents conf/famous/famous.ini /var/

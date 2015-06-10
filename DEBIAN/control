@@ -1,0 +1,11 @@
+Package: 
+Version: 1.0
+Section: php
+Priority: optional
+Architecture: all
+Essential: no
+Depends: php5 (>= 5.3.0)
+Maintainer: Guy Bar-Nahum <guy@barnahum.com>
+Provides: 
+Description: Famous People Disease
+
