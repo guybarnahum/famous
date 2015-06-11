@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use Session;
+    
 class HomeController extends Controller {
 
 	/*
@@ -30,7 +32,11 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+        $user = Session::get('user');
+        $msg  = Session::get('msg' );
+        
+		return view('home')->with('user',$user)
+                           ->with('msg' ,$msg );
 	}
 
 }

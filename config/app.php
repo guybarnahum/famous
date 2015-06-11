@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => env('APP_DEBUG'),
+    'debug' => env('APP_DEBUG'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -135,6 +135,12 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
+        'Illuminate\Html\HtmlServiceProvider',
+    
+        /*
+         * Debug Service Providers...
+         */
+        'Barryvdh\Debugbar\ServiceProvider',
     
         /* 
          * Using SocialiteProviders http://socialiteproviders.github.io/
@@ -176,10 +182,13 @@ return [
 		'Cookie'    => 'Illuminate\Support\Facades\Cookie',
 		'Crypt'     => 'Illuminate\Support\Facades\Crypt',
 		'DB'        => 'Illuminate\Support\Facades\DB',
+        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
 		'Eloquent'  => 'Illuminate\Database\Eloquent\Model',
 		'Event'     => 'Illuminate\Support\Facades\Event',
 		'File'      => 'Illuminate\Support\Facades\File',
+        'Form'      => 'Illuminate\Html\FormFacade',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',
+        'Html'      => 'Illuminate\Html\HtmlFacade',
 		'Input'     => 'Illuminate\Support\Facades\Input',
 		'Inspiring' => 'Illuminate\Foundation\Inspiring',
 		'Lang'      => 'Illuminate\Support\Facades\Lang',

@@ -1,12 +1,11 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use View;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use App\AuthenticateUser;
+use App\AuthorizeSocialiteUser;
     
 class AuthController extends Controller {
 
@@ -32,21 +31,58 @@ class AuthController extends Controller {
 	 */
 	public function __construct(Guard $auth, Registrar $registrar)
 	{
-		$this->auth = $auth;
+		$this->auth      = $auth;
 		$this->registrar = $registrar;
 
-		$this->middleware('guest', ['except' => 'getLogout']);
+		$this->middleware('guest', ['except' => 'logout']);
 	}
     
-    public function login(AuthenticateUser $au, Request $req, $provider = null)
+    // .................................................... autorizeWithProvider
+    // Issue
+    public function autorizeWithProvider(AuthorizeSocialiteUser $au ,
+                                         Request $req               ,
+                                         $provider = null           )
     {
-        return $au->execute($req->all(), $this, $provider);
+        return $au->autorizeWithProvider($req->all(), $this, $provider);
     }
     
-    public function userHasLoggedIn($user)
+    // .................................................. handleProviderCallback
+    
+    public function handleProviderCallback(AuthorizeSocialiteUser  $au,
+                                           Request                 $req,
+                                           $provider = null            )
     {
-        \Session::flash('message', 'Welcome, ' . $user->username);
-        return View::make('user.index', ['user' => $user] );
-        // return redirect('/user')->with( 'user', $user );
+        return $au->handleProviderCallback($req->all(), $this, $provider);
+    }
+    
+    // ...................................................... logoutFromProvider
+    // What should we do here? Revoke the social login?
+    // Disable the social account until it is re-enabled by user?
+    // ??
+    public function logoutFromProvider( AuthorizeSocialiteUser  $au,
+                                        Request                 $req,
+                                        $provider = null            )
+    {
+        Debugbar::info('logoutFromProvider('. $provider . ')' );
+        return $au->logoutFromProvider($req->all(), $this, $provider);
+    }
+    
+    // .................................................................. logout
+    // Reset the session and forget the user
+    public function logout()
+    {
+        \Auth::logout();
+        \Session::flush();
+        \Session::flash( 'msg', 'Goodbye!' );
+        
+        return redirect('home');
+    }
+    
+    public function updateUser( $user, $msg=null)
+    {
+        \Session::put('user', $user );
+        if (!empty($msg)) \Session::flash( 'msg', $msg );
+        
+        return redirect('home');
     }
 }

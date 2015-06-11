@@ -38,10 +38,6 @@ class Authenticate {
 			{
 				return response('Unauthorized.', 401);
 			}
-			else
-			{
-				return redirect()->guest('auth/login');
-			}
 		}
 
 		return $next($request);
