@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Countdown | Angle HTML</title>
+        <link rel="icon" type="image/x-icon" href="assets/images/favicons/favicon.ico" />
+        <link rel="icon" type="image/png" href="assets/images/favicons/favicon.png" />
+        <!-- For iPhone 4 Retina display: -->
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicons/apple-touch-icon-114x114-precomposed.png">
+        <!-- For iPad: -->
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/favicons/apple-touch-icon-72x72-precomposed.png">
+        <!-- For iPhone: -->
+        <link rel="apple-touch-icon-precomposed" href="assets/images/favicons/apple-touch-icon-60x60-precomposed.png">
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/theme.min.css">
+        <link rel="stylesheet" href="assets/css/color-defaults.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-beige-black.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-black-beige.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-black-white.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-black-yellow.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-blue-white.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-green-white.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-red-white.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-white-black.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-white-blue.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-white-green.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-white-red.min.css">
+        <link rel="stylesheet" href="assets/css/swatch-yellow-black.min.css">
+        <link rel="stylesheet" href="assets/css/fonts.min.css" media="screen">
+    </head>
+    <body>
+        <div id="content" role="main">
+            <section class="section swatch-red-white">
+                <div class="container">
+                    <header class="section-header no-underline">
+                        <h1 class="headline hyper hairline">just getting there</h1>
+                    </header>
+                    <h1 class="countdown hyper hairline" data-date="2015/10/27 09:00">
+      <div class="counter-element">
+        <span class="counter-days odometer odometer-auto-theme">\</span>
+        <b>
+          days
+        </b>
+      </div>
+      <div class="counter-element">
+        <span class="counter-hours odometer odometer-auto-theme"></span>
+        <b>
+          hours
+        </b>
+      </div>
+      <div class="counter-element">
+        <span class="counter-minutes odometer odometer-auto-theme"></span>
+        <b>
+          minutes
+        </b>
+      </div>
+      <div class="counter-element">
+        <span class="counter-seconds odometer odometer-auto-theme"></span>
+        <b>
+          seconds
+        </b>
+      </div>
+    </h1>
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="progress">
+                            <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" class="progress-bar  progress-bar-primary" role="progressbar" style="width: 80%">
+                                <span>20% left to Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section swatch-white-red has-top">
+                <div class="decor-top">
+                    <svg class="decor" height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 100 L50 0 L100 100" stroke-width="0"></path>
+                    </svg>
+                </div>
+                <div class="container">
+                    <header class="section-header underline">
+                        <h1 class="headline super hairline">What now?</h1>
+                        <p class="">We are working hard to get the site back and running, feel free to contact us!</p>
+                    </header>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <form class="contact-form" id="contactForm" novalidate="">
+                                <div class="form-group form-icon-group">
+                                    <input class="form-control" id="name" placeholder="Your name *" type="text">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <div class="form-group form-icon-group">
+                                    <input class="form-control" id="email" placeholder="Your email *" type="text">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="form-group form-icon-group">
+                                    <textarea class="form-control" id="message" placeholder="Your message" rows="10"></textarea>
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary btn-icon btn-icon-right" type="submit">
+                                        Send email
+                                        <div class="hex-alt">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                            </form>
+                            <div id="messages"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer id="footer" role="contentinfo">
+                <section class="section swatch-red-white has-top">
+                    <div class="decor-top">
+                        <svg class="decor" height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0 L50 100 L100 0 L100 100 L0 100" stroke-width="0"></path>
+                        </svg>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div id="swatch_social-2" class="sidebar-widget  widget_swatch_social">
+                                    <ul class="unstyled inline small-screen-center social-icons social-background social-big">
+                                        <li>
+                                            <a target="_blank" href="http://www.oxygenna.com">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="http://www.oxygenna.com">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="http://www.oxygenna.com">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="text-4" class="sidebar-widget widget_text">
+                                    <div class="textwidget">ANGLE 2014 ALL RIGHTS RESERVED
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </footer>
+        </div>
+        <a class="go-top hex-alt" href="javascript:void(0)">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        <script src="assets/js/packages.min.js"></script>
+        <script src="assets/js/theme.min.js"></script>
+    </body>
+</html>

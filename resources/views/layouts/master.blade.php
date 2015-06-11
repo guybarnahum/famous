@@ -48,59 +48,65 @@
         <link href="{{ asset('assets/css/swatch-yellow-black.min.css') }}" rel='stylesheet'>
         <link href="{{ asset('assets/css/fonts.min.css')}}" media='screen' rel='stylesheet'>
 
+        <!-- styles should be incorporated or reused from theme.css -->
+
+        <style>
+        .va-middle ul{
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(50%);
+            -ms-transform: translateY(50%);
+            transform: translateY(50%);
+        }
+        </style>
     </head>
-
 <body>
-    <header id="masthead" class="navbar navbar-sticky swatch-{{ $color or "red" }}-white" role="banner">
 
+
+    <header id="masthead" class="navbar navbar-sticky swatch-{{ $color or "black" }}-white" role="banner">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
+
                 <a href="#">
-                    <image src="{{ asset('assets/images/logo.png') }}" alt='famous'>
-                    famous
+                    <strong>famous</strong>
+                    <image src="{{ asset('assets/images/logo.png') }}" alt='famous' width=128>
                 </a>
             </div>
 
-            <nav class="collapse navbar-collapse main-navbar" role="navigation">
+            <nav class="collapse navbar-collapse main-navbar va-middle" role="navigation">
+            <ul class="inline navbar navbar-right social-icons social-background social-small">
+                <li>
+                    <a href="login/facebook"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="login/twitter"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="login/linkedin"><i class="fa fa-linkedin"></i></a>
+                </li>
+                <li>
+                    <a href="login/google"><i class="fa fa-google-plus"></i></a>
+                </li>
 
-                <ul class="inline navbar-right social-icons social-background social-small">
-                    <li>
-                        <a href="login/facebook">
-                        <i class="fa fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="login/twitter">
-                        <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="login/linkedin">
-                        <i class="fa fa-linkedin"></i>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="login/google">
-                        <i class="fa fa-google-plus"></i>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href='logout'>out</a>
-                    </li>
-                </ul>
-<!--
-                <ul class="nav navbar-nav ">
-                </ul>
--->
+                @if (isset($user)&&!empty($user))
+                <li>
+                    <img class='img-circle' width=64px
+                         src='{{ $user->pri_photo_large or "assets/images/logo.png" }}'
+                          alt={{ $user->name }} />
+                </li>
+                <li>
+                <a href="logout"><i class="fa fa-sign-out"></i></a>
+                </li>
+                @endif
+            </ul>
             </nav>
         </div>
-
     </header>
 
     <!-- content -->
@@ -112,7 +118,7 @@
 
     <!-- go top -->
 
-    <a class="go-top" href="javascript:void(0)">
+    <a class="go-top hex-alt" href="javascript:void(0)">
         <i class="fa fa-angle-up"></i>
     </a>
 
