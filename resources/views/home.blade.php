@@ -4,7 +4,7 @@
 
     @if(!isset($user))
         @if ( $warn='No one is logged in') @endif
-        @if ( $msg=isset($msg)? $msg.'<br>'.$warn : $warn ) @endif
+        @if ( $msg=isset($msg)? $msg.','.$warn : $warn ) @endif
     @endif
 
     @if(isset($msg))

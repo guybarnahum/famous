@@ -63,7 +63,7 @@ class AuthController extends Controller {
                                         Request                 $req,
                                         $provider = null            )
     {
-        Debugbar::info('logoutFromProvider('. $provider . ')' );
+        \Debugbar::info('logoutFromProvider('. $provider . ')' );
         return $au->logoutFromProvider($req->all(), $this, $provider);
     }
     

@@ -39,12 +39,12 @@
                                         <button type="button"
                                                 class="btn btn-default dropdown-toggle"
                                                 data-toggle="dropdown" aria-expanded="false">
-{{ substr( $account->access_token, 0, 8) }}...
+                                                {{ substr( $account->access_token, 0, 8) }}...
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li style='position:relative;left: -50%;font-size:xx-small'>
-                                                <a href='#?{{$account->access_token}}'>{{ $account->access_token }}</a>
+                                                <a href='#?token={{$account->access_token}}'>{{ $account->access_token }}</a>
                                             </li>
                                         </ul>
                                     </div>
