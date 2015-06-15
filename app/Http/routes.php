@@ -24,8 +24,8 @@ Route::get('home', 'HomeController@index');
 Route::get('login/{provider?}'    , 'Auth\AuthController@autorizeWithProvider'  );
 Route::get('callback/{provider?}' , 'Auth\AuthController@handleProviderCallback');
 
-Route::get('logout'               , 'Auth\AuthController@logout'    );
 Route::get('logout/{provider?}'   , 'Auth\AuthController@logoutFromProvider'    );
+Route::get('logout'               , 'Auth\AuthController@logout'    );
 
 // ................................................................. controllers
 

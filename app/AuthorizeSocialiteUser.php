@@ -97,7 +97,7 @@ class AuthorizeSocialiteUser{
     
     public function logoutFromProvider($request, $listener, $provider)
     {
-        $this->auth->logout();
-        return $listener->updateUser( null, null );
+        // $this->auth->logout();
+        // return $listener->updateUser( null, null );
     }
 }
