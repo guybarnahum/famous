@@ -32,11 +32,13 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-        $user = Session::get('user');
-        $msg  = Session::get('msg' );
+        $user     = Session::get( 'user'     );
+        $accounts = Session::get( 'accounts' );
+        $msg      = Session::get( 'msg'      );
         
-		return view('home')->with('user',$user)
-                           ->with('msg' ,$msg );
+		return view('home')->with( 'user'    , $user     )
+                           ->with( 'accounts', $accounts )
+                           ->with( 'msg'     , $msg      );
 	}
 
 }

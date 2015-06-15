@@ -39,7 +39,7 @@
                     </p>
                     <ul class="list-inline text-center social-icons social-simple">
 
-                        @foreach( $user->accounts as $account )
+                        @foreach( $accounts as $account )
                         <li>
                             <a href="about-me.html" target="_self">
                                 <i class="fa fa-{{$account->provider}}"></i>

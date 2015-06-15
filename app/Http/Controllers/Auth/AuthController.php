@@ -69,6 +69,7 @@ class AuthController extends Controller {
     
     // .................................................................. logout
     // Reset the session and forget the user
+    
     public function logout()
     {
         \Auth::logout();
@@ -78,9 +79,12 @@ class AuthController extends Controller {
         return redirect('home');
     }
     
-    public function updateUser( $user, $msg=null)
+    // .............................................................. updateUser
+    
+    public function updateUser( $user, $accounts, $msg=null)
     {
-        \Session::put('user', $user );
+        \Session::put('user'    , $user     );
+        \Session::put('accounts', $accounts );
         if (!empty($msg)) \Session::flash( 'msg', $msg );
         
         return redirect('home');

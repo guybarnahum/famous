@@ -43,7 +43,7 @@ class AuthorizeSocialiteUser{
     {
         // TODO: FIXME: add error checks for failures!
         // Follow https://github.com/SammyK/LaravelFacebookSdk#ioc-container
-        // 
+        //
         // attempt to obtain socialite user data from provider
         $err = null;
         $ok  = true;
@@ -63,40 +63,41 @@ class AuthorizeSocialiteUser{
         }
 
         if (!$ok){
-            return $listener->updateUser( null, $err );
+            return $listener->updateUser( null, null, $err );
         }
         
         // We have a valid $s_user from socialite!
         
         // attempt to map to user from soclite user account
         // if not found create account / user from socilite account
-        $user = $this->accounts->find_userBySociliteUser( $s_user        ,
-                                                          $update = true ,
-                                                          $create = true );
+        $res = $this->accounts->find_userBySociliteUser( $s_user        ,
+                                                         $update = true ,
+                                                         $create = true );
         // we better have a user at this stage!
         
         // finally login our user
         
         // FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK!
-        //
-        // Elequent is saving user into our db, including 'accounts' array.
-        // Remove and restore 'accounts' to avoid SQL error..
         
-        $accounts = $user->accounts;
-        unset( $user->accounts );
+        // What is the best way to handle user context?
+        if ( isset( $res[ 'accounts' ] ) ){
+            $accounts = $res[ 'accounts' ];
+        }
         
-        $this->auth->login( $user, true );
+        $user = isset( $res[ 'user' ] )? $res[ 'user' ] : null;
         
-        $user->accounts = $accounts;
+        if (!empty($user)){
+            $this->auth->login( $user, true );
+        }
         
         // FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK!
 
-        return $listener->updateUser( $user, 'Welcome, ' . $user->name . '!' );
+        return $listener->updateUser( $user, $accounts );
     }
     
     public function logoutFromProvider($request, $listener, $provider)
     {
         $this->auth->logout();
-        return $listener->updateUser( null, 'logout from ' . $provider );
+        return $listener->updateUser( null, null );
     }
 }

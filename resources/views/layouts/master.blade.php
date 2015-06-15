@@ -1,3 +1,31 @@
+
+@if ( $style=array( 'facebook' =>'',
+                    'twitter'  =>'',
+                    'linkedin' =>'',
+                    'google'   =>'' ) ) @endif
+
+@if ( $url=array( 'facebook' =>'login',
+                   'twitter'  =>'login',
+                   'linkedin' =>'login',
+                   'google'   =>'login' ) ) @endif
+
+@if (isset($accounts))
+    @foreach( $accounts as $account )
+        @if     ( $account[ 'provider'] == 'facebook' )
+            @if ( $style[ 'facebook' ] = 'color:blue;' ) @endif
+        @elseif ( $account[ 'provider'] == 'twitter'  )
+            @if ( $style[ 'twitter' ] = 'color:cyan;' ) @endif
+        @elseif ( $account[ 'provider'] == 'linkedin'  )
+            @if ( $style[ 'linkedin'] = 'color:red;' ) @endif
+        @elseif ( $account[ 'provider'] == 'google'  )
+            @if ( $style[ 'google'  ] = 'color:blue;' ) @endif
+        @endif
+
+        @if ( $url[ $account[ 'provider' ] ] = 'logout' ) @endif
+
+    @endforeach
+@endif
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -61,11 +89,6 @@
         </style>
     </head>
 <body>
-
-    @if ( isset($user) && isset($user->accounts) )
-
-    @endif
-
     <header id="masthead" class="navbar navbar-sticky swatch-{{ $color or "black" }}-white" role="banner">
         <div class="container">
             <div class="navbar-header">
@@ -85,26 +108,26 @@
             <nav class="collapse navbar-collapse main-navbar va-middle" role="navigation">
             <ul class="inline navbar navbar-right social-icons social-background social-small">
                 <li>
-                    <a href="login/facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="{{ $url['facebook'] }}/facebook"><i class="fa fa-facebook" style="{{ $style['facebook' ]}}"></i></a>
                 </li>
                 <li>
-                    <a href="login/twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="{{ $url['twitter'] }}/twitter"><i class="fa fa-twitter"   style="{{ $style['twitter' ]}}"></i></a>
                 </li>
                 <li>
-                    <a href="login/linkedin"><i class="fa fa-linkedin"></i></a>
+                    <a href="{{ $url['linkedin'] }}/linkedin"><i class="fa fa-linkedin" style="{{ $style['linkedin' ]}}"></i></a>
                 </li>
                 <li>
-                    <a href="login/google"><i class="fa fa-google-plus"></i></a>
+                    <a href="{{ $url['google'] }}/google"><i class="fa fa-google-plus" style="{{ $style['google' ]}}"></i></a>
                 </li>
 
-                @if (isset($user)&&!empty($user))
+                @if ( isset($user)&&!empty($user ))
                 <li>
                     <img class='img-circle' width=64px
                          src='{{ $user->pri_photo_large or "assets/images/logo.png" }}'
                           alt={{ $user->name }} />
                 </li>
                 <li>
-                <a href="logout"><i class="fa fa-sign-out"></i></a>
+                    <a href="logout"><i class="fa fa-sign-out"></i></a>
                 </li>
                 @endif
             </ul>
