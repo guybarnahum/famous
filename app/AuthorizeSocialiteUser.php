@@ -45,24 +45,25 @@ class AuthorizeSocialiteUser{
         // Follow https://github.com/SammyK/LaravelFacebookSdk#ioc-container
         //
         // attempt to obtain socialite user data from provider
-        $err = null;
+        $err = '';
         $ok  = true;
         
         try{
             $s_user = $this->get_socialiteUserData( $provider );
         }
-        catch( Exception $e) {
+        catch( \Exception $e) {
             $err = $e->getMessage();
             $ok  = false;
         }
         
         // validate $s_user
         if ( $ok && !isset($s_user->token) ){
-            $err = 'Failed to authorize ' . $provider;
-            $ok  = false;
+            $err .= 'Failed to authorize ' . $provider;
+            $ok   = false;
         }
 
         if (!$ok){
+            // keeps things the way they are with an err message
             return $listener->updateUser( null, null, $err );
         }
         

@@ -21,7 +21,7 @@
             @if ( $style[ 'google'  ] = 'color:blue;' ) @endif
         @endif
 
-        @if ( $url[ $account[ 'provider' ] ] = 'logout' ) @endif
+        @if ( $url[ $account[ 'provider' ] ] = 'logout_p' ) @endif
 
     @endforeach
 @endif

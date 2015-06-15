@@ -64,11 +64,30 @@ class AuthController extends Controller {
                                         $provider = null            )
     {
         \Debugbar::info('logoutFromProvider('. $provider . ')' );
+        $au->logoutFromProvider($req->all(), $this, $provider);
         return \Redirect::back()->with('msg', $provider . ' logout');
         // return redirect('home');
-        // return $au->logoutFromProvider($req->all(), $this, $provider);
+        // return
     }
     
+    // .............................................................. resetUser
+    
+    public function resetUser( $msg=null )
+    {
+        return $this->updateUser( null, null, $msg, $keep_session=false);
+    }
+    
+    // .............................................................. updateUser
+    
+    public function updateUser( $user, $accounts, $msg=null, $keep_session=true)
+    {
+        if ( !empty($user    ) || !$keep_session) \Session::put('user'    , $user     );
+        if ( !empty($accounts) || !$keep_session) \Session::put('accounts', $accounts );
+        if ( !empty($msg     )                  ) \Session::flash( 'msg'  , $msg );
+        
+        return redirect('home');
+    }
+
     // .................................................................. logout
     // Reset the session and forget the user
     
@@ -76,18 +95,7 @@ class AuthController extends Controller {
     {
         \Auth::logout();
         \Session::flush();
-        \Session::flash( 'msg', 'Goodbye!' );
-        
-        return redirect('home');
-    }
-    
-    // .............................................................. updateUser
-    
-    public function updateUser( $user, $accounts, $msg=null)
-    {
-        \Session::put('user'    , $user     );
-        \Session::put('accounts', $accounts );
-        if (!empty($msg)) \Session::flash( 'msg', $msg );
+        $this->resetUser( 'Goodbye!' );
         
         return redirect('home');
     }

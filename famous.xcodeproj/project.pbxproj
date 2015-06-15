@@ -586,6 +586,301 @@
 		6497A0331B2A02160012E646 /* info.blade.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = info.blade.php; sourceTree = "<group>"; };
 		6497A0341B2A04500012E646 /* info.blade.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = info.blade.php; sourceTree = "<group>"; };
 		6497A0351B2A05500012E646 /* accounts.blade.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = accounts.blade.php; sourceTree = "<group>"; };
+		6497A0591B2F43690012E646 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6497A05A1B2F43690012E646 /* .styleci.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .styleci.yml; sourceTree = "<group>"; };
+		6497A05B1B2F43690012E646 /* composer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = composer.json; sourceTree = "<group>"; };
+		6497A05C1B2F43690012E646 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6497A05D1B2F43690012E646 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6497A05F1B2F43690012E646 /* LinkedInExtendSocialite.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LinkedInExtendSocialite.php; sourceTree = "<group>"; };
+		6497A0601B2F43690012E646 /* Provider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Provider.php; sourceTree = "<group>"; };
+		6497A0621B2F43690012E646 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6497A0631B2F43690012E646 /* .scrutinizer.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .scrutinizer.yml; sourceTree = "<group>"; };
+		6497A0641B2F43690012E646 /* .styleci.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .styleci.yml; sourceTree = "<group>"; };
+		6497A0651B2F43690012E646 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		6497A0661B2F43690012E646 /* composer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = composer.json; sourceTree = "<group>"; };
+		6497A0671B2F43690012E646 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6497A0681B2F43690012E646 /* phpunit.xml.dist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = phpunit.xml.dist; sourceTree = "<group>"; };
+		6497A0691B2F43690012E646 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6497A06B1B2F43690012E646 /* InvalidArgumentException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = InvalidArgumentException.php; sourceTree = "<group>"; };
+		6497A06C1B2F43690012E646 /* ServiceProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ServiceProvider.php; sourceTree = "<group>"; };
+		6497A06D1B2F43690012E646 /* SocialiteWasCalled.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SocialiteWasCalled.php; sourceTree = "<group>"; };
+		6497A06F1B2F43690012E646 /* ManagerTestTrait.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ManagerTestTrait.php; sourceTree = "<group>"; };
+		6497A0701B2F43690012E646 /* OAuth1ProviderTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = OAuth1ProviderTest.php; sourceTree = "<group>"; };
+		6497A0711B2F43690012E646 /* OAuth2ProviderTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = OAuth2ProviderTest.php; sourceTree = "<group>"; };
+		6497A0721B2F43690012E646 /* ServiceProviderTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ServiceProviderTest.php; sourceTree = "<group>"; };
+		6497A0741B2F43690012E646 /* OAuth1ProviderStub.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = OAuth1ProviderStub.php; sourceTree = "<group>"; };
+		6497A0751B2F43690012E646 /* OAuth1ServerStub.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = OAuth1ServerStub.php; sourceTree = "<group>"; };
+		6497A0761B2F43690012E646 /* OAuth2ProviderStub.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = OAuth2ProviderStub.php; sourceTree = "<group>"; };
+		6497A0781B2F43F00012E646 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6497A0791B2F43F00012E646 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		6497A07A1B2F43F00012E646 /* composer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = composer.json; sourceTree = "<group>"; };
+		6497A07B1B2F43F00012E646 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		6497A07C1B2F43F00012E646 /* phpunit.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = phpunit.xml; sourceTree = "<group>"; };
+		6497A07D1B2F43F00012E646 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		6497A07F1B2F43F00012E646 /* AbstractUser.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractUser.php; sourceTree = "<group>"; };
+		6497A0811B2F43F00012E646 /* Factory.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Factory.php; sourceTree = "<group>"; };
+		6497A0821B2F43F00012E646 /* Provider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Provider.php; sourceTree = "<group>"; };
+		6497A0831B2F43F00012E646 /* User.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = User.php; sourceTree = "<group>"; };
+		6497A0851B2F43F00012E646 /* Socialite.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Socialite.php; sourceTree = "<group>"; };
+		6497A0871B2F43F00012E646 /* AbstractProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractProvider.php; sourceTree = "<group>"; };
+		6497A0881B2F43F00012E646 /* BitbucketProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BitbucketProvider.php; sourceTree = "<group>"; };
+		6497A0891B2F43F00012E646 /* TwitterProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TwitterProvider.php; sourceTree = "<group>"; };
+		6497A08A1B2F43F00012E646 /* User.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = User.php; sourceTree = "<group>"; };
+		6497A08B1B2F43F00012E646 /* SocialiteManager.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SocialiteManager.php; sourceTree = "<group>"; };
+		6497A08C1B2F43F00012E646 /* SocialiteServiceProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SocialiteServiceProvider.php; sourceTree = "<group>"; };
+		6497A08E1B2F43F00012E646 /* AbstractProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractProvider.php; sourceTree = "<group>"; };
+		6497A08F1B2F43F00012E646 /* FacebookProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FacebookProvider.php; sourceTree = "<group>"; };
+		6497A0901B2F43F00012E646 /* GithubProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = GithubProvider.php; sourceTree = "<group>"; };
+		6497A0911B2F43F00012E646 /* GoogleProvider.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = GoogleProvider.php; sourceTree = "<group>"; };
+		6497A0921B2F43F00012E646 /* InvalidStateException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = InvalidStateException.php; sourceTree = "<group>"; };
+		6497A0931B2F43F00012E646 /* ProviderInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ProviderInterface.php; sourceTree = "<group>"; };
+		6497A0941B2F43F00012E646 /* User.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = User.php; sourceTree = "<group>"; };
+		6497A0961B2F43F00012E646 /* OAuthOneTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = OAuthOneTest.php; sourceTree = "<group>"; };
+		6497A0971B2F43F00012E646 /* OAuthTwoTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = OAuthTwoTest.php; sourceTree = "<group>"; };
+		6497A09A1B2F7DB80012E646 /* .editorconfig */ = {isa = PBXFileReference; lastKnownFileType = text; path = .editorconfig; sourceTree = "<group>"; };
+		6497A09B1B2F7DB80012E646 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6497A09C1B2F7DB80012E646 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		6497A09E1B2F7DB80012E646 /* packager.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = packager.php; sourceTree = "<group>"; };
+		6497A09F1B2F7DB80012E646 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		6497A0A01B2F7DB80012E646 /* composer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = composer.json; sourceTree = "<group>"; };
+		6497A0A31B2F7DB80012E646 /* guzzle-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guzzle-icon.png"; sourceTree = "<group>"; };
+		6497A0A41B2F7DB80012E646 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		6497A0A61B2F7DB80012E646 /* nav_links.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = nav_links.html; sourceTree = "<group>"; };
+		6497A0A71B2F7DB80012E646 /* clients.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = clients.rst; sourceTree = "<group>"; };
+		6497A0A81B2F7DB80012E646 /* conf.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = conf.py; sourceTree = "<group>"; };
+		6497A0A91B2F7DB80012E646 /* events.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = events.rst; sourceTree = "<group>"; };
+		6497A0AA1B2F7DB80012E646 /* faq.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = faq.rst; sourceTree = "<group>"; };
+		6497A0AB1B2F7DB80012E646 /* handlers.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = handlers.rst; sourceTree = "<group>"; };
+		6497A0AC1B2F7DB80012E646 /* http-messages.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = "http-messages.rst"; sourceTree = "<group>"; };
+		6497A0AD1B2F7DB80012E646 /* index.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.rst; sourceTree = "<group>"; };
+		6497A0AE1B2F7DB80012E646 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		6497A0AF1B2F7DB80012E646 /* overview.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = overview.rst; sourceTree = "<group>"; };
+		6497A0B01B2F7DB80012E646 /* quickstart.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = quickstart.rst; sourceTree = "<group>"; };
+		6497A0B11B2F7DB80012E646 /* requirements.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = requirements.txt; sourceTree = "<group>"; };
+		6497A0B21B2F7DB80012E646 /* streams.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = streams.rst; sourceTree = "<group>"; };
+		6497A0B31B2F7DB80012E646 /* testing.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = testing.rst; sourceTree = "<group>"; };
+		6497A0B41B2F7DB80012E646 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6497A0B51B2F7DB80012E646 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		6497A0B61B2F7DB80012E646 /* phpunit.xml.dist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = phpunit.xml.dist; sourceTree = "<group>"; };
+		6497A0B71B2F7DB80012E646 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		6497A0B91B2F7DB80012E646 /* BatchResults.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BatchResults.php; sourceTree = "<group>"; };
+		6497A0BA1B2F7DB80012E646 /* Client.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Client.php; sourceTree = "<group>"; };
+		6497A0BB1B2F7DB80012E646 /* ClientInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ClientInterface.php; sourceTree = "<group>"; };
+		6497A0BC1B2F7DB80012E646 /* Collection.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Collection.php; sourceTree = "<group>"; };
+		6497A0BE1B2F7DB80012E646 /* CookieJar.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CookieJar.php; sourceTree = "<group>"; };
+		6497A0BF1B2F7DB80012E646 /* CookieJarInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CookieJarInterface.php; sourceTree = "<group>"; };
+		6497A0C01B2F7DB80012E646 /* FileCookieJar.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FileCookieJar.php; sourceTree = "<group>"; };
+		6497A0C11B2F7DB80012E646 /* SessionCookieJar.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SessionCookieJar.php; sourceTree = "<group>"; };
+		6497A0C21B2F7DB80012E646 /* SetCookie.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SetCookie.php; sourceTree = "<group>"; };
+		6497A0C41B2F7DB80012E646 /* AbstractEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractEvent.php; sourceTree = "<group>"; };
+		6497A0C51B2F7DB80012E646 /* AbstractRequestEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractRequestEvent.php; sourceTree = "<group>"; };
+		6497A0C61B2F7DB80012E646 /* AbstractRetryableEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractRetryableEvent.php; sourceTree = "<group>"; };
+		6497A0C71B2F7DB80012E646 /* AbstractTransferEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractTransferEvent.php; sourceTree = "<group>"; };
+		6497A0C81B2F7DB80012E646 /* BeforeEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BeforeEvent.php; sourceTree = "<group>"; };
+		6497A0C91B2F7DB80012E646 /* CompleteEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CompleteEvent.php; sourceTree = "<group>"; };
+		6497A0CA1B2F7DB80012E646 /* Emitter.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Emitter.php; sourceTree = "<group>"; };
+		6497A0CB1B2F7DB80012E646 /* EmitterInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EmitterInterface.php; sourceTree = "<group>"; };
+		6497A0CC1B2F7DB80012E646 /* EndEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EndEvent.php; sourceTree = "<group>"; };
+		6497A0CD1B2F7DB80012E646 /* ErrorEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ErrorEvent.php; sourceTree = "<group>"; };
+		6497A0CE1B2F7DB80012E646 /* EventInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EventInterface.php; sourceTree = "<group>"; };
+		6497A0CF1B2F7DB80012E646 /* HasEmitterInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = HasEmitterInterface.php; sourceTree = "<group>"; };
+		6497A0D01B2F7DB80012E646 /* HasEmitterTrait.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = HasEmitterTrait.php; sourceTree = "<group>"; };
+		6497A0D11B2F7DB80012E646 /* ListenerAttacherTrait.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ListenerAttacherTrait.php; sourceTree = "<group>"; };
+		6497A0D21B2F7DB80012E646 /* ProgressEvent.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ProgressEvent.php; sourceTree = "<group>"; };
+		6497A0D31B2F7DB80012E646 /* RequestEvents.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestEvents.php; sourceTree = "<group>"; };
+		6497A0D41B2F7DB80012E646 /* SubscriberInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SubscriberInterface.php; sourceTree = "<group>"; };
+		6497A0D61B2F7DB80012E646 /* BadResponseException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BadResponseException.php; sourceTree = "<group>"; };
+		6497A0D71B2F7DB80012E646 /* ClientException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ClientException.php; sourceTree = "<group>"; };
+		6497A0D81B2F7DB80012E646 /* ConnectException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ConnectException.php; sourceTree = "<group>"; };
+		6497A0D91B2F7DB80012E646 /* CouldNotRewindStreamException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CouldNotRewindStreamException.php; sourceTree = "<group>"; };
+		6497A0DA1B2F7DB80012E646 /* ParseException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ParseException.php; sourceTree = "<group>"; };
+		6497A0DB1B2F7DB80012E646 /* RequestException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestException.php; sourceTree = "<group>"; };
+		6497A0DC1B2F7DB80012E646 /* ServerException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ServerException.php; sourceTree = "<group>"; };
+		6497A0DD1B2F7DB80012E646 /* StateException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = StateException.php; sourceTree = "<group>"; };
+		6497A0DE1B2F7DB80012E646 /* TooManyRedirectsException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TooManyRedirectsException.php; sourceTree = "<group>"; };
+		6497A0DF1B2F7DB80012E646 /* TransferException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TransferException.php; sourceTree = "<group>"; };
+		6497A0E01B2F7DB80012E646 /* XmlParseException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = XmlParseException.php; sourceTree = "<group>"; };
+		6497A0E11B2F7DB80012E646 /* HasDataTrait.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = HasDataTrait.php; sourceTree = "<group>"; };
+		6497A0E31B2F7DB80012E646 /* AbstractMessage.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractMessage.php; sourceTree = "<group>"; };
+		6497A0E41B2F7DB80012E646 /* AppliesHeadersInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AppliesHeadersInterface.php; sourceTree = "<group>"; };
+		6497A0E51B2F7DB80012E646 /* FutureResponse.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureResponse.php; sourceTree = "<group>"; };
+		6497A0E61B2F7DB80012E646 /* MessageFactory.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MessageFactory.php; sourceTree = "<group>"; };
+		6497A0E71B2F7DB80012E646 /* MessageFactoryInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MessageFactoryInterface.php; sourceTree = "<group>"; };
+		6497A0E81B2F7DB80012E646 /* MessageInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MessageInterface.php; sourceTree = "<group>"; };
+		6497A0E91B2F7DB80012E646 /* MessageParser.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MessageParser.php; sourceTree = "<group>"; };
+		6497A0EA1B2F7DB80012E646 /* Request.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Request.php; sourceTree = "<group>"; };
+		6497A0EB1B2F7DB80012E646 /* RequestInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestInterface.php; sourceTree = "<group>"; };
+		6497A0EC1B2F7DB80012E646 /* Response.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Response.php; sourceTree = "<group>"; };
+		6497A0ED1B2F7DB80012E646 /* ResponseInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ResponseInterface.php; sourceTree = "<group>"; };
+		6497A0EE1B2F7DB80012E646 /* Mimetypes.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Mimetypes.php; sourceTree = "<group>"; };
+		6497A0EF1B2F7DB80012E646 /* Pool.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Pool.php; sourceTree = "<group>"; };
+		6497A0F11B2F7DB80012E646 /* MultipartBody.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MultipartBody.php; sourceTree = "<group>"; };
+		6497A0F21B2F7DB80012E646 /* PostBody.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PostBody.php; sourceTree = "<group>"; };
+		6497A0F31B2F7DB80012E646 /* PostBodyInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PostBodyInterface.php; sourceTree = "<group>"; };
+		6497A0F41B2F7DB80012E646 /* PostFile.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PostFile.php; sourceTree = "<group>"; };
+		6497A0F51B2F7DB80012E646 /* PostFileInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PostFileInterface.php; sourceTree = "<group>"; };
+		6497A0F61B2F7DB80012E646 /* Query.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Query.php; sourceTree = "<group>"; };
+		6497A0F71B2F7DB80012E646 /* QueryParser.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = QueryParser.php; sourceTree = "<group>"; };
+		6497A0F81B2F7DB80012E646 /* RequestFsm.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestFsm.php; sourceTree = "<group>"; };
+		6497A0F91B2F7DB80012E646 /* RingBridge.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RingBridge.php; sourceTree = "<group>"; };
+		6497A0FB1B2F7DB80012E646 /* Cookie.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Cookie.php; sourceTree = "<group>"; };
+		6497A0FC1B2F7DB80012E646 /* History.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = History.php; sourceTree = "<group>"; };
+		6497A0FD1B2F7DB80012E646 /* HttpError.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = HttpError.php; sourceTree = "<group>"; };
+		6497A0FE1B2F7DB80012E646 /* Mock.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Mock.php; sourceTree = "<group>"; };
+		6497A0FF1B2F7DB80012E646 /* Prepare.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Prepare.php; sourceTree = "<group>"; };
+		6497A1001B2F7DB80012E646 /* Redirect.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Redirect.php; sourceTree = "<group>"; };
+		6497A1011B2F7DB80012E646 /* ToArrayInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ToArrayInterface.php; sourceTree = "<group>"; };
+		6497A1021B2F7DB80012E646 /* Transaction.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Transaction.php; sourceTree = "<group>"; };
+		6497A1031B2F7DB80012E646 /* UriTemplate.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = UriTemplate.php; sourceTree = "<group>"; };
+		6497A1041B2F7DB80012E646 /* Url.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Url.php; sourceTree = "<group>"; };
+		6497A1051B2F7DB80012E646 /* Utils.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Utils.php; sourceTree = "<group>"; };
+		6497A1071B2F7DB80012E646 /* BatchResultsTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BatchResultsTest.php; sourceTree = "<group>"; };
+		6497A1081B2F7DB80012E646 /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
+		6497A1091B2F7DB80012E646 /* ClientTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ClientTest.php; sourceTree = "<group>"; };
+		6497A10A1B2F7DB80012E646 /* CollectionTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CollectionTest.php; sourceTree = "<group>"; };
+		6497A10C1B2F7DB80012E646 /* CookieJarTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CookieJarTest.php; sourceTree = "<group>"; };
+		6497A10D1B2F7DB80012E646 /* FileCookieJarTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FileCookieJarTest.php; sourceTree = "<group>"; };
+		6497A10E1B2F7DB80012E646 /* SessionCookieJarTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SessionCookieJarTest.php; sourceTree = "<group>"; };
+		6497A10F1B2F7DB80012E646 /* SetCookieTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SetCookieTest.php; sourceTree = "<group>"; };
+		6497A1111B2F7DB80012E646 /* AbstractEventTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractEventTest.php; sourceTree = "<group>"; };
+		6497A1121B2F7DB80012E646 /* AbstractRequestEventTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractRequestEventTest.php; sourceTree = "<group>"; };
+		6497A1131B2F7DB80012E646 /* AbstractRetryableEventTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractRetryableEventTest.php; sourceTree = "<group>"; };
+		6497A1141B2F7DB80012E646 /* AbstractTransferEventTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractTransferEventTest.php; sourceTree = "<group>"; };
+		6497A1151B2F7DB80012E646 /* BeforeEventTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BeforeEventTest.php; sourceTree = "<group>"; };
+		6497A1161B2F7DB80012E646 /* EmitterTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = EmitterTest.php; sourceTree = "<group>"; };
+		6497A1171B2F7DB80012E646 /* ErrorEventTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ErrorEventTest.php; sourceTree = "<group>"; };
+		6497A1181B2F7DB80012E646 /* HasEmitterTraitTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = HasEmitterTraitTest.php; sourceTree = "<group>"; };
+		6497A1191B2F7DB80012E646 /* ListenerAttacherTraitTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ListenerAttacherTraitTest.php; sourceTree = "<group>"; };
+		6497A11A1B2F7DB80012E646 /* ProgressEventTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ProgressEventTest.php; sourceTree = "<group>"; };
+		6497A11B1B2F7DB80012E646 /* RequestEventsTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestEventsTest.php; sourceTree = "<group>"; };
+		6497A11D1B2F7DB80012E646 /* ParseExceptionTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ParseExceptionTest.php; sourceTree = "<group>"; };
+		6497A11E1B2F7DB80012E646 /* RequestExceptionTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestExceptionTest.php; sourceTree = "<group>"; };
+		6497A11F1B2F7DB80012E646 /* XmlParseExceptionTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = XmlParseExceptionTest.php; sourceTree = "<group>"; };
+		6497A1201B2F7DB80012E646 /* IntegrationTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = IntegrationTest.php; sourceTree = "<group>"; };
+		6497A1221B2F7DB80012E646 /* AbstractMessageTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AbstractMessageTest.php; sourceTree = "<group>"; };
+		6497A1231B2F7DB80012E646 /* FutureResponseTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureResponseTest.php; sourceTree = "<group>"; };
+		6497A1241B2F7DB80012E646 /* MessageFactoryTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MessageFactoryTest.php; sourceTree = "<group>"; };
+		6497A1251B2F7DB80012E646 /* MessageParserTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MessageParserTest.php; sourceTree = "<group>"; };
+		6497A1261B2F7DB80012E646 /* RequestTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestTest.php; sourceTree = "<group>"; };
+		6497A1271B2F7DB80012E646 /* ResponseTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ResponseTest.php; sourceTree = "<group>"; };
+		6497A1281B2F7DB80012E646 /* MimetypesTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MimetypesTest.php; sourceTree = "<group>"; };
+		6497A1291B2F7DB80012E646 /* perf.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = perf.php; sourceTree = "<group>"; };
+		6497A12A1B2F7DB80012E646 /* PoolTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PoolTest.php; sourceTree = "<group>"; };
+		6497A12C1B2F7DB80012E646 /* MultipartBodyTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MultipartBodyTest.php; sourceTree = "<group>"; };
+		6497A12D1B2F7DB80012E646 /* PostBodyTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PostBodyTest.php; sourceTree = "<group>"; };
+		6497A12E1B2F7DB80012E646 /* PostFileTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PostFileTest.php; sourceTree = "<group>"; };
+		6497A12F1B2F7DB80012E646 /* QueryParserTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = QueryParserTest.php; sourceTree = "<group>"; };
+		6497A1301B2F7DB80012E646 /* QueryTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = QueryTest.php; sourceTree = "<group>"; };
+		6497A1311B2F7DB80012E646 /* RequestFsmTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RequestFsmTest.php; sourceTree = "<group>"; };
+		6497A1321B2F7DB80012E646 /* RingBridgeTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RingBridgeTest.php; sourceTree = "<group>"; };
+		6497A1331B2F7DB80012E646 /* Server.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Server.php; sourceTree = "<group>"; };
+		6497A1351B2F7DB80012E646 /* CookieTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CookieTest.php; sourceTree = "<group>"; };
+		6497A1361B2F7DB80012E646 /* HistoryTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = HistoryTest.php; sourceTree = "<group>"; };
+		6497A1371B2F7DB80012E646 /* HttpErrorTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = HttpErrorTest.php; sourceTree = "<group>"; };
+		6497A1381B2F7DB80012E646 /* MockTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MockTest.php; sourceTree = "<group>"; };
+		6497A1391B2F7DB80012E646 /* PrepareTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PrepareTest.php; sourceTree = "<group>"; };
+		6497A13A1B2F7DB80012E646 /* RedirectTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RedirectTest.php; sourceTree = "<group>"; };
+		6497A13B1B2F7DB80012E646 /* TransactionTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = TransactionTest.php; sourceTree = "<group>"; };
+		6497A13C1B2F7DB80012E646 /* UriTemplateTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = UriTemplateTest.php; sourceTree = "<group>"; };
+		6497A13D1B2F7DB80012E646 /* UrlTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = UrlTest.php; sourceTree = "<group>"; };
+		6497A13E1B2F7DB80012E646 /* UtilsTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = UtilsTest.php; sourceTree = "<group>"; };
+		6497A13F1B2F7DB80012E646 /* UPGRADING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = UPGRADING.md; sourceTree = "<group>"; };
+		6497A1411B2F7DB80012E646 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6497A1421B2F7DB80012E646 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		6497A1431B2F7DB80012E646 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		6497A1441B2F7DB80012E646 /* composer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = composer.json; sourceTree = "<group>"; };
+		6497A1461B2F7DB80012E646 /* client_handlers.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = client_handlers.rst; sourceTree = "<group>"; };
+		6497A1471B2F7DB80012E646 /* client_middleware.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = client_middleware.rst; sourceTree = "<group>"; };
+		6497A1481B2F7DB80012E646 /* conf.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = conf.py; sourceTree = "<group>"; };
+		6497A1491B2F7DB80012E646 /* futures.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = futures.rst; sourceTree = "<group>"; };
+		6497A14A1B2F7DB80012E646 /* index.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = index.rst; sourceTree = "<group>"; };
+		6497A14B1B2F7DB80012E646 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		6497A14C1B2F7DB80012E646 /* requirements.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = requirements.txt; sourceTree = "<group>"; };
+		6497A14D1B2F7DB80012E646 /* spec.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = spec.rst; sourceTree = "<group>"; };
+		6497A14E1B2F7DB80012E646 /* testing.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = testing.rst; sourceTree = "<group>"; };
+		6497A14F1B2F7DB80012E646 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6497A1501B2F7DB80012E646 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		6497A1511B2F7DB80012E646 /* phpunit.xml.dist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = phpunit.xml.dist; sourceTree = "<group>"; };
+		6497A1521B2F7DB80012E646 /* README.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.rst; sourceTree = "<group>"; };
+		6497A1551B2F7DB80012E646 /* ClientUtils.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ClientUtils.php; sourceTree = "<group>"; };
+		6497A1561B2F7DB80012E646 /* CurlFactory.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CurlFactory.php; sourceTree = "<group>"; };
+		6497A1571B2F7DB80012E646 /* CurlHandler.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CurlHandler.php; sourceTree = "<group>"; };
+		6497A1581B2F7DB80012E646 /* CurlMultiHandler.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CurlMultiHandler.php; sourceTree = "<group>"; };
+		6497A1591B2F7DB80012E646 /* Middleware.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Middleware.php; sourceTree = "<group>"; };
+		6497A15A1B2F7DB80012E646 /* MockHandler.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MockHandler.php; sourceTree = "<group>"; };
+		6497A15B1B2F7DB80012E646 /* StreamHandler.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = StreamHandler.php; sourceTree = "<group>"; };
+		6497A15C1B2F7DB80012E646 /* Core.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Core.php; sourceTree = "<group>"; };
+		6497A15E1B2F7DB80012E646 /* CancelledException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CancelledException.php; sourceTree = "<group>"; };
+		6497A15F1B2F7DB80012E646 /* CancelledFutureAccessException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CancelledFutureAccessException.php; sourceTree = "<group>"; };
+		6497A1601B2F7DB80012E646 /* ConnectException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ConnectException.php; sourceTree = "<group>"; };
+		6497A1611B2F7DB80012E646 /* RingException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = RingException.php; sourceTree = "<group>"; };
+		6497A1631B2F7DB80012E646 /* BaseFutureTrait.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BaseFutureTrait.php; sourceTree = "<group>"; };
+		6497A1641B2F7DB80012E646 /* CompletedFutureArray.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CompletedFutureArray.php; sourceTree = "<group>"; };
+		6497A1651B2F7DB80012E646 /* CompletedFutureValue.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CompletedFutureValue.php; sourceTree = "<group>"; };
+		6497A1661B2F7DB80012E646 /* FutureArray.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureArray.php; sourceTree = "<group>"; };
+		6497A1671B2F7DB80012E646 /* FutureArrayInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureArrayInterface.php; sourceTree = "<group>"; };
+		6497A1681B2F7DB80012E646 /* FutureInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureInterface.php; sourceTree = "<group>"; };
+		6497A1691B2F7DB80012E646 /* FutureValue.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureValue.php; sourceTree = "<group>"; };
+		6497A16A1B2F7DB80012E646 /* MagicFutureTrait.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MagicFutureTrait.php; sourceTree = "<group>"; };
+		6497A16C1B2F7DB80012E646 /* bootstrap.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = bootstrap.php; sourceTree = "<group>"; };
+		6497A16E1B2F7DB80012E646 /* CurlFactoryTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CurlFactoryTest.php; sourceTree = "<group>"; };
+		6497A16F1B2F7DB80012E646 /* CurlHandlerTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CurlHandlerTest.php; sourceTree = "<group>"; };
+		6497A1701B2F7DB80012E646 /* CurlMultiHandlerTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CurlMultiHandlerTest.php; sourceTree = "<group>"; };
+		6497A1711B2F7DB80012E646 /* MiddlewareTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MiddlewareTest.php; sourceTree = "<group>"; };
+		6497A1721B2F7DB80012E646 /* MockHandlerTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MockHandlerTest.php; sourceTree = "<group>"; };
+		6497A1731B2F7DB80012E646 /* server.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = server.js; sourceTree = "<group>"; };
+		6497A1741B2F7DB80012E646 /* Server.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Server.php; sourceTree = "<group>"; };
+		6497A1751B2F7DB80012E646 /* StreamHandlerTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = StreamHandlerTest.php; sourceTree = "<group>"; };
+		6497A1761B2F7DB80012E646 /* CoreTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CoreTest.php; sourceTree = "<group>"; };
+		6497A1781B2F7DB80012E646 /* CompletedFutureArrayTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CompletedFutureArrayTest.php; sourceTree = "<group>"; };
+		6497A1791B2F7DB80012E646 /* CompletedFutureValueTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CompletedFutureValueTest.php; sourceTree = "<group>"; };
+		6497A17A1B2F7DB80012E646 /* FutureArrayTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureArrayTest.php; sourceTree = "<group>"; };
+		6497A17B1B2F7DB80012E646 /* FutureValueTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FutureValueTest.php; sourceTree = "<group>"; };
+		6497A17D1B2F7DB80012E646 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6497A17E1B2F7DB80012E646 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		6497A17F1B2F7DB80012E646 /* CHANGELOG.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = CHANGELOG.rst; sourceTree = "<group>"; };
+		6497A1801B2F7DB80012E646 /* composer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = composer.json; sourceTree = "<group>"; };
+		6497A1811B2F7DB80012E646 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6497A1821B2F7DB80012E646 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		6497A1831B2F7DB80012E646 /* phpunit.xml.dist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = phpunit.xml.dist; sourceTree = "<group>"; };
+		6497A1841B2F7DB80012E646 /* README.rst */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.rst; sourceTree = "<group>"; };
+		6497A1861B2F7DB80012E646 /* AppendStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AppendStream.php; sourceTree = "<group>"; };
+		6497A1871B2F7DB80012E646 /* AsyncReadStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AsyncReadStream.php; sourceTree = "<group>"; };
+		6497A1881B2F7DB80012E646 /* BufferStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BufferStream.php; sourceTree = "<group>"; };
+		6497A1891B2F7DB80012E646 /* CachingStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CachingStream.php; sourceTree = "<group>"; };
+		6497A18A1B2F7DB80012E646 /* DroppingStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DroppingStream.php; sourceTree = "<group>"; };
+		6497A18C1B2F7DB80012E646 /* CannotAttachException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CannotAttachException.php; sourceTree = "<group>"; };
+		6497A18D1B2F7DB80012E646 /* SeekException.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SeekException.php; sourceTree = "<group>"; };
+		6497A18E1B2F7DB80012E646 /* FnStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FnStream.php; sourceTree = "<group>"; };
+		6497A18F1B2F7DB80012E646 /* GuzzleStreamWrapper.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = GuzzleStreamWrapper.php; sourceTree = "<group>"; };
+		6497A1901B2F7DB80012E646 /* InflateStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = InflateStream.php; sourceTree = "<group>"; };
+		6497A1911B2F7DB80012E646 /* LazyOpenStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LazyOpenStream.php; sourceTree = "<group>"; };
+		6497A1921B2F7DB80012E646 /* LimitStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LimitStream.php; sourceTree = "<group>"; };
+		6497A1931B2F7DB80012E646 /* MetadataStreamInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = MetadataStreamInterface.php; sourceTree = "<group>"; };
+		6497A1941B2F7DB80012E646 /* NoSeekStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = NoSeekStream.php; sourceTree = "<group>"; };
+		6497A1951B2F7DB80012E646 /* NullStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = NullStream.php; sourceTree = "<group>"; };
+		6497A1961B2F7DB80012E646 /* PumpStream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PumpStream.php; sourceTree = "<group>"; };
+		6497A1971B2F7DB80012E646 /* Stream.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Stream.php; sourceTree = "<group>"; };
+		6497A1981B2F7DB80012E646 /* StreamDecoratorTrait.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = StreamDecoratorTrait.php; sourceTree = "<group>"; };
+		6497A1991B2F7DB80012E646 /* StreamInterface.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = StreamInterface.php; sourceTree = "<group>"; };
+		6497A19A1B2F7DB80012E646 /* Utils.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = Utils.php; sourceTree = "<group>"; };
+		6497A19C1B2F7DB80012E646 /* AppendStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AppendStreamTest.php; sourceTree = "<group>"; };
+		6497A19D1B2F7DB80012E646 /* AsyncReadStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = AsyncReadStreamTest.php; sourceTree = "<group>"; };
+		6497A19E1B2F7DB80012E646 /* BufferStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = BufferStreamTest.php; sourceTree = "<group>"; };
+		6497A19F1B2F7DB80012E646 /* CachingStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CachingStreamTest.php; sourceTree = "<group>"; };
+		6497A1A01B2F7DB80012E646 /* DroppingStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = DroppingStreamTest.php; sourceTree = "<group>"; };
+		6497A1A21B2F7DB80012E646 /* SeekExceptionTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = SeekExceptionTest.php; sourceTree = "<group>"; };
+		6497A1A31B2F7DB80012E646 /* FnStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = FnStreamTest.php; sourceTree = "<group>"; };
+		6497A1A41B2F7DB80012E646 /* GuzzleStreamWrapperTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = GuzzleStreamWrapperTest.php; sourceTree = "<group>"; };
+		6497A1A51B2F7DB80012E646 /* InflateStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = InflateStreamTest.php; sourceTree = "<group>"; };
+		6497A1A61B2F7DB80012E646 /* LazyOpenStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LazyOpenStreamTest.php; sourceTree = "<group>"; };
+		6497A1A71B2F7DB80012E646 /* LimitStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = LimitStreamTest.php; sourceTree = "<group>"; };
+		6497A1A81B2F7DB80012E646 /* NoSeekStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = NoSeekStreamTest.php; sourceTree = "<group>"; };
+		6497A1A91B2F7DB80012E646 /* NullStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = NullStreamTest.php; sourceTree = "<group>"; };
+		6497A1AA1B2F7DB80012E646 /* PumpStreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = PumpStreamTest.php; sourceTree = "<group>"; };
+		6497A1AB1B2F7DB80012E646 /* StreamDecoratorTraitTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = StreamDecoratorTraitTest.php; sourceTree = "<group>"; };
+		6497A1AC1B2F7DB80012E646 /* StreamTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = StreamTest.php; sourceTree = "<group>"; };
+		6497A1AD1B2F7DB80012E646 /* UtilsTest.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = UtilsTest.php; sourceTree = "<group>"; };
 		64A1D8C91B28E47600768066 /* app.blade.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = app.blade.php; sourceTree = "<group>"; };
 		64A1D8CA1B28E47600768066 /* master.blade.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = master.blade.php; sourceTree = "<group>"; };
 		64A803871B0677C000FEA5D7 /* .env */ = {isa = PBXFileReference; lastKnownFileType = text; path = .env; sourceTree = "<group>"; };
@@ -6297,6 +6592,682 @@
 			path = message;
 			sourceTree = "<group>";
 		};
+		6497A0571B2F43690012E646 /* socialiteproviders */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0581B2F43690012E646 /* linkedin */,
+				6497A0611B2F43690012E646 /* manager */,
+			);
+			path = socialiteproviders;
+			sourceTree = "<group>";
+		};
+		6497A0581B2F43690012E646 /* linkedin */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0591B2F43690012E646 /* .gitignore */,
+				6497A05A1B2F43690012E646 /* .styleci.yml */,
+				6497A05B1B2F43690012E646 /* composer.json */,
+				6497A05C1B2F43690012E646 /* LICENSE */,
+				6497A05D1B2F43690012E646 /* README.md */,
+				6497A05E1B2F43690012E646 /* src */,
+			);
+			path = linkedin;
+			sourceTree = "<group>";
+		};
+		6497A05E1B2F43690012E646 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6497A05F1B2F43690012E646 /* LinkedInExtendSocialite.php */,
+				6497A0601B2F43690012E646 /* Provider.php */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6497A0611B2F43690012E646 /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0621B2F43690012E646 /* .gitignore */,
+				6497A0631B2F43690012E646 /* .scrutinizer.yml */,
+				6497A0641B2F43690012E646 /* .styleci.yml */,
+				6497A0651B2F43690012E646 /* .travis.yml */,
+				6497A0661B2F43690012E646 /* composer.json */,
+				6497A0671B2F43690012E646 /* LICENSE */,
+				6497A0681B2F43690012E646 /* phpunit.xml.dist */,
+				6497A0691B2F43690012E646 /* README.md */,
+				6497A06A1B2F43690012E646 /* src */,
+				6497A06E1B2F43690012E646 /* tests */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
+		6497A06A1B2F43690012E646 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6497A06B1B2F43690012E646 /* InvalidArgumentException.php */,
+				6497A06C1B2F43690012E646 /* ServiceProvider.php */,
+				6497A06D1B2F43690012E646 /* SocialiteWasCalled.php */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6497A06E1B2F43690012E646 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				6497A06F1B2F43690012E646 /* ManagerTestTrait.php */,
+				6497A0701B2F43690012E646 /* OAuth1ProviderTest.php */,
+				6497A0711B2F43690012E646 /* OAuth2ProviderTest.php */,
+				6497A0721B2F43690012E646 /* ServiceProviderTest.php */,
+				6497A0731B2F43690012E646 /* Stubs */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		6497A0731B2F43690012E646 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0741B2F43690012E646 /* OAuth1ProviderStub.php */,
+				6497A0751B2F43690012E646 /* OAuth1ServerStub.php */,
+				6497A0761B2F43690012E646 /* OAuth2ProviderStub.php */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
+		6497A0771B2F43F00012E646 /* socialite */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0781B2F43F00012E646 /* .gitignore */,
+				6497A0791B2F43F00012E646 /* .travis.yml */,
+				6497A07A1B2F43F00012E646 /* composer.json */,
+				6497A07B1B2F43F00012E646 /* LICENSE.txt */,
+				6497A07C1B2F43F00012E646 /* phpunit.xml */,
+				6497A07D1B2F43F00012E646 /* readme.md */,
+				6497A07E1B2F43F00012E646 /* src */,
+				6497A0951B2F43F00012E646 /* tests */,
+			);
+			path = socialite;
+			sourceTree = "<group>";
+		};
+		6497A07E1B2F43F00012E646 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6497A07F1B2F43F00012E646 /* AbstractUser.php */,
+				6497A0801B2F43F00012E646 /* Contracts */,
+				6497A0841B2F43F00012E646 /* Facades */,
+				6497A0861B2F43F00012E646 /* One */,
+				6497A08B1B2F43F00012E646 /* SocialiteManager.php */,
+				6497A08C1B2F43F00012E646 /* SocialiteServiceProvider.php */,
+				6497A08D1B2F43F00012E646 /* Two */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6497A0801B2F43F00012E646 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0811B2F43F00012E646 /* Factory.php */,
+				6497A0821B2F43F00012E646 /* Provider.php */,
+				6497A0831B2F43F00012E646 /* User.php */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		6497A0841B2F43F00012E646 /* Facades */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0851B2F43F00012E646 /* Socialite.php */,
+			);
+			path = Facades;
+			sourceTree = "<group>";
+		};
+		6497A0861B2F43F00012E646 /* One */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0871B2F43F00012E646 /* AbstractProvider.php */,
+				6497A0881B2F43F00012E646 /* BitbucketProvider.php */,
+				6497A0891B2F43F00012E646 /* TwitterProvider.php */,
+				6497A08A1B2F43F00012E646 /* User.php */,
+			);
+			path = One;
+			sourceTree = "<group>";
+		};
+		6497A08D1B2F43F00012E646 /* Two */ = {
+			isa = PBXGroup;
+			children = (
+				6497A08E1B2F43F00012E646 /* AbstractProvider.php */,
+				6497A08F1B2F43F00012E646 /* FacebookProvider.php */,
+				6497A0901B2F43F00012E646 /* GithubProvider.php */,
+				6497A0911B2F43F00012E646 /* GoogleProvider.php */,
+				6497A0921B2F43F00012E646 /* InvalidStateException.php */,
+				6497A0931B2F43F00012E646 /* ProviderInterface.php */,
+				6497A0941B2F43F00012E646 /* User.php */,
+			);
+			path = Two;
+			sourceTree = "<group>";
+		};
+		6497A0951B2F43F00012E646 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0961B2F43F00012E646 /* OAuthOneTest.php */,
+				6497A0971B2F43F00012E646 /* OAuthTwoTest.php */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		6497A0981B2F7DB80012E646 /* guzzlehttp */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0991B2F7DB80012E646 /* guzzle */,
+				6497A1401B2F7DB80012E646 /* ringphp */,
+				6497A17C1B2F7DB80012E646 /* streams */,
+			);
+			path = guzzlehttp;
+			sourceTree = "<group>";
+		};
+		6497A0991B2F7DB80012E646 /* guzzle */ = {
+			isa = PBXGroup;
+			children = (
+				6497A09A1B2F7DB80012E646 /* .editorconfig */,
+				6497A09B1B2F7DB80012E646 /* .gitignore */,
+				6497A09C1B2F7DB80012E646 /* .travis.yml */,
+				6497A09D1B2F7DB80012E646 /* build */,
+				6497A09F1B2F7DB80012E646 /* CHANGELOG.md */,
+				6497A0A01B2F7DB80012E646 /* composer.json */,
+				6497A0A11B2F7DB80012E646 /* docs */,
+				6497A0B41B2F7DB80012E646 /* LICENSE */,
+				6497A0B51B2F7DB80012E646 /* Makefile */,
+				6497A0B61B2F7DB80012E646 /* phpunit.xml.dist */,
+				6497A0B71B2F7DB80012E646 /* README.md */,
+				6497A0B81B2F7DB80012E646 /* src */,
+				6497A1061B2F7DB80012E646 /* tests */,
+				6497A13F1B2F7DB80012E646 /* UPGRADING.md */,
+			);
+			path = guzzle;
+			sourceTree = "<group>";
+		};
+		6497A09D1B2F7DB80012E646 /* build */ = {
+			isa = PBXGroup;
+			children = (
+				6497A09E1B2F7DB80012E646 /* packager.php */,
+			);
+			path = build;
+			sourceTree = "<group>";
+		};
+		6497A0A11B2F7DB80012E646 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0A21B2F7DB80012E646 /* _static */,
+				6497A0A51B2F7DB80012E646 /* _templates */,
+				6497A0A71B2F7DB80012E646 /* clients.rst */,
+				6497A0A81B2F7DB80012E646 /* conf.py */,
+				6497A0A91B2F7DB80012E646 /* events.rst */,
+				6497A0AA1B2F7DB80012E646 /* faq.rst */,
+				6497A0AB1B2F7DB80012E646 /* handlers.rst */,
+				6497A0AC1B2F7DB80012E646 /* http-messages.rst */,
+				6497A0AD1B2F7DB80012E646 /* index.rst */,
+				6497A0AE1B2F7DB80012E646 /* Makefile */,
+				6497A0AF1B2F7DB80012E646 /* overview.rst */,
+				6497A0B01B2F7DB80012E646 /* quickstart.rst */,
+				6497A0B11B2F7DB80012E646 /* requirements.txt */,
+				6497A0B21B2F7DB80012E646 /* streams.rst */,
+				6497A0B31B2F7DB80012E646 /* testing.rst */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		6497A0A21B2F7DB80012E646 /* _static */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0A31B2F7DB80012E646 /* guzzle-icon.png */,
+				6497A0A41B2F7DB80012E646 /* logo.png */,
+			);
+			path = _static;
+			sourceTree = "<group>";
+		};
+		6497A0A51B2F7DB80012E646 /* _templates */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0A61B2F7DB80012E646 /* nav_links.html */,
+			);
+			path = _templates;
+			sourceTree = "<group>";
+		};
+		6497A0B81B2F7DB80012E646 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0B91B2F7DB80012E646 /* BatchResults.php */,
+				6497A0BA1B2F7DB80012E646 /* Client.php */,
+				6497A0BB1B2F7DB80012E646 /* ClientInterface.php */,
+				6497A0BC1B2F7DB80012E646 /* Collection.php */,
+				6497A0BD1B2F7DB80012E646 /* Cookie */,
+				6497A0C31B2F7DB80012E646 /* Event */,
+				6497A0D51B2F7DB80012E646 /* Exception */,
+				6497A0E11B2F7DB80012E646 /* HasDataTrait.php */,
+				6497A0E21B2F7DB80012E646 /* Message */,
+				6497A0EE1B2F7DB80012E646 /* Mimetypes.php */,
+				6497A0EF1B2F7DB80012E646 /* Pool.php */,
+				6497A0F01B2F7DB80012E646 /* Post */,
+				6497A0F61B2F7DB80012E646 /* Query.php */,
+				6497A0F71B2F7DB80012E646 /* QueryParser.php */,
+				6497A0F81B2F7DB80012E646 /* RequestFsm.php */,
+				6497A0F91B2F7DB80012E646 /* RingBridge.php */,
+				6497A0FA1B2F7DB80012E646 /* Subscriber */,
+				6497A1011B2F7DB80012E646 /* ToArrayInterface.php */,
+				6497A1021B2F7DB80012E646 /* Transaction.php */,
+				6497A1031B2F7DB80012E646 /* UriTemplate.php */,
+				6497A1041B2F7DB80012E646 /* Url.php */,
+				6497A1051B2F7DB80012E646 /* Utils.php */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6497A0BD1B2F7DB80012E646 /* Cookie */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0BE1B2F7DB80012E646 /* CookieJar.php */,
+				6497A0BF1B2F7DB80012E646 /* CookieJarInterface.php */,
+				6497A0C01B2F7DB80012E646 /* FileCookieJar.php */,
+				6497A0C11B2F7DB80012E646 /* SessionCookieJar.php */,
+				6497A0C21B2F7DB80012E646 /* SetCookie.php */,
+			);
+			path = Cookie;
+			sourceTree = "<group>";
+		};
+		6497A0C31B2F7DB80012E646 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0C41B2F7DB80012E646 /* AbstractEvent.php */,
+				6497A0C51B2F7DB80012E646 /* AbstractRequestEvent.php */,
+				6497A0C61B2F7DB80012E646 /* AbstractRetryableEvent.php */,
+				6497A0C71B2F7DB80012E646 /* AbstractTransferEvent.php */,
+				6497A0C81B2F7DB80012E646 /* BeforeEvent.php */,
+				6497A0C91B2F7DB80012E646 /* CompleteEvent.php */,
+				6497A0CA1B2F7DB80012E646 /* Emitter.php */,
+				6497A0CB1B2F7DB80012E646 /* EmitterInterface.php */,
+				6497A0CC1B2F7DB80012E646 /* EndEvent.php */,
+				6497A0CD1B2F7DB80012E646 /* ErrorEvent.php */,
+				6497A0CE1B2F7DB80012E646 /* EventInterface.php */,
+				6497A0CF1B2F7DB80012E646 /* HasEmitterInterface.php */,
+				6497A0D01B2F7DB80012E646 /* HasEmitterTrait.php */,
+				6497A0D11B2F7DB80012E646 /* ListenerAttacherTrait.php */,
+				6497A0D21B2F7DB80012E646 /* ProgressEvent.php */,
+				6497A0D31B2F7DB80012E646 /* RequestEvents.php */,
+				6497A0D41B2F7DB80012E646 /* SubscriberInterface.php */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		6497A0D51B2F7DB80012E646 /* Exception */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0D61B2F7DB80012E646 /* BadResponseException.php */,
+				6497A0D71B2F7DB80012E646 /* ClientException.php */,
+				6497A0D81B2F7DB80012E646 /* ConnectException.php */,
+				6497A0D91B2F7DB80012E646 /* CouldNotRewindStreamException.php */,
+				6497A0DA1B2F7DB80012E646 /* ParseException.php */,
+				6497A0DB1B2F7DB80012E646 /* RequestException.php */,
+				6497A0DC1B2F7DB80012E646 /* ServerException.php */,
+				6497A0DD1B2F7DB80012E646 /* StateException.php */,
+				6497A0DE1B2F7DB80012E646 /* TooManyRedirectsException.php */,
+				6497A0DF1B2F7DB80012E646 /* TransferException.php */,
+				6497A0E01B2F7DB80012E646 /* XmlParseException.php */,
+			);
+			path = Exception;
+			sourceTree = "<group>";
+		};
+		6497A0E21B2F7DB80012E646 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0E31B2F7DB80012E646 /* AbstractMessage.php */,
+				6497A0E41B2F7DB80012E646 /* AppliesHeadersInterface.php */,
+				6497A0E51B2F7DB80012E646 /* FutureResponse.php */,
+				6497A0E61B2F7DB80012E646 /* MessageFactory.php */,
+				6497A0E71B2F7DB80012E646 /* MessageFactoryInterface.php */,
+				6497A0E81B2F7DB80012E646 /* MessageInterface.php */,
+				6497A0E91B2F7DB80012E646 /* MessageParser.php */,
+				6497A0EA1B2F7DB80012E646 /* Request.php */,
+				6497A0EB1B2F7DB80012E646 /* RequestInterface.php */,
+				6497A0EC1B2F7DB80012E646 /* Response.php */,
+				6497A0ED1B2F7DB80012E646 /* ResponseInterface.php */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		6497A0F01B2F7DB80012E646 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0F11B2F7DB80012E646 /* MultipartBody.php */,
+				6497A0F21B2F7DB80012E646 /* PostBody.php */,
+				6497A0F31B2F7DB80012E646 /* PostBodyInterface.php */,
+				6497A0F41B2F7DB80012E646 /* PostFile.php */,
+				6497A0F51B2F7DB80012E646 /* PostFileInterface.php */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		6497A0FA1B2F7DB80012E646 /* Subscriber */ = {
+			isa = PBXGroup;
+			children = (
+				6497A0FB1B2F7DB80012E646 /* Cookie.php */,
+				6497A0FC1B2F7DB80012E646 /* History.php */,
+				6497A0FD1B2F7DB80012E646 /* HttpError.php */,
+				6497A0FE1B2F7DB80012E646 /* Mock.php */,
+				6497A0FF1B2F7DB80012E646 /* Prepare.php */,
+				6497A1001B2F7DB80012E646 /* Redirect.php */,
+			);
+			path = Subscriber;
+			sourceTree = "<group>";
+		};
+		6497A1061B2F7DB80012E646 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1071B2F7DB80012E646 /* BatchResultsTest.php */,
+				6497A1081B2F7DB80012E646 /* bootstrap.php */,
+				6497A1091B2F7DB80012E646 /* ClientTest.php */,
+				6497A10A1B2F7DB80012E646 /* CollectionTest.php */,
+				6497A10B1B2F7DB80012E646 /* Cookie */,
+				6497A1101B2F7DB80012E646 /* Event */,
+				6497A11C1B2F7DB80012E646 /* Exception */,
+				6497A1201B2F7DB80012E646 /* IntegrationTest.php */,
+				6497A1211B2F7DB80012E646 /* Message */,
+				6497A1281B2F7DB80012E646 /* MimetypesTest.php */,
+				6497A1291B2F7DB80012E646 /* perf.php */,
+				6497A12A1B2F7DB80012E646 /* PoolTest.php */,
+				6497A12B1B2F7DB80012E646 /* Post */,
+				6497A12F1B2F7DB80012E646 /* QueryParserTest.php */,
+				6497A1301B2F7DB80012E646 /* QueryTest.php */,
+				6497A1311B2F7DB80012E646 /* RequestFsmTest.php */,
+				6497A1321B2F7DB80012E646 /* RingBridgeTest.php */,
+				6497A1331B2F7DB80012E646 /* Server.php */,
+				6497A1341B2F7DB80012E646 /* Subscriber */,
+				6497A13B1B2F7DB80012E646 /* TransactionTest.php */,
+				6497A13C1B2F7DB80012E646 /* UriTemplateTest.php */,
+				6497A13D1B2F7DB80012E646 /* UrlTest.php */,
+				6497A13E1B2F7DB80012E646 /* UtilsTest.php */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		6497A10B1B2F7DB80012E646 /* Cookie */ = {
+			isa = PBXGroup;
+			children = (
+				6497A10C1B2F7DB80012E646 /* CookieJarTest.php */,
+				6497A10D1B2F7DB80012E646 /* FileCookieJarTest.php */,
+				6497A10E1B2F7DB80012E646 /* SessionCookieJarTest.php */,
+				6497A10F1B2F7DB80012E646 /* SetCookieTest.php */,
+			);
+			path = Cookie;
+			sourceTree = "<group>";
+		};
+		6497A1101B2F7DB80012E646 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1111B2F7DB80012E646 /* AbstractEventTest.php */,
+				6497A1121B2F7DB80012E646 /* AbstractRequestEventTest.php */,
+				6497A1131B2F7DB80012E646 /* AbstractRetryableEventTest.php */,
+				6497A1141B2F7DB80012E646 /* AbstractTransferEventTest.php */,
+				6497A1151B2F7DB80012E646 /* BeforeEventTest.php */,
+				6497A1161B2F7DB80012E646 /* EmitterTest.php */,
+				6497A1171B2F7DB80012E646 /* ErrorEventTest.php */,
+				6497A1181B2F7DB80012E646 /* HasEmitterTraitTest.php */,
+				6497A1191B2F7DB80012E646 /* ListenerAttacherTraitTest.php */,
+				6497A11A1B2F7DB80012E646 /* ProgressEventTest.php */,
+				6497A11B1B2F7DB80012E646 /* RequestEventsTest.php */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		6497A11C1B2F7DB80012E646 /* Exception */ = {
+			isa = PBXGroup;
+			children = (
+				6497A11D1B2F7DB80012E646 /* ParseExceptionTest.php */,
+				6497A11E1B2F7DB80012E646 /* RequestExceptionTest.php */,
+				6497A11F1B2F7DB80012E646 /* XmlParseExceptionTest.php */,
+			);
+			path = Exception;
+			sourceTree = "<group>";
+		};
+		6497A1211B2F7DB80012E646 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1221B2F7DB80012E646 /* AbstractMessageTest.php */,
+				6497A1231B2F7DB80012E646 /* FutureResponseTest.php */,
+				6497A1241B2F7DB80012E646 /* MessageFactoryTest.php */,
+				6497A1251B2F7DB80012E646 /* MessageParserTest.php */,
+				6497A1261B2F7DB80012E646 /* RequestTest.php */,
+				6497A1271B2F7DB80012E646 /* ResponseTest.php */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		6497A12B1B2F7DB80012E646 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				6497A12C1B2F7DB80012E646 /* MultipartBodyTest.php */,
+				6497A12D1B2F7DB80012E646 /* PostBodyTest.php */,
+				6497A12E1B2F7DB80012E646 /* PostFileTest.php */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		6497A1341B2F7DB80012E646 /* Subscriber */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1351B2F7DB80012E646 /* CookieTest.php */,
+				6497A1361B2F7DB80012E646 /* HistoryTest.php */,
+				6497A1371B2F7DB80012E646 /* HttpErrorTest.php */,
+				6497A1381B2F7DB80012E646 /* MockTest.php */,
+				6497A1391B2F7DB80012E646 /* PrepareTest.php */,
+				6497A13A1B2F7DB80012E646 /* RedirectTest.php */,
+			);
+			path = Subscriber;
+			sourceTree = "<group>";
+		};
+		6497A1401B2F7DB80012E646 /* ringphp */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1411B2F7DB80012E646 /* .gitignore */,
+				6497A1421B2F7DB80012E646 /* .travis.yml */,
+				6497A1431B2F7DB80012E646 /* CHANGELOG.md */,
+				6497A1441B2F7DB80012E646 /* composer.json */,
+				6497A1451B2F7DB80012E646 /* docs */,
+				6497A14F1B2F7DB80012E646 /* LICENSE */,
+				6497A1501B2F7DB80012E646 /* Makefile */,
+				6497A1511B2F7DB80012E646 /* phpunit.xml.dist */,
+				6497A1521B2F7DB80012E646 /* README.rst */,
+				6497A1531B2F7DB80012E646 /* src */,
+				6497A16B1B2F7DB80012E646 /* tests */,
+			);
+			path = ringphp;
+			sourceTree = "<group>";
+		};
+		6497A1451B2F7DB80012E646 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1461B2F7DB80012E646 /* client_handlers.rst */,
+				6497A1471B2F7DB80012E646 /* client_middleware.rst */,
+				6497A1481B2F7DB80012E646 /* conf.py */,
+				6497A1491B2F7DB80012E646 /* futures.rst */,
+				6497A14A1B2F7DB80012E646 /* index.rst */,
+				6497A14B1B2F7DB80012E646 /* Makefile */,
+				6497A14C1B2F7DB80012E646 /* requirements.txt */,
+				6497A14D1B2F7DB80012E646 /* spec.rst */,
+				6497A14E1B2F7DB80012E646 /* testing.rst */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		6497A1531B2F7DB80012E646 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1541B2F7DB80012E646 /* Client */,
+				6497A15C1B2F7DB80012E646 /* Core.php */,
+				6497A15D1B2F7DB80012E646 /* Exception */,
+				6497A1621B2F7DB80012E646 /* Future */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6497A1541B2F7DB80012E646 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1551B2F7DB80012E646 /* ClientUtils.php */,
+				6497A1561B2F7DB80012E646 /* CurlFactory.php */,
+				6497A1571B2F7DB80012E646 /* CurlHandler.php */,
+				6497A1581B2F7DB80012E646 /* CurlMultiHandler.php */,
+				6497A1591B2F7DB80012E646 /* Middleware.php */,
+				6497A15A1B2F7DB80012E646 /* MockHandler.php */,
+				6497A15B1B2F7DB80012E646 /* StreamHandler.php */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		6497A15D1B2F7DB80012E646 /* Exception */ = {
+			isa = PBXGroup;
+			children = (
+				6497A15E1B2F7DB80012E646 /* CancelledException.php */,
+				6497A15F1B2F7DB80012E646 /* CancelledFutureAccessException.php */,
+				6497A1601B2F7DB80012E646 /* ConnectException.php */,
+				6497A1611B2F7DB80012E646 /* RingException.php */,
+			);
+			path = Exception;
+			sourceTree = "<group>";
+		};
+		6497A1621B2F7DB80012E646 /* Future */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1631B2F7DB80012E646 /* BaseFutureTrait.php */,
+				6497A1641B2F7DB80012E646 /* CompletedFutureArray.php */,
+				6497A1651B2F7DB80012E646 /* CompletedFutureValue.php */,
+				6497A1661B2F7DB80012E646 /* FutureArray.php */,
+				6497A1671B2F7DB80012E646 /* FutureArrayInterface.php */,
+				6497A1681B2F7DB80012E646 /* FutureInterface.php */,
+				6497A1691B2F7DB80012E646 /* FutureValue.php */,
+				6497A16A1B2F7DB80012E646 /* MagicFutureTrait.php */,
+			);
+			path = Future;
+			sourceTree = "<group>";
+		};
+		6497A16B1B2F7DB80012E646 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				6497A16C1B2F7DB80012E646 /* bootstrap.php */,
+				6497A16D1B2F7DB80012E646 /* Client */,
+				6497A1761B2F7DB80012E646 /* CoreTest.php */,
+				6497A1771B2F7DB80012E646 /* Future */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		6497A16D1B2F7DB80012E646 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				6497A16E1B2F7DB80012E646 /* CurlFactoryTest.php */,
+				6497A16F1B2F7DB80012E646 /* CurlHandlerTest.php */,
+				6497A1701B2F7DB80012E646 /* CurlMultiHandlerTest.php */,
+				6497A1711B2F7DB80012E646 /* MiddlewareTest.php */,
+				6497A1721B2F7DB80012E646 /* MockHandlerTest.php */,
+				6497A1731B2F7DB80012E646 /* server.js */,
+				6497A1741B2F7DB80012E646 /* Server.php */,
+				6497A1751B2F7DB80012E646 /* StreamHandlerTest.php */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		6497A1771B2F7DB80012E646 /* Future */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1781B2F7DB80012E646 /* CompletedFutureArrayTest.php */,
+				6497A1791B2F7DB80012E646 /* CompletedFutureValueTest.php */,
+				6497A17A1B2F7DB80012E646 /* FutureArrayTest.php */,
+				6497A17B1B2F7DB80012E646 /* FutureValueTest.php */,
+			);
+			path = Future;
+			sourceTree = "<group>";
+		};
+		6497A17C1B2F7DB80012E646 /* streams */ = {
+			isa = PBXGroup;
+			children = (
+				6497A17D1B2F7DB80012E646 /* .gitignore */,
+				6497A17E1B2F7DB80012E646 /* .travis.yml */,
+				6497A17F1B2F7DB80012E646 /* CHANGELOG.rst */,
+				6497A1801B2F7DB80012E646 /* composer.json */,
+				6497A1811B2F7DB80012E646 /* LICENSE */,
+				6497A1821B2F7DB80012E646 /* Makefile */,
+				6497A1831B2F7DB80012E646 /* phpunit.xml.dist */,
+				6497A1841B2F7DB80012E646 /* README.rst */,
+				6497A1851B2F7DB80012E646 /* src */,
+				6497A19B1B2F7DB80012E646 /* tests */,
+			);
+			path = streams;
+			sourceTree = "<group>";
+		};
+		6497A1851B2F7DB80012E646 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1861B2F7DB80012E646 /* AppendStream.php */,
+				6497A1871B2F7DB80012E646 /* AsyncReadStream.php */,
+				6497A1881B2F7DB80012E646 /* BufferStream.php */,
+				6497A1891B2F7DB80012E646 /* CachingStream.php */,
+				6497A18A1B2F7DB80012E646 /* DroppingStream.php */,
+				6497A18B1B2F7DB80012E646 /* Exception */,
+				6497A18E1B2F7DB80012E646 /* FnStream.php */,
+				6497A18F1B2F7DB80012E646 /* GuzzleStreamWrapper.php */,
+				6497A1901B2F7DB80012E646 /* InflateStream.php */,
+				6497A1911B2F7DB80012E646 /* LazyOpenStream.php */,
+				6497A1921B2F7DB80012E646 /* LimitStream.php */,
+				6497A1931B2F7DB80012E646 /* MetadataStreamInterface.php */,
+				6497A1941B2F7DB80012E646 /* NoSeekStream.php */,
+				6497A1951B2F7DB80012E646 /* NullStream.php */,
+				6497A1961B2F7DB80012E646 /* PumpStream.php */,
+				6497A1971B2F7DB80012E646 /* Stream.php */,
+				6497A1981B2F7DB80012E646 /* StreamDecoratorTrait.php */,
+				6497A1991B2F7DB80012E646 /* StreamInterface.php */,
+				6497A19A1B2F7DB80012E646 /* Utils.php */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6497A18B1B2F7DB80012E646 /* Exception */ = {
+			isa = PBXGroup;
+			children = (
+				6497A18C1B2F7DB80012E646 /* CannotAttachException.php */,
+				6497A18D1B2F7DB80012E646 /* SeekException.php */,
+			);
+			path = Exception;
+			sourceTree = "<group>";
+		};
+		6497A19B1B2F7DB80012E646 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				6497A19C1B2F7DB80012E646 /* AppendStreamTest.php */,
+				6497A19D1B2F7DB80012E646 /* AsyncReadStreamTest.php */,
+				6497A19E1B2F7DB80012E646 /* BufferStreamTest.php */,
+				6497A19F1B2F7DB80012E646 /* CachingStreamTest.php */,
+				6497A1A01B2F7DB80012E646 /* DroppingStreamTest.php */,
+				6497A1A11B2F7DB80012E646 /* Exception */,
+				6497A1A31B2F7DB80012E646 /* FnStreamTest.php */,
+				6497A1A41B2F7DB80012E646 /* GuzzleStreamWrapperTest.php */,
+				6497A1A51B2F7DB80012E646 /* InflateStreamTest.php */,
+				6497A1A61B2F7DB80012E646 /* LazyOpenStreamTest.php */,
+				6497A1A71B2F7DB80012E646 /* LimitStreamTest.php */,
+				6497A1A81B2F7DB80012E646 /* NoSeekStreamTest.php */,
+				6497A1A91B2F7DB80012E646 /* NullStreamTest.php */,
+				6497A1AA1B2F7DB80012E646 /* PumpStreamTest.php */,
+				6497A1AB1B2F7DB80012E646 /* StreamDecoratorTraitTest.php */,
+				6497A1AC1B2F7DB80012E646 /* StreamTest.php */,
+				6497A1AD1B2F7DB80012E646 /* UtilsTest.php */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		6497A1A11B2F7DB80012E646 /* Exception */ = {
+			isa = PBXGroup;
+			children = (
+				6497A1A21B2F7DB80012E646 /* SeekExceptionTest.php */,
+			);
+			path = Exception;
+			sourceTree = "<group>";
+		};
 		64A1D8C81B28E47600768066 /* layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -6730,6 +7701,7 @@
 				64A8047B1B0677C000FEA5D7 /* danielstjules */,
 				64A8048D1B0677C000FEA5D7 /* dnoegel */,
 				64A804981B0677C000FEA5D7 /* doctrine */,
+				6497A0981B2F7DB80012E646 /* guzzlehttp */,
 				64A804D61B0677C000FEA5D7 /* ircmaxell */,
 				64A804DD1B0677C000FEA5D7 /* jakub-onderka */,
 				64A805041B0677C000FEA5D7 /* jeremeamia */,
@@ -6746,6 +7718,7 @@
 				64A80FA31B0677C300FEA5D7 /* psy */,
 				64A810811B0677C300FEA5D7 /* sebastian */,
 				64A811161B0677C300FEA5D7 /* services.json */,
+				6497A0571B2F43690012E646 /* socialiteproviders */,
 				64A811171B0677C300FEA5D7 /* swiftmailer */,
 				64A812DC1B0677C300FEA5D7 /* symfony */,
 				64A818B41B0677C500FEA5D7 /* vlucas */,
@@ -7382,6 +8355,7 @@
 		64A8051B1B0677C000FEA5D7 /* laravel */ = {
 			isa = PBXGroup;
 			children = (
+				6497A0771B2F43F00012E646 /* socialite */,
 				64A8051C1B0677C000FEA5D7 /* framework */,
 			);
 			path = laravel;
