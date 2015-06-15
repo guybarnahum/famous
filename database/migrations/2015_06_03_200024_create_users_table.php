@@ -126,6 +126,7 @@ class CreateUsersTable extends Migration {
                         $table->enum  ( 'size'    , $photo_sizes    );
                         $table->string( 'dataset' );
                        
+                        $table->string( 'hash' )->nullable();
                         // state and permission
                        
                         $photo_states =

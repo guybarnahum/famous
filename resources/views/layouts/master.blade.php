@@ -62,6 +62,9 @@
     </head>
 <body>
 
+    @if ( isset($user) && isset($user->accounts) )
+
+    @endif
 
     <header id="masthead" class="navbar navbar-sticky swatch-{{ $color or "black" }}-white" role="banner">
         <div class="container">

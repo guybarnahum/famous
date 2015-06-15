@@ -25,6 +25,7 @@ class AuthorizeSocialiteUser{
     {
         $s_user = $this->socialite->driver($provider)->user();
         
+        // enhace s_user with 'provider'
         if ( !empty( $s_user ) ){
             $s_user->provider = $provider;
         }
@@ -41,7 +42,8 @@ class AuthorizeSocialiteUser{
     public function handleProviderCallback($request, $listener, $provider)
     {
         // TODO: FIXME: add error checks for failures!
-        
+        // Follow https://github.com/SammyK/LaravelFacebookSdk#ioc-container
+        // 
         // attempt to obtain socialite user data from provider
         $err = null;
         $ok  = true;
