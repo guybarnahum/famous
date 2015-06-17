@@ -1,17 +1,25 @@
-@extends('app')
+@extends('layouts.master', [ 'user'     => isset($user    )? $user    :null,
+                             'accounts' => isset($accounts)? $accounts:null,
+                            ] )
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-heading">Home</div>
 
-				<div class="panel-body">
-					You are logged in!
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+    @if(!isset($user))
+        @if ( $warn='No one is logged in') @endif
+        @if ( $msg = isset($msg)? $msg.','.$warn : $warn ) @endif
+    @endif
+
+    @if(isset($msg))
+        @include('message.info', array('title'=> (isset($title)? $title:null),
+                                       'msg'  => $msg ) )
+    @endif
+
+    @if (isset($user))
+        @include('user.info',array('user'=>$user))
+    @endif
+
+    @if (isset($accounts))
+        @include('user.accounts', array('accounts' => $accounts ))
+    @endif
+
 @endsection

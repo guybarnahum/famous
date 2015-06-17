@@ -11,24 +11,25 @@
 |
 */
 
-Route::get('/'   , 'WelcomeController@index');
+Route::get('/'   , 'HomeController@index');
 Route::get('home', 'HomeController@index');
-Route::get('user', 'UserController@index' );
     
 // ........................................................... login/{provider?}
 //
-// Used to login for third party service, see config/services.php
-// The provider parameter is the dataset (eg: Twitter),
-// so the view would have a link that looks like this:
-//
+// Social logins
+// Used to login for socialite providers, see config/services.php
 //    <a href="/login/twitter">Login in with Twitter</a>
 //
 
-Route::get('login/{provider?}', 'Auth\AuthController@login');
+Route::get('login/{provider?}'    , 'Auth\AuthController@autorizeWithProvider'  );
+Route::get('callback/{provider?}' , 'Auth\AuthController@handleProviderCallback');
+
+Route::get('logout_p/{provider?}' , 'Auth\AuthController@logoutFromProvider'    );
+Route::get('logout'               , 'Auth\AuthController@logout'    );
 
 // ................................................................. controllers
 
 Route::controllers([
-	'auth'     => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+//	'auth'     => 'Auth\AuthController',
+//	'password' => 'Auth\PasswordController',
 ]);
