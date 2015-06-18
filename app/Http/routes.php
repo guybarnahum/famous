@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('api/callback', 'api\CallbackController@index');
+Route::post('api/callback', 'api\CallbackController@create');
+
 Route::get('/'   , 'HomeController@index');
 Route::get('home', 'HomeController@index');
     
