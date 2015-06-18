@@ -1,5 +1,5 @@
 [famous]
-some_ini_key="blah"
+provider_ns=facebook,linkedin,twitter,googleplus
 
 [facebook]
 key=""
@@ -11,4 +11,8 @@ secret=""
 
 [twitter]
 key=""
-secret=""]
+secret=""
+
+[googleplus]
+key=""
+secret=""

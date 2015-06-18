@@ -11,6 +11,8 @@ use Illuminate\Http\Response;
 class CallbackController extends Controller {
 
     /**
+     * Some providers postback data onto callbacks using GET
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -20,11 +22,22 @@ class CallbackController extends Controller {
         return Response::create('ok', 200);
 	}
 
-	public function create(Request $request)
+    /**
+     * Handles data posted back (callback) from provider
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function create(Request $request)
 	{
         print_r($request->all());
         return Response::create('ok', 200);
 	}
+
+    private function distribute($payload) {
+
+        // distribute to some subscribers, normalize, and store
+    }
 
 	/**
 	 * Store a newly created resource in storage.
