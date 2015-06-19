@@ -58,10 +58,10 @@ class AccountRepository {
         // get all the account(s) information we have for user
         if ($user){
             $accounts = Account::where( 'uid', $user->id )->get();
-            $user->accounts= $accounts;
         }
         
-        return $user;
+        $res = array( 'user' => $user, 'accounts' => $accounts );
+        return $res;
     }
     
     public function update_accountBySociliteUser( $account, $userData )

@@ -37,18 +37,25 @@ return [
     'twitter' => [
         'client_id'     => env('TWITTER_CLIENT_ID'),
         'client_secret' => env('TWITTER_CLIENT_SECRET'),
-        'redirect'      => env('OATH_REDIRECT_URL') . '/login/twitter',
+        'redirect'      => env('OATH_REDIRECT_URL') . '/twitter',
     ],
 
     'facebook' => [
-    'client_id'     => env('FACEBOOK_CLIENT_ID'),
-    'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-    'redirect'      => env('OATH_REDIRECT_URL') . '/login/facebook',
+        'client_id'     => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect'      => env('OATH_REDIRECT_URL') . '/facebook',
     ],
 
     'linkedin' => [
         'client_id'     => env('LINKEDIN_CLIENT_ID'),
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
-        'redirect'      => env('OATH_REDIRECT_URL') . '/login/linkedin',
+        'redirect'      => env('OATH_REDIRECT_URL') . '/linkedin',
+    ],
+    
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('OATH_REDIRECT_URL') . '/google',
     ]
+
 ];
