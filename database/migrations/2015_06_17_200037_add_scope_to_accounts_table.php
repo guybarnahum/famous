@@ -16,7 +16,11 @@ class AddScopeToAccountsTable extends Migration {
                       {
                         $table->string('scope_request')->after('expired_at')
                                                        ->nullable();
+<<<<<<< Updated upstream
                         $table->string('scope_granted')->after('expired_at')
+=======
+                        $table->string('scope_granted')->after('scope_request')
+>>>>>>> Stashed changes
                                                        ->nullable();
                         $table->string('scope_denied' )->after('scope_granted')
                                                        ->nullable();

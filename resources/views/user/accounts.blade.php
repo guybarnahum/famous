@@ -44,9 +44,18 @@
                                         </button>
                                         <ul class="dropdown-menu" style='position:absolute;z-index:1' role="menu">
                                             <li style='font-size:xx-small'>
-                                                <a href='#?token={{$account->access_token}}'>
-                                                {{ $account->access_token }}</a>
+                                                token:<a href='#?token={{$account->access_token}}' style='text-align:left'>
+                                                {{ $account->access_token }}
+                                                </a>
                                             </li>
+                                            <li style='font-size:xx-small'>
+                                                best by:{{ $account->expired_at }}
+                                            </li>
+                                            @if (!empty($account->scope_request))
+                                            <li style='font-size:xx-small'>
+                                                scope:{{ $account->scope_request}}
+                                            </li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </td>

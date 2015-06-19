@@ -23,11 +23,13 @@ class AuthorizeSocialiteUser{
     
     private function get_socialiteUserData( $provider )
     {
-        $s_user = $this->socialite->driver($provider)->user();
+        $s_user    = $this->socialite->driver($provider)->user();
+        $scope_req = $this->accounts->get_scopes( $provider );
         
         // enhace s_user with 'provider'
         if ( !empty( $s_user ) ){
-            $s_user->provider = $provider;
+            $s_user->provider     = $provider;
+            $s_user->scope_request= $scope_req;
         }
         
         return $s_user;
@@ -35,6 +37,22 @@ class AuthorizeSocialiteUser{
     
     public function autorizeWithProvider($request, $listener, $provider)
     {
+        // setup autorization scopes
+        $scope_request =  $this->accounts->get_scopes( $provider );
+        
+        if (!empty($scope_request)){
+            $scopes = explode(';',$scope_request);
+            $this->socialite->driver($provider)->scopes( $scopes );
+        }
+        
+        // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
+        
+        if ( $provider == 'facebook' ){
+            $this->socialite->driver($provider)->authType( 'reauthenticate' );
+        }
+        
+        // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
+            
         // redirect for autorization from socialite provider
         return $this->socialite->driver($provider)->redirect();
     }
@@ -45,55 +63,39 @@ class AuthorizeSocialiteUser{
         // Follow https://github.com/SammyK/LaravelFacebookSdk#ioc-container
         //
         // attempt to obtain socialite user data from provider
-        $err = '';
-        $ok  = true;
+        $err = false;
         
         try{
             $s_user = $this->get_socialiteUserData( $provider );
+            
+            // validate $s_user
+            if (!isset($s_user->token)){
+                $err = 'Failed to autorize ' . $provider;
+            }
         }
         catch( \Exception $e) {
             $err = $e->getMessage();
-            $ok  = false;
         }
-        
-        // validate $s_user
-        if ( $ok && !isset($s_user->token) ){
-            $err .= 'Failed to authorize ' . $provider;
-            $ok   = false;
-        }
-
-        if (!$ok){
-            // keeps things the way they are with an err message
-            return $listener->updateUser( null, null, $err );
-        }
-        
-        // We have a valid $s_user from socialite!
-        
+ 
         // attempt to map to user from soclite user account
         // if not found create account / user from socilite account
-        $res = $this->accounts->find_userBySociliteUser( $s_user        ,
-                                                         $update = true ,
-                                                         $create = true );
-        // we better have a user at this stage!
+        $res = (object)[];
         
-        // finally login our user
-        
-        // FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK!
-        
-        // What is the best way to handle user context?
-        if ( isset( $res[ 'accounts' ] ) ){
-            $accounts = $res[ 'accounts' ];
+        if (empty($err)){
+            $res = $this->accounts->find_userBySociliteUser( $s_user        ,
+                                                             $update = true ,
+                                                             $create = true );
         }
         
-        $user = isset( $res[ 'user' ] )? $res[ 'user' ] : null;
+        $accounts = isset( $res->accounts )? $res->accounts : null;
+        $user     = isset( $res->user     )? $res->user     : null;
         
-        if (!empty($user)){
+        // finally login our user
+        if ( $user instanceof App\Models\User ){
             $this->auth->login( $user, true );
         }
         
-        // FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK! FIXME! HACK!
-
-        return $listener->updateUser( $user, $accounts );
+        return $listener->updateUser( $user, $accounts, $err );
     }
     
     public function logoutFromProvider($request, $listener, $provider)

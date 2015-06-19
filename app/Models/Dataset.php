@@ -12,6 +12,7 @@ class Dataset extends Model {
     protected $fillable = [ 'provider'  ,
                             'api_key'   , 'api_secret',
                             'driver'    ,
-                            'oath_callback_uri'
+                            'oath_callback_uri',
+                            'scope',
                         ];
 }

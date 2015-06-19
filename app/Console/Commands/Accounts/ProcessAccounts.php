@@ -23,6 +23,16 @@ class ProcessAccounts extends Command {
 	 */
 	protected $description = 'Command description.';
     
+<<<<<<< Updated upstream
+=======
+    /**
+     * An abort flag on critical errors
+     *
+     * @var bool
+     */
+    protected $abort_req = false;
+    
+>>>>>>> Stashed changes
 	/**
 	 * Create a new command instance.
 	 *
@@ -45,14 +55,57 @@ class ProcessAccounts extends Command {
         $accts = Account::All();
         
         foreach( $accts as $act ){
+<<<<<<< Updated upstream
             if ( $act->provider == 'facebook' ){
                 $this->info( '--> processing ' . print_r($act,true));
                 $res = $this->process_facebook( $act );
                 $this->info( print_r( $res, true ) );
+=======
+            
+            $this->info( '--> start processing ' . $act->toString() );
+        
+            if ( $act->provider == 'facebook' ){
+                $ok = $this->process_facebook( $act );
+            }
+        
+            $this->info( '<-- end processing ' . $act->toString());
+            
+            // Sometimes we find a problem that is beyond and account problem
+            // ..
+            if ( $this->needsAbort() ){
+                $this->error( 'Aborting! >> ' . $this->needsAbort() );
+                break;
+>>>>>>> Stashed changes
             }
         }
 	}
 
+<<<<<<< Updated upstream
+=======
+    /**
+     * Set an abort request on critical errors
+     *
+     *
+     * @return $this
+     */
+    public function abort_request( $set = true )
+    {
+        $this->abort_req = $set;
+        return $this;
+    }
+    
+    /**
+     *
+     * Does it need an abort?
+     *
+     * @return bool
+     */
+    public function needsAbort()
+    {
+        return $this->abort_req;
+    }
+    
+>>>>>>> Stashed changes
     // ............................................................... nice_time
     public function nice_time( $seconds )
     {
@@ -90,15 +143,37 @@ class ProcessAccounts extends Command {
         return $ok;
     }
     
+<<<<<<< Updated upstream
     // ............................................................ extend_token
     //
     // TODO FIXME! Does not handle time zone correctly.. boo!
+=======
+    // .............................................................. token_info
+    public function token_info( $fb, $act )
+    {
+        $endpoint = '/debug_token?input_token=' . $act->access_token;
+        return $this->fb_graph_api( $fb, $endpoint );
+    }
+    
+    // ............................................................ extend_token
+    //
+    // TODO FIXME! Does not handle time zone correctly.. boo!
+    // TODO Revalidate expiration from facebook not our database.. boo!
+>>>>>>> Stashed changes
     //
     public function extend_token( $fb, $act )
     {
         $ok = $this->validate_account( $act );
         if (!$ok) return false;
         
+<<<<<<< Updated upstream
+=======
+        $info = $this->token_info( $fb, $act );
+        $delta = time() - $info[ 'expires_at' ];
+        
+        $this->info( 'token info :' . $this->nice_time($delta) );
+        
+>>>>>>> Stashed changes
         $token_expired  = true;
         $token          = $act->access_token;
         $oauth_client   = $fb->getOAuth2Client();
@@ -114,8 +189,13 @@ class ProcessAccounts extends Command {
             $delta = time() - $expired_at_time;
             $token_expired = $delta > 0;
                 
+<<<<<<< Updated upstream
             $this->info( 'token set to expire at '  . $act[ 'expired_at' ] .
                     ' (' . $this->nice_time($delta) . ')'
+=======
+            $this->info( 'token set to expire at '    . $act[ 'expired_at' ] .
+                    ' (' . $this->nice_time( $delta ) . ')'
+>>>>>>> Stashed changes
                     );
         
             // try to extend token
@@ -133,10 +213,13 @@ class ProcessAccounts extends Command {
             }
         }
         
+<<<<<<< Updated upstream
         if (!$token_expired){
             $this->info( 'token still good. ' . print_r($token,true));
         }
         
+=======
+>>>>>>> Stashed changes
         if ( $ok && $token_expired ){
             
             // make sure we use updated token
@@ -167,16 +250,42 @@ class ProcessAccounts extends Command {
     
     // ............................................................ fb_graph_api
     // '/me?fields=id,name,email'
+<<<<<<< Updated upstream
     public function fb_graph_api( $fb, $endpoint )
     {
+=======
+    public function fb_graph_api( $fb, $endpoint, $fields = false)
+    {
+        if (!empty($fields)){
+            $endpoint .= '?fields=' . $fields;
+        }
+        
+        $this->error( '>>' . $endpoint );
+        
+>>>>>>> Stashed changes
         try {
             $token = $fb->getDefaultAccessToken();
             $res = $fb->get( $endpoint, $token );
             
+<<<<<<< Updated upstream
         } catch (Facebook\Exceptions\FacebookSDKException $e) {
             $err = $e->getMessage();
             $res = (object)[ 'err'      => $err       ,
                              'endpoint' => $endpoint  ];
+=======
+        }
+        catch( \Exception $e )
+        {
+            $err = $e->getMessage();
+            $res = (object)[ 'err' => $err, 'endpoint' => $endpoint ];
+        }
+        
+        if ( $res instanceof \Facebook\FacebookResponse ){
+             $res = $res->getDecodedBody();
+             if ( is_array( $res ) && isset($res['data']) ){
+                 $res = $res[ 'data' ];
+             }
+>>>>>>> Stashed changes
         }
         
         return $res;
@@ -189,6 +298,7 @@ class ProcessAccounts extends Command {
         // Activate DELETE /{user-id}/permissions
     }
     
+<<<<<<< Updated upstream
     // .................................................. facebook_app_status
     // facebook app status for account
     
@@ -214,6 +324,8 @@ class ProcessAccounts extends Command {
         return $ok;
     }
     
+=======
+>>>>>>> Stashed changes
     // ........................................................ process_facebook
     
     public function process_facebook( $act )
@@ -228,6 +340,7 @@ class ProcessAccounts extends Command {
         $fb->setDefaultAccessToken( $token );
         $this->extend_token($fb, $act);
 
+<<<<<<< Updated upstream
         $res = (object)[];
         
         // api version
@@ -244,6 +357,44 @@ class ProcessAccounts extends Command {
         $res->graph_api[ '/' . $fb_uid ] = $this->fb_graph_api( $fb, '/' . $fb_uid );
         $res->graph_api[ '/me/friends' ] = $this->fb_graph_api( $fb, '/me/friends' );
          */
+=======
+        $u = '/' . $act->provider_uid;
+
+        // app status
+        $ver        = $fb->getDefaultGraphVersion();;
+        $this->info( 'Graph API/' . $ver );
+        $perms = $this->fb_graph_api( $fb, $u . '/permissions');
+
+        if ( is_array($perms)){
+                foreach( $perms as $perm ){
+                    $this->info( 'Permision `' . $perm[ 'permission'] .
+                                 '` was '      . $perm[ 'status'    ] );
+                }
+        }
+        else{
+            $this->error( 'Failed to obtain $perms' );
+            $this->error( print_r($perms,true) );
+        }
+        
+        /*
+        $res->rerequest_url = $fb->getReRequestUrl(['email']);
+        
+        $this->facebook_app_status($fb,$act);
+        $res->graph_api = array();
+         */
+
+        $res = (object)[];
+        $res->graph_api[ $u ] = $this->fb_graph_api( $fb, $u );
+        $res->graph_api[ '/me/bio'    ] = $this->fb_graph_api( $fb, $u , 'bio'  );
+        $res->graph_api[ '/me/friends'] = $this->fb_graph_api( $fb, $u . '/friends');
+        $res->graph_api[ '/me/family' ] = $this->fb_graph_api( $fb, $u . '/family' );
+        $res->graph_api[ '/me/likes'  ] = $this->fb_graph_api( $fb, $u . '/likes'  );
+        $res->graph_api[ '/me/albums' ] = $this->fb_graph_api( $fb, $u . '/albums' );
+        $res->graph_api[ '/me/photos' ] = $this->fb_graph_api( $fb, $u . '/photos' );
+        $res->graph_api[ '/me/cover'  ] = $this->fb_graph_api( $fb, $u . '/cover'  );
+        
+        $this->info( 'result:' . print_r($res,true));
+>>>>>>> Stashed changes
         return $res;
     }
     

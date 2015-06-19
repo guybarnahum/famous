@@ -148,6 +148,12 @@ return [
          */
         'SocialiteProviders\Manager\ServiceProvider',
     
+    
+        /*
+         * Facebook Providers...
+         */
+        'SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider',
+    
 		/*
 		 * Application Service Providers...
 		 */
@@ -185,6 +191,7 @@ return [
         'Debugbar'  => 'Barryvdh\Debugbar\Facade',
 		'Eloquent'  => 'Illuminate\Database\Eloquent\Model',
 		'Event'     => 'Illuminate\Support\Facades\Event',
+        'Facebook'  => 'SammyK\LaravelFacebookSdk\FacebookFacade',
 		'File'      => 'Illuminate\Support\Facades\File',
         'Form'      => 'Illuminate\Html\FormFacade',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',

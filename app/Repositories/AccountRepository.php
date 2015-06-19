@@ -2,9 +2,18 @@
 
 use App\Models\Account;
 use App\Models\User;
+use App\Models\Dataset;
+    
 use Hash;
     
 class AccountRepository {
+    
+    public function get_scopes( $provider )
+    {
+        $ds = Dataset::where( 'provider', '=', $provider )->first();
+        $scopes = ( $ds instanceof Dataset )? $ds->scope : false;
+        return $scopes;
+    }
     
     public function find_userBySociliteUser( $userData      ,
                                              $update = true ,
@@ -38,16 +47,18 @@ class AccountRepository {
         // if we have a user and in create mode than make one!
         
         if( !$account && isset($user->id) && $create ) {
+            
             $account = Account::create([
-                                         'uid'          => $user->id,
-                                         'provider'     => $userData->provider,
-                                         'provider_uid' => $userData->id,
-                                         'access_token' => $userData->token,
-                                         'name'         => $userData->name,
-                                         'username'     => $userData->nickname,
-                                         'email'        => $userData->email,
-                                         'avatar'       => $userData->avatar,
-                                         'active' => 1,
+                                     'uid'          => $user->id,
+                                     'provider'     => $userData->provider,
+                                     'provider_uid' => $userData->id,
+                                     'access_token' => $userData->token,
+                                     'scope_request'=> $userData->scope_request,
+                                     'name'         => $userData->name,
+                                     'username'     => $userData->nickname,
+                                     'email'        => $userData->email,
+                                     'avatar'       => $userData->avatar,
+                                     'active' => 1,
                                 ]);
         }
         
@@ -60,16 +71,17 @@ class AccountRepository {
             $accounts = Account::where( 'uid', $user->id )->get();
         }
         
-        $res = array( 'user' => $user, 'accounts' => $accounts );
+        $res = (object)[ 'user' => $user, 'accounts' => $accounts ];
         return $res;
     }
     
     public function update_accountBySociliteUser( $account, $userData )
-    {
+    {        
         $socialiteData = [
         'avatar'       => $userData->avatar,
         'email'        => $userData->email,
         'access_token' => $userData->token,
+        'scope_request'=> $userData->scope_request,
         'username'     => $userData->nickname,
         'name'         => $userData->name,
         ];
@@ -77,7 +89,8 @@ class AccountRepository {
         $dbData = [
         'avatar'       => $account->avatar,
         'email'        => $account->email,
-        'access_token' => $userData->token,
+        'access_token' => $account->token,
+        'scope_request'=> $account->scope_request,
         'username'     => $account->username,
         'name'         => $account->name,
         ];
@@ -90,6 +103,7 @@ class AccountRepository {
             $account->avatar       = $userData->avatar;
             $account->email        = $userData->email;
             $account->access_token = $userData->token;
+            $account->scope_request= $userData->scope_request;
             $account->name         = $userData->name;
             $account->username     = $userData->nickname;
             
