@@ -23,8 +23,6 @@ class ProcessAccounts extends Command {
 	 */
 	protected $description = 'Command description.';
     
-<<<<<<< Updated upstream
-=======
     /**
      * An abort flag on critical errors
      *
@@ -32,7 +30,6 @@ class ProcessAccounts extends Command {
      */
     protected $abort_req = false;
     
->>>>>>> Stashed changes
 	/**
 	 * Create a new command instance.
 	 *
@@ -55,12 +52,6 @@ class ProcessAccounts extends Command {
         $accts = Account::All();
         
         foreach( $accts as $act ){
-<<<<<<< Updated upstream
-            if ( $act->provider == 'facebook' ){
-                $this->info( '--> processing ' . print_r($act,true));
-                $res = $this->process_facebook( $act );
-                $this->info( print_r( $res, true ) );
-=======
             
             $this->info( '--> start processing ' . $act->toString() );
         
@@ -75,13 +66,10 @@ class ProcessAccounts extends Command {
             if ( $this->needsAbort() ){
                 $this->error( 'Aborting! >> ' . $this->needsAbort() );
                 break;
->>>>>>> Stashed changes
             }
         }
 	}
 
-<<<<<<< Updated upstream
-=======
     /**
      * Set an abort request on critical errors
      *
@@ -105,7 +93,6 @@ class ProcessAccounts extends Command {
         return $this->abort_req;
     }
     
->>>>>>> Stashed changes
     // ............................................................... nice_time
     public function nice_time( $seconds )
     {
@@ -143,12 +130,8 @@ class ProcessAccounts extends Command {
         return $ok;
     }
     
-<<<<<<< Updated upstream
-    // ............................................................ extend_token
-    //
-    // TODO FIXME! Does not handle time zone correctly.. boo!
-=======
     // .............................................................. token_info
+
     public function token_info( $fb, $act )
     {
         $endpoint = '/debug_token?input_token=' . $act->access_token;
@@ -159,21 +142,17 @@ class ProcessAccounts extends Command {
     //
     // TODO FIXME! Does not handle time zone correctly.. boo!
     // TODO Revalidate expiration from facebook not our database.. boo!
->>>>>>> Stashed changes
     //
     public function extend_token( $fb, $act )
     {
         $ok = $this->validate_account( $act );
         if (!$ok) return false;
         
-<<<<<<< Updated upstream
-=======
         $info = $this->token_info( $fb, $act );
         $delta = time() - $info[ 'expires_at' ];
         
         $this->info( 'token info :' . $this->nice_time($delta) );
         
->>>>>>> Stashed changes
         $token_expired  = true;
         $token          = $act->access_token;
         $oauth_client   = $fb->getOAuth2Client();
@@ -189,13 +168,8 @@ class ProcessAccounts extends Command {
             $delta = time() - $expired_at_time;
             $token_expired = $delta > 0;
                 
-<<<<<<< Updated upstream
-            $this->info( 'token set to expire at '  . $act[ 'expired_at' ] .
-                    ' (' . $this->nice_time($delta) . ')'
-=======
             $this->info( 'token set to expire at '    . $act[ 'expired_at' ] .
                     ' (' . $this->nice_time( $delta ) . ')'
->>>>>>> Stashed changes
                     );
         
             // try to extend token
@@ -213,13 +187,6 @@ class ProcessAccounts extends Command {
             }
         }
         
-<<<<<<< Updated upstream
-        if (!$token_expired){
-            $this->info( 'token still good. ' . print_r($token,true));
-        }
-        
-=======
->>>>>>> Stashed changes
         if ( $ok && $token_expired ){
             
             // make sure we use updated token
@@ -250,10 +217,6 @@ class ProcessAccounts extends Command {
     
     // ............................................................ fb_graph_api
     // '/me?fields=id,name,email'
-<<<<<<< Updated upstream
-    public function fb_graph_api( $fb, $endpoint )
-    {
-=======
     public function fb_graph_api( $fb, $endpoint, $fields = false)
     {
         if (!empty($fields)){
@@ -262,17 +225,9 @@ class ProcessAccounts extends Command {
         
         $this->error( '>>' . $endpoint );
         
->>>>>>> Stashed changes
         try {
             $token = $fb->getDefaultAccessToken();
             $res = $fb->get( $endpoint, $token );
-            
-<<<<<<< Updated upstream
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            $err = $e->getMessage();
-            $res = (object)[ 'err'      => $err       ,
-                             'endpoint' => $endpoint  ];
-=======
         }
         catch( \Exception $e )
         {
@@ -285,7 +240,6 @@ class ProcessAccounts extends Command {
              if ( is_array( $res ) && isset($res['data']) ){
                  $res = $res[ 'data' ];
              }
->>>>>>> Stashed changes
         }
         
         return $res;
@@ -298,34 +252,6 @@ class ProcessAccounts extends Command {
         // Activate DELETE /{user-id}/permissions
     }
     
-<<<<<<< Updated upstream
-    // .................................................. facebook_app_status
-    // facebook app status for account
-    
-    public function facebook_app_status( $fb, $act )
-    {
-        $ok = $this->validate_account( $act );
-        
-        // GET graph.facebook.com/debug_token?
-        // input_token={token-to-inspect}
-        // &access_token={app-token-or-admin-token}
-        
-        $endpoint_req = '/debug_token?input_token=' . $act->access_token;
-        $res = $this->fb_graph_api( $fb, $endpoint_req);
-    
-        // analyze app status
-        //
-        // TODO: how do we react to issues with our app status? maybe just
-        // park it into permission issues database and have a separate job
-        // handle those?
-        //
-        $this->info( print_r($res,true));
-        
-        return $ok;
-    }
-    
-=======
->>>>>>> Stashed changes
     // ........................................................ process_facebook
     
     public function process_facebook( $act )
@@ -340,24 +266,6 @@ class ProcessAccounts extends Command {
         $fb->setDefaultAccessToken( $token );
         $this->extend_token($fb, $act);
 
-<<<<<<< Updated upstream
-        $res = (object)[];
-        
-        // api version
-        $res->api        = $fb->getDefaultGraphVersion();;
-        $res->app_status = $this->facebook_app_status($fb,$act);
-        
-        /*
-        $res->rerequest_url = $fb->getReRequestUrl(['email']);
-        $fb_uid = $act->provider_uid;
-        
-        $this->facebook_app_status($fb,$act);
-        $res->graph_api = array();
-        $res->graph_api[ $fb_uid . '/permissions'   ] = $this->fb_graph_api( $fb, $fb_uid . '/permissions'   );
-        $res->graph_api[ '/' . $fb_uid ] = $this->fb_graph_api( $fb, '/' . $fb_uid );
-        $res->graph_api[ '/me/friends' ] = $this->fb_graph_api( $fb, '/me/friends' );
-         */
-=======
         $u = '/' . $act->provider_uid;
 
         // app status
@@ -394,7 +302,6 @@ class ProcessAccounts extends Command {
         $res->graph_api[ '/me/cover'  ] = $this->fb_graph_api( $fb, $u . '/cover'  );
         
         $this->info( 'result:' . print_r($res,true));
->>>>>>> Stashed changes
         return $res;
     }
     

@@ -10,23 +10,24 @@
 #
 # $table->string( 'driver' ); // code to handle the dataset api
 # $table->string( 'oath_callback_uri' );
+# $table->string( 'scope' );
 #
 # ==============================================================================
 
 # self
-famous:0:0::
+famous:0:0:::
 
 # Major social datasets
-facebook::::
-linkedin::::
-twitter::::
+facebook:::::email;user_location;public_profile;user_friends;user_about_me;user_relationships;user_website;user_work_history;user_birthday;user_hometown;user_likes;user_relationship_details;read_custom_friendlists;user_religion_politics;user_education_history
+linkedin:::::
+twitter:::::
 
 # Interests
-qoura::::
+qoura:::::
 
 # Engineering
-stackoverflow::::
-github::::
+stackoverflow:::::
+github:::::
 
 # Google
-google::::
+google:::::

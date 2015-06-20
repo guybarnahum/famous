@@ -27,9 +27,11 @@ class AddScopeToDatasetsTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::table('accounts', function(Blueprint $table)
+        Schema::table('datasets', function(Blueprint $table)
                       {
-                      $table->dropColumn('scope');
+                          if (Schema::hasColumn('datasets', 'scope')){
+                                         $table->dropColumn('scope');
+                          }
                       });
 	}
 

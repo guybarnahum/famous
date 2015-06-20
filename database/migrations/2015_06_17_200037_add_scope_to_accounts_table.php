@@ -16,11 +16,7 @@ class AddScopeToAccountsTable extends Migration {
                       {
                         $table->string('scope_request')->after('expired_at')
                                                        ->nullable();
-<<<<<<< Updated upstream
-                        $table->string('scope_granted')->after('expired_at')
-=======
                         $table->string('scope_granted')->after('scope_request')
->>>>>>> Stashed changes
                                                        ->nullable();
                         $table->string('scope_denied' )->after('scope_granted')
                                                        ->nullable();
@@ -36,9 +32,15 @@ class AddScopeToAccountsTable extends Migration {
 	{
         Schema::table('accounts', function(Blueprint $table)
                       {
-                        $table->dropColumn('scope_request');
-                        $table->dropColumn('scope_granted');
-                        $table->dropColumn('scope_denied' );
+                            if (Schema::hasColumn('accounts', 'scope_request')){
+                                           $table->dropColumn('scope_request');
+                            }
+                            if (Schema::hasColumn('accounts', 'scope_granted')){
+                                           $table->dropColumn('scope_granted');
+                            }
+                            if (Schema::hasColumn('accounts', 'scope_denied')){
+                                           $table->dropColumn('scope_denied');
+                            }
                       });
 	}
 }

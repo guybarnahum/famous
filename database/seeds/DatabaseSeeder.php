@@ -196,7 +196,7 @@ class DatasetTableSeeder extends ParserSeeder {
         $this->fmt   = array( 'provider',
                               'api_key' , 'api_secret',
                               'driver'  ,
-                              'oath_callback_uri' );
+                              'oath_callback_uri', 'scope' );
         
         $this->model = 'App\Models\Dataset';
         
