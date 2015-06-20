@@ -51,6 +51,14 @@ class ProcessAccounts extends Command {
         $users = User::All();
         $accts = Account::All();
         
+        if (!is_array($accts)){
+            $this->info( count($accts) . ' accounts found' );
+        }
+        else{
+            $this->warning( 'not accounts found!');
+            return;
+        }
+        
         foreach( $accts as $act ){
             
             $this->info( '--> start processing ' . $act->toString() );
