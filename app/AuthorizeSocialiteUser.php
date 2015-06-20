@@ -63,7 +63,8 @@ class AuthorizeSocialiteUser{
         // Follow https://github.com/SammyK/LaravelFacebookSdk#ioc-container
         //
         // attempt to obtain socialite user data from provider
-        $err = false;
+        $err    = false;
+        $s_user = false;
         
         try{
             $s_user = $this->get_socialiteUserData( $provider );
@@ -81,7 +82,7 @@ class AuthorizeSocialiteUser{
         // if not found create account / user from socilite account
         $res = (object)[];
         
-        if (empty($err)){
+        if ($s_user){
             $res = $this->accounts->find_userBySociliteUser( $s_user        ,
                                                              $update = true ,
                                                              $create = true );
@@ -93,6 +94,10 @@ class AuthorizeSocialiteUser{
         // finally login our user
         if ( $user instanceof App\Models\User ){
             $this->auth->login( $user, true );
+        }
+        
+        if ($err){
+            \Debugbar::info( $err );
         }
         
         return $listener->updateUser( $user, $accounts, $err );
