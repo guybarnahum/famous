@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use App\Models\Account;
 use App\Models\User;
 
+use App\Components\DateTimeUtils;
+    
 class ProcessAccounts extends Command {
 
 	/**
@@ -101,30 +103,6 @@ class ProcessAccounts extends Command {
         return $this->abort_req;
     }
     
-    // ............................................................... nice_time
-    public function nice_time( $seconds )
-    {
-        $periods = array("second", "minute", "hour", "day",
-                         "week", "month", "year", "decade");
-        
-        $ratios  = array("60","60","24","7","4.35","12","10");
-        
-        $tense =    ( $seconds > 0 )? "ago":"from now";
-        $value = abs( $seconds );
-    
-        for($j = 0; $value >= $ratios[$j] && $j < count($ratios)-1; $j++) {
-            $value /= $ratios[$j];
-        }
-        
-        $value = round($value);
-        
-        if($value != 1) {
-            $periods[$j].= "s";
-        }
-        
-        return "$value $periods[$j] $tense";
-    }
-    
     // ........................................................ validate_account
     public function validate_account( $act, $provider = null )
     {
@@ -159,7 +137,7 @@ class ProcessAccounts extends Command {
         $info = $this->token_info( $fb, $act );
         $delta = time() - $info[ 'expires_at' ];
         
-        $this->info( 'token info :' . $this->nice_time($delta) );
+        $this->info( 'token info :' . DateTimeUtils::nice_time( $delta ) );
         
         $token_expired  = true;
         $token          = $act->access_token;
@@ -177,7 +155,7 @@ class ProcessAccounts extends Command {
             $token_expired = $delta > 0;
                 
             $this->info( 'token set to expire at '    . $act[ 'expired_at' ] .
-                    ' (' . $this->nice_time( $delta ) . ')'
+            ' ('  . DateTimeUtils::nice_time( $delta ) . ')'
                     );
         
             // try to extend token
@@ -266,6 +244,7 @@ class ProcessAccounts extends Command {
     {
         $ok = $this->validate_account( $act, 'facebook' );
         if ( !$ok ) return false;
+        $provider = $act->provider;
         
         $fb = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
         $token = $act->access_token;
@@ -299,15 +278,25 @@ class ProcessAccounts extends Command {
         $res->graph_api = array();
          */
 
-        $res = (object)[];
-        $res->graph_api[ $u ] = $this->fb_graph_api( $fb, $u );
-        $res->graph_api[ '/me/bio'    ] = $this->fb_graph_api( $fb, $u , 'bio'  );
-        $res->graph_api[ '/me/friends'] = $this->fb_graph_api( $fb, $u . '/friends');
-        $res->graph_api[ '/me/family' ] = $this->fb_graph_api( $fb, $u . '/family' );
-        $res->graph_api[ '/me/likes'  ] = $this->fb_graph_api( $fb, $u . '/likes'  );
-        $res->graph_api[ '/me/albums' ] = $this->fb_graph_api( $fb, $u . '/albums' );
-        $res->graph_api[ '/me/photos' ] = $this->fb_graph_api( $fb, $u . '/photos' );
-        $res->graph_api[ '/me/cover'  ] = $this->fb_graph_api( $fb, $u . '/cover'  );
+        $fact_owner = $provider . $u;
+        
+        $res = array( 'provider' => $provider, 'uid' => $act->provider_uid );
+        
+        $res[ 'user'   ] = $this->fb_graph_api( $fb, $u );
+        $res[ 'bio'    ] = $this->fb_graph_api( $fb, $u , 'bio'  );
+        $res[ 'friends'] = $this->fb_graph_api( $fb, $u . '/friends');
+        $res[ 'family' ] = $this->fb_graph_api( $fb, $u . '/family' );
+        $res[ 'likes'  ] = $this->fb_graph_api( $fb, $u . '/likes'  );
+        $res[ 'albums' ] = $this->fb_graph_api( $fb, $u . '/albums' );
+        $res[ 'photos' ] = $this->fb_graph_api( $fb, $u . '/photos' );
+        $res[ 'cover'  ] = $this->fb_graph_api( $fb, $u . '/cover'  );
+        
+        // handle bio
+        
+        // handle likes
+        
+        // handle errors
+        // TODO: collect all errors into an error array
         
         $this->info( 'result:' . print_r($res,true));
         return $res;
