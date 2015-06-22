@@ -5,7 +5,11 @@ class DateTimeUtils {
     // ............................................................... nice_time
     public static function nice_time( $seconds )
     {
-        if ( ! is_int( $seconds ) ) return false;
+        if ( !is_int( $seconds ) ){
+            // try our best to convert argument into relative seconds
+            $seconds = time() - strtotime( $seconds );
+            if ( false === $seconds ) return false;
+        }
         
         $periods = array("second", "minute", "hour", "day",
                          "week", "month", "year", "decade");

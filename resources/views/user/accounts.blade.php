@@ -49,7 +49,7 @@
                                                 </a>
                                             </li>
                                             <li style='font-size:xx-small'>
-                                                best by:{{ $account->expired_at }}
+                                            expiration {{ \App\Components\DateTimeUtils::nice_time($account->expired_at) }}
                                             </li>
                                             @if (!empty($account->scope_request))
                                             <li style='font-size:xx-small'>
