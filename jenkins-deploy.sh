@@ -8,14 +8,20 @@
 
 PWD=$(pwd)
 
-DST=${1-"/var/www/famous"}
-DOMAIN=${2-"http://famous.com:8080"}
+DST=$1
+DOMAIN=$2
 DT=$(date)
 TS=$(date +%s)
 GIT_VER=$(git describe 2>/dev/null)
 VER=$(echo "$GIT_VER-$TS")
 
 echo $VER
+
+# do we have a destination to deploy into?
+if [[ -z "$DST" ]]; then
+    echo "No destination path provided, aborting.."
+    exit 1
+fi
 
 # Check that we are running in a jenkins environment
 if [[ "$PWD" =~ "/var/lib/jenkins" ]]; then
@@ -40,8 +46,10 @@ else
     echo "Invalid jenkins environment $DST, timestamp, $DT";
 fi
 
+#
+# Attempt to inject build ver and oath callback variables
+#
 if [[ -e "$DST/.env" ]]; then
-    # inject build ver and oath callback variables
     OS=$(uname -s)
 
     # sed on Mac OS X is funny that way..
@@ -50,11 +58,15 @@ if [[ -e "$DST/.env" ]]; then
         EXT="-i .sav"
     fi
 
-    SUBS="s@^OATH_REDIRECT_URL=.*@OATH_REDIRECT_URL=$DOMAIN/callback@"
-    sudo sed -e  $SUBS -i $EXT "$DST/.env"
+    # inject oath_redirect_url if domain specified
+    if [[ ! -z "$DOMAIN" ]]; then
+        SUBS="s@^OATH_REDIRECT_URL=.*@OATH_REDIRECT_URL=$DOMAIN/callback@"
+        sudo sed -e $SUBS $EXT "$DST/.env"
+    fi
 
+    # inject build version
     SUBS="s@^BUILD_VER_STRING=.*@BUILD_VER_STRING=$VER@"
-    sudo sed -e  $SUBS -i $EXT "$DST/.env"
+    sudo sed -e $SUBS $EXT "$DST/.env"
 
 else
     echo "Could not locate .env file in $DST.."
