@@ -53,7 +53,7 @@ if [[ -e "$DST/.env" ]]; then
     OS=$(uname -s)
 
     # sed on Mac OS X is funny that way..
-    EXT=""
+    EXT="--in-place=.sav"
     if [[ "$OS" == "Darwin" ]]; then
         EXT="-i .sav"
     fi
