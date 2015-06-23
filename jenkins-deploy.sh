@@ -27,14 +27,14 @@ if [[ "$PWD" =~ "/var/lib/jenkins" ]]; then
     sudo chown --recursive www-data:www-data "$DST/"
     sudo chmod --recursive 777 "$DST/storage"
 
-    cd "/var/$DST"
+    cd "$DST"
     sudo cp --no-clobber --parents conf/famous.ini.dist "$DST"
 
     # Prime and migrate laraval
     # not sure how to resolve db conflicts!
     sudo composer --no-interaction update
-    sudo php artisan migrate
-    sudo php artisan db:seed
+    sudo php artisan --no-interaction migrate
+    sudo php artisan --no-interaction db:seed
 
 else
     echo "Invalid jenkins environment $DST, timestamp, $DT";
@@ -47,13 +47,13 @@ if [[ -e "$DST/.env" ]]; then
     # sed on Mac OS X is funny that way..
     EXT=""
     if [[ "$OS" == "Darwin" ]]; then
-        EXT=".sav"
+        EXT="-i .sav"
     fi
 
     SUBS="s@^OATH_REDIRECT_URL=.*@OATH_REDIRECT_URL=$DOMAIN/callback@"
     sudo sed -e  $SUBS -i $EXT "$DST/.env"
 
-    SUBS="s@^BUILD_VER_STRING=.*@BUILD_VER_STRING\=$VER@"
+    SUBS="s@^BUILD_VER_STRING=.*@BUILD_VER_STRING=$VER@"
     sudo sed -e  $SUBS -i $EXT "$DST/.env"
 
 else
