@@ -102,6 +102,7 @@
                 <a href="#">
                     <strong>famous</strong>
                     <image src="{{ asset('assets/images/logo.png') }}" alt='famous' width=128>
+                    <h5 style='font-size:xx-small'>{{ \App\Components\StringUtils::get_version() }}</h5>
                 </a>
             </div>
 
