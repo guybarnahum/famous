@@ -32,7 +32,7 @@ if [[ "$PWD" =~ "/var/lib/jenkins" ]]; then
 
     # Prime and migrate laraval
     # not sure how to resolve db conflicts!
-    sudo composer update
+    sudo composer --no-interaction update
     sudo php artisan migrate
     sudo php artisan db:seed
 
@@ -42,12 +42,19 @@ fi
 
 if [[ -e "$DST/.env" ]]; then
     # inject build ver and oath callback variables
+    OS=$(uname -s)
+
+    # sed on Mac OS X is funny that way..
+    EXT=""
+    if [[ "$OS" == "Darwin" ]]; then
+        EXT=".sav"
+    fi
 
     SUBS="s@^OATH_REDIRECT_URL=.*@OATH_REDIRECT_URL=$DOMAIN/callback@"
-    sudo sed -e  $SUBS -i .sav "$DST/.env"
+    sudo sed -e  $SUBS -i $EXT "$DST/.env"
 
     SUBS="s@^BUILD_VER_STRING=.*@BUILD_VER_STRING\=$VER@"
-    sudo sed -e  $SUBS -i .sav "$DST/.env"
+    sudo sed -e  $SUBS -i $EXT "$DST/.env"
 
 else
     echo "Could not locate .env file in $DST.."
