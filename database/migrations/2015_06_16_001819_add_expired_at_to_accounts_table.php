@@ -15,7 +15,7 @@ class AddExpiredAtToAccountsTable extends Migration {
 		Schema::table('accounts', function(Blueprint $table)
 		{
             $table->dateTime('expired_at')->after('access_token')
-                                          ->default(DB::raw('CURRENT_TIMESTAMP'));
+                                          ->default('1970-01-01 00:00:01');
 		});
 	}
 
