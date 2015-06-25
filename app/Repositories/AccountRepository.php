@@ -27,17 +27,20 @@ class AccountRepository {
         // no user for this socialite account?
         // if we are in create mode than make one!
         if ( !$user && $create ){
-            $user = User::create( [
-                                 'email'     => $userData->email,
-                                 'emails'    => $userData->email,
-                                 'password'  => Hash::make(''), // no password (yet?)
-                                 'name'      => $userData->name,
-                                 'slogan'    => '',
+
+                // TODO: Add errors for when db is malformed and we throw
+                // an exception in the App\Models\User
+                $user = User::create( [
+                                     'email'     => $userData->email,
+                                     'emails'    => $userData->email,
+                                     'password'  => Hash::make(''), // no password (yet?)
+                                     'name'      => $userData->name,
+                                     'slogan'    => '',
                                  
-                                 'pri_photo_large' => $userData->avatar,
-                                 'pri_photo_medium'=> $userData->avatar,
-                                 'pri_photo_small' => $userData->avatar
-                         ]);
+                                     'pri_photo_large' => $userData->avatar,
+                                     'pri_photo_medium'=> $userData->avatar,
+                                     'pri_photo_small' => $userData->avatar
+                                     ]);
         }
         
         // locate account
@@ -48,6 +51,9 @@ class AccountRepository {
         
         if( !$account && isset($user->id) && $create ) {
             
+            // TODO: Add errors for when db is malformed and we throw
+            // an exception in the App\Models\Account
+
             $account = Account::create([
                                      'uid'          => $user->id,
                                      'provider'     => $userData->provider,
@@ -106,6 +112,9 @@ class AccountRepository {
             $account->scope_request= $userData->scope_request;
             $account->name         = $userData->name;
             $account->username     = $userData->nickname;
+            
+            // TODO: Add errors for when db is malformed and we throw
+            // an exception in the App\Models\Account
             
             $account->save();
         }
