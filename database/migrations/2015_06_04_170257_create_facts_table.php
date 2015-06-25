@@ -55,29 +55,39 @@ class CreateFactsTable extends Migration {
                        // subject (who)
                        $table->unsignedInteger('uid');
                        $table->foreign('uid')->references('id')
-                                             ->on('users');
+                                             ->on('users')
+                                             ->onDelete('cascade')
+                                             ->onUpdate('cascade');
 
                        // object (to who)(null is n/a)
                        $table->unsignedInteger('obj_id');
                        $table->foreign('obj_id')->references('id')
                                                 ->on('users')
-                                                ->nullable();
-                       
+                                                ->nullable()
+                                                ->onDelete('cascade')
+                                                ->onUpdate('cascade');
+
                        // source (accroding to) (null is truth)
                        $table->unsignedInteger('src_id');
                        $table->foreign('src_id')->references('id')
                                                 ->on('users')
-                                                ->nullable();
+                                                ->nullable()
+                                                ->onDelete('cascade')
+                                                ->onUpdate('cascade');
 
                        // source dataset account (accroding to)(null is unknown)
                        $table->unsignedInteger('act_id');
                        $table->foreign('act_id')->references('id')
                                                 ->on('accounts')
-                                                ->nullable();
-
+                                                ->nullable()
+                                                ->onDelete('cascade')
+                                                ->onUpdate('cascade');
+                       
                        $table->unsignedInteger('fct_id');
                        $table->foreign('fct_id')->references('id')
-                                                ->on('fact_types');
+                                                ->on('fact_types')
+                                                ->onDelete('cascade')
+                                                ->onUpdate('cascade');
 
                        // source has no knowledge or refuse to comment
                        $table->boolean( 'refuse'    )->default( false );

@@ -43,12 +43,16 @@ class CreatePersonalityTable extends Migration {
                        
                        $table->unsignedInteger('uid');
                        $table->foreign('uid')->references('id')
-                                             ->on('users');
+                                             ->on('users')
+                                             ->onDelete('cascade')
+                                             ->onUpdate('cascade');
                        
                        $table->unsignedInteger('ptid');
                        $table->foreign('ptid')->references('id')
-                                              ->on('personality_types');
-                       
+                                              ->on('personality_types')
+                                              ->onDelete('cascade')
+                                              ->onUpdate('cascade');
+
                        $table->string( 'name' )->nullable();
                        $table->integer( 'value' );
                        $table->integer( 'error' );

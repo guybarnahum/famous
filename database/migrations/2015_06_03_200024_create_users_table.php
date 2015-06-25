@@ -69,12 +69,17 @@ class CreateUsersTable extends Migration {
                        // owner id in our system
                        $table->unsignedInteger('uid');
                        $table->foreign('uid')->references('id')
-                                             ->on('users');
+                                             ->on('users')
+                                             ->onDelete('cascade')
+                                             ->onUpdate('cascade');
                        
                        // dataset provider
                        $table->string ('provider');
                        $table->foreign('provider')->references('provider')
-                                                  ->on('datasets');
+                                                  ->on('datasets')
+                                                  ->onDelete('cascade')
+                                                  ->onUpdate('cascade');
+
                        // dataset provider access
                        $table->string('provider_uid' );
                        $table->string('access_token' )->nullable();
@@ -108,11 +113,16 @@ class CreateUsersTable extends Migration {
                         // photo owner
                         $table->unsignedInteger('uid');
                         $table->foreign('uid')->references('id')
-                                              ->on('users');
+                                              ->on('users')
+                                              ->onDelete('cascade')
+                                              ->onUpdate('cascade');
+
                         // photo account
                         $table->unsignedInteger('src_id');
                         $table->foreign('src_id')->references('id')
-                                                 ->on('accounts');
+                                                 ->on('accounts')
+                                                 ->onDelete('cascade')
+                                                 ->onUpdate('cascade');
                        
                         // info
                         $table->string( 'url' ); // url should be static / safe
