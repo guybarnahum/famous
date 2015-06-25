@@ -66,17 +66,17 @@ class AuthorizeSocialiteUser{
         $err    = false;
         $s_user = false;
         
-        try{
+        //try{
             $s_user = $this->get_socialiteUserData( $provider );
             
             // validate $s_user
             if (!isset($s_user->token)){
                 $err = 'Failed to autorize ' . $provider;
             }
-        }
-        catch( \Exception $e) {
-            $err = $e->getMessage();
-        }
+        //}
+        //catch( \Exception $e) {
+        //   $err = $e->getMessage();
+        // }
  
         // attempt to map to user from soclite user account
         // if not found create account / user from socilite account
