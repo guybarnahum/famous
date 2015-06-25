@@ -11,17 +11,16 @@ class EventServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $listen = [
-    
-        // Using SocialiteProviders http://socialiteproviders.github.io/
-    
         'SocialiteProviders\Manager\SocialiteWasCalled' => [
+        'App\Components\SocialiteEx\FacebookProviderExtendSocialite@handle',
         'SocialiteProviders\LinkedIn\LinkedInExtendSocialite@handle',
+        ],
 //        'SocialiteProviders\Twitter\TwitterExtendSocialite@handle',
 //        'SocialiteProviders\Facebook\FacebookExtendSocialite@handle',
 //        'SocialiteProviders\Google\GoogleExtendSocialite@handle',
 //        'SocialiteProviders\Instagram\InstagramExtendSocialite@handle',
 //        'SocialiteProviders\YouTube\YouTubeExtendSocialite@handle',
-        ],
+//      ],
     
         'event.name' => [
 			'EventListener',

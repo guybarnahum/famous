@@ -1,5 +1,5 @@
 <?php namespace App;
-// AuthorizeSocialiteUser.php
+
 use Illuminate\Contracts\Auth\Guard;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
@@ -12,7 +12,7 @@ class AuthorizeSocialiteUser{
     private $auth;
     private $accounts;
     
-    public function __construct(Socialite     $socialite    ,
+    public function __construct(Socialite         $socialite    ,
                                 Guard             $auth     ,
                                 AccountRepository $accounts )
     {
@@ -23,7 +23,7 @@ class AuthorizeSocialiteUser{
     
     private function get_socialiteUserData( $provider )
     {
-        $s_user    = $this->socialite->driver($provider)->user();
+        $s_user    = $this->socialite->with($provider)->user();
         $scope_req = $this->accounts->get_scopes( $provider );
         
         // enhace s_user with 'provider'
@@ -42,19 +42,19 @@ class AuthorizeSocialiteUser{
         
         if (!empty($scope_request)){
             $scopes = explode(';',$scope_request);
-            $this->socialite->driver($provider)->scopes( $scopes );
+            $this->socialite->with($provider)->scopes( $scopes );
         }
         
         // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
         
         if ( $provider == 'facebook' ){
-            $this->socialite->driver($provider)->authType( 'reauthenticate' );
+            $this->socialite->with($provider)->authType( 'reauthenticate' );
         }
         
         // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
             
         // redirect for autorization from socialite provider
-        return $this->socialite->driver($provider)->redirect();
+        return $this->socialite->with($provider)->redirect();
     }
     
     public function handleProviderCallback($request, $listener, $provider)
