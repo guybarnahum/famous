@@ -5,7 +5,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 use App\Models\Account;    
-use App\Components\FactFactory\AccountFactFactory;
+use App\Components\FactsFactory\AccountFactsFactory;
+use App\Components\FactsFactory\AccountFactsContract;
     
 class ProcessAccounts extends Command {
 
@@ -52,24 +53,35 @@ class ProcessAccounts extends Command {
         
         foreach( $accts as $act ){
             
-            $this->info( '--> start processing ' . $act->toString() );
-            $res = null;
+            $this->info( '--> Start processing ' . $act->toString() );
+            $msg = '';
             
             try{
-                $facts  = AccountFactFactory::make( $act );
-                $res    = $facts->process( $act ) ;
-                $this->info( 'result:' . print_r($res,true));
+                $facts  = AccountFactsFactory::make( $act );
+                
+                if ( $facts instanceof AccountFactsContract ){
+                    
+                    $output = array($this, 'info');
+                    
+                    $facts->set_output( $output )
+                          ->process   ( $act    );
+                }
+                else{
+                    $msg = 'Failed to make fact factory for '. $act->toString();
+                }
             }
             catch( \InvalidArgumentException $e )
             {
-                $this->info ( $e->getMessage() );
+                $msg = '\InvalidArgumentException : ' . $e->getMessage();
             }
             catch( \Exception $e) {
-                $this->error( $e->getMessage() );
+                
+                $msg = '\Exception : ' . $e->getMessage();
                 $this->abort_request();
             }
             
-            $this->info( '<-- end processing ' . $act->toString());
+            $this->info( $msg );
+            $this->info( '<-- End processing ' . $act->toString());
             
             // When we find a problem that is beyond a single account problem..
             if ( $this->needsAbort() ){

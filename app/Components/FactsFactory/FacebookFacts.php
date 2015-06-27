@@ -1,34 +1,24 @@
-<?php namespace App\Components\FactFactory;
+<?php namespace App\Components\FactsFactory;
+    
+use App\Components\FactsFactory\AccountFactsContract;
+use App\Components\FactsFactory\AccountFacts;
     
 use App\Models\Fact;
     
-class FacebookFacts{
+class FacebookFacts extends AccountFacts{
     
     private $fb;
-    public  $output;
     
     function __construct()
     {
         $this->fb = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
-        $output   = array();
     }
     
-    // ................................................. set_output / get_output
-    public function set_output( $str, $obj = false )
+    // ................................................... set_token / get_token
+    public function set_token( $act )
     {
-        if ( $obj ) $str .= ':' . print_r( $obj, true );
-        $this->output[] = $str;
-    }
-    
-    public function get_output()
-    {
-        return $this->output;
-    }
-    
-    // ................................................ fb set_token / get_token
-    public function set_token( $token )
-    {
-        $this->set_output('set_token'. $token);
+        $token = $act->access_token;
+        $this->output('set_token'. $token);
 
         $this->fb->setDefaultAccessToken( $token );
         return $this;
@@ -37,13 +27,6 @@ class FacebookFacts{
     public function get_token()
     {
         return $this->fb->getDefaultAccessToken();
-    }
-
-    // .................................................................... fact
-    
-    protected function fact( array $fields )
-    {
-        \App\Models\Fact::create(  $fields );
     }
     
     // ............................................................... graph_api
@@ -62,7 +45,7 @@ class FacebookFacts{
         }
         catch( \Exception $e )
         {
-            $err = $e->getMessage();
+            $err = get_class($this).' - ('.$endpoint.')'.$e->getMessage();
             $res = (object)[ 'err' => $err, 'endpoint' => $endpoint ];
         }
         
@@ -89,41 +72,37 @@ class FacebookFacts{
     // TODO FIXME! Does not handle time zone correctly.. boo!
     // TODO Revalidate expiration from facebook not our database.. boo!
     //
-    public function extend_token( $token = null, $exp = null )
+    public function extend_token( $act, $exp = null )
     {
-        if ( empty($token)){
-            $token = $this->get_token();
-        }
+        $token = $this->get_token();
         
         // obtain expiration time for token
         if ( empty( $exp ) ){
          
             $info = $this->token_info( $token );
             
-            if (isset( $info['expires_at'] )){
-                $exp = $info['expires_at'] ;
+            if (isset( $info->expires_at )){
+                $exp = $info->expires_at ;
             }
         }
     
-        $this->set_output('extend_token:exp='.$exp);
-        
+        // strtotime may be === false
         $exp_time = empty( $exp )? (time() - 1): strtotime( $exp );
- 
-        $this->set_output( 'extend_token:(exp_time:' . $exp_time .'vs now:' . time() );
         
         // if we have exp_time check if we expired already (<= time())
         // if we could not find exp_time try to extend (true)
         $needs_extending = ($exp_time !== false)? $exp_time <= time() : true;
         $ok = true;
         
-        $this->set_output( 'extend_token:needs_extending=' . ($needs_extending? 'Yes':'No'));
+        $msg = 'extend_token:needs_extending='.($needs_extending? 'Yes':'No');
+        $this->output( $msg );
        
         if ( $needs_extending ){
             try {
                 $token = $this->fb->getOAuth2Client()
                                   ->getLongLivedAccessToken( $token );
                 
-                $this->set_output( 'extend_token:new token=' . print_r($token,true) );
+                $this->output( 'extend_token:new token=' . print_r($token,true));
                 $ok = !empty( $token );
                 
             } catch (Facebook\Exceptions\FacebookSDKException $e) {
@@ -134,116 +113,43 @@ class FacebookFacts{
         // we have a newer token!
         if ( $ok && $needs_extending ){
             
-            // make sure we use updated token
-            $this->set_token( $token );
-            
             // update account with better token
             if ( $token instanceof \Facebook\Authentication\AccessToken ){
                 $act->access_token = $token->getValue();
                 $act->expired_at   = $token->getExpiresAt()->format("Y-m-d H:i:s");
             }
-             else{
-                $msg =  "unknown token object";
+            else{
+                $msg  = 'App\Components\FactFactory\FacebookFacts';
+                $msg .= '::extend_token - unknown token object';
                 throw new Facebook\Exceptions\FacebookSDKException( $msg );
             }
             
-            $this->set_output( 'extend_token:act:save=' . $act->toString() );
+            // save into account db
+            $msg = 'extend_token: act updated - ' . $act->toString();
+            $this->output( $msg );
             $act->save();
+            
+            // make sure we use updated token
+            $this->set_token( $act );
         }
         
         return $this;
     }
-    
-    public function process_birthday ( $act, $user )
-    {
-        return $this;
-    }
-    
-    public function prepare_fact( $act, $val_type = 'bool', $value = 'true' )
-    {
-        $fact_fields = [
-            'uid'         =>  $act->uid,
-            // who claims the fact
-            'act_id'      =>  $act->id,
         
-            // responses to fact question
-            'val_type'    =>  $val_type,
-            'value'       =>  $value,
-            
-            // accuracy / confidence
-            'error'       => '',
-            'score'       => 0,
-            'confidence'  => 0,
-        ];
-        
-        return $fact_fields;
-    }
-    
-    public function process_education( $act, $user )
-    {
-        $ok = isset( $user[ 'education' ] );
-        
-        if ($ok){
-            
-            foreach( $user[ 'education' ] as $entry ){
-                
-                $school_id   = $entry[ 'school' ][ 'id'   ];
-                $school_name = $entry[ 'school' ][ 'name' ];
-                
-                switch( $entry[ 'type' ] ){
-                    case 'College' : $fct_name = '.college'; break;
-                }
-                
-                $fct_name = 'education' . $fct_name;
-                
-                $fields = [
-                        'uid'         =>  $act->uid,
-                        'obj_provider_id' => $school_id,
-                        'obj_id_type' => 'facebook:education:id',
-                        'obj_name'    =>  $school_name,
-            
-                        // who claims the fact
-                        'act_id'      =>  $act->id,
-            
-                        // fact type
-                        'fct_name'    =>  $fct_name,
-            
-                        // responses to fact question
-                        'val_type'    =>  'bool',
-                        'value'       =>  'true',
-            
-                        // accuracy / confidence
-                        'error'       => '',
-                        'score'       => 0,
-                        'confidence'  => 0,
-                ];
-                
-                // avoid duplicates..
-                Fact::firstOrCreate( $fields );
-            }
-            
-            $this->set_output( 'process_education:>>' . $fct_name . ',' .
-                                                        $school_name    );
-        }
-        
-        return $this;
-    }
-    
     // ................................................................. process
     
     public function process( $act )
     {
         // first things first : set the token so we can talk to graph api
-        $this->set_token( $act->access_token )
-             ->extend_token();
+        $this->set_token( $act )
+             ->extend_token( $act );
  
         $user = $this->graph_api( '/me' );
         
         $this->process_education( $act, $user )
              ->process_birthday ( $act, $user );
         
-        
-        $this->set_output('/me', $user );
+        $this->output( '/me', $user );
         
         return $this->output;
         
