@@ -12,6 +12,14 @@ class Account extends Model {
     protected $table = 'accounts';
     
     /**
+     * The name of the "created at" column.
+     * We reused the create date as a default for the expiration for the token
+     * with the expectation that it would be set to a valid value
+     * @var string
+     */
+    const CREATED_AT = 'expired_at';
+    
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -20,6 +28,7 @@ class Account extends Model {
                             'provider'      ,
                             'provider_uid'  ,
                             'access_token'  ,
+                            'expired_at'    ,
                             'scope_request' ,
                             'scope_granted' ,
                             'scope_denied'  ,

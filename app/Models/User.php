@@ -30,7 +30,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                             'pri_photo_large' ,
                             'pri_photo_medium',
                             'pri_photo_small' ,
-    
                             'created_at',
                             'updated_at',
                             ];

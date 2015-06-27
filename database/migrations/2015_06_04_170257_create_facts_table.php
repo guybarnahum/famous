@@ -46,9 +46,9 @@ class CreateFactsTable extends Migration {
         // [A] liked [B]'s post on Facebook according to [truth]
         // [A] is a good manager according to [truth]
         //
-        Schema::dropIfExists( 'fact_entries' );
+        Schema::dropIfExists( 'facts' );
         
-        Schema::create( 'fact_entries', function(Blueprint $table)
+        Schema::create( 'facts', function(Blueprint $table)
                        {
                        $table->increments('id');
                        
@@ -60,35 +60,46 @@ class CreateFactsTable extends Migration {
                                              ->onUpdate('cascade');
 
                        // object (to who)(null is n/a)
-                       $table->unsignedInteger('obj_id');
+                       $table->unsignedInteger('obj_id')
+                             ->nullable();
+                       
                        $table->foreign('obj_id')->references('id')
                                                 ->on('users')
-                                                ->nullable()
                                                 ->onDelete('cascade')
                                                 ->onUpdate('cascade');
 
+                       $table->string( 'obj_provider_id');
+                       $table->string( 'obj_id_type');
+                       $table->string( 'obj_name'   );
+
                        // source (accroding to) (null is truth)
-                       $table->unsignedInteger('src_id');
+                       $table->unsignedInteger('src_id')
+                             ->nullable();
+                       
                        $table->foreign('src_id')->references('id')
                                                 ->on('users')
-                                                ->nullable()
                                                 ->onDelete('cascade')
                                                 ->onUpdate('cascade');
 
                        // source dataset account (accroding to)(null is unknown)
-                       $table->unsignedInteger('act_id');
+                       $table->unsignedInteger('act_id')
+                             ->nullable();
+                       
                        $table->foreign('act_id')->references('id')
                                                 ->on('accounts')
-                                                ->nullable()
                                                 ->onDelete('cascade')
                                                 ->onUpdate('cascade');
                        
-                       $table->unsignedInteger('fct_id');
+                       $table->unsignedInteger('fct_id')
+                             ->nullable();
+                       
                        $table->foreign('fct_id')->references('id')
                                                 ->on('fact_types')
                                                 ->onDelete('cascade')
                                                 ->onUpdate('cascade');
 
+                       $table->string('fct_name');
+                       
                        // source has no knowledge or refuse to comment
                        $table->boolean( 'refuse'    )->default( false );
                        $table->boolean( 'dont_know' )->default( false );
@@ -120,7 +131,7 @@ class CreateFactsTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExists( 'fact_entries' );
+        Schema::dropIfExists( 'facts' );
         Schema::dropIfExists( 'fact_types' );
 	}
     

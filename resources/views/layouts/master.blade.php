@@ -121,16 +121,24 @@
                     <a href="{{ $url['google'] }}/google"><i class="fa fa-google-plus" style="{{ $style['google' ]}}"></i></a>
                 </li>
 
-                @if ( isset($user)&&!empty($user ))
                 <li>
+                @if ( isset($user)&&!empty( $user ))
                     <img class='img-circle' width=64px
-                         src='{{ $user->pri_photo_large or "assets/images/logo.png" }}'
-                          alt={{ $user->name }} />
+                        src='{{ $user->pri_photo_large or "assets/images/user.png" }}'
+                        alt={{ $user->name }}   />
+                @else
+                    <img class='img-circle' width=64px
+                        src="assets/images/user.png"
+                        alt='famous'   />
+                @endif
                 </li>
                 <li>
+                @if ( isset($user)&&!empty( $user ))
                     <a href="logout"><i class="fa fa-sign-out"></i></a>
-                </li>
+                @else
+<a style="opacity:0.2;"><i class="fa fa-sign-in"></i></a>
                 @endif
+                </li>
             </ul>
             </nav>
         </div>

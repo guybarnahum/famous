@@ -11,7 +11,6 @@ class PersonalityEntry extends Model {
      */
     protected $table = 'personality_entries';
 
-    
     /**
      * The attributes that are mass assignable.
      *

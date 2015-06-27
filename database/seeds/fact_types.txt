@@ -13,9 +13,49 @@
 #
 # ==============================================================================
 
-birth:$s was born on $date:When was $s born:desc:time
-employment:$s worked for $o as $work_role:Did $s worked at $o:desc:bool
-employment_role:$s worked for $o as $work_role:Did $s was a $work_role at $o:desc:bool
-employment_title:$s was $work_title at $o:Was $s title at $o, $work_title:desc:bool
-employment_period:$s worked for $o from $time_start to $end_date:Did $s worked for $o between $time_start to $end_time:desc:bool
+--debug
+
+null:void:void:desc:bool
+
+\start:$fact from $start:Did $fact from $start:desc:bool
+\end:$fact until $end:Did $fact until $end:desc:bool
+\period:$fact from $start to $end:Did $fact from $start until $end:desc:bool
+\date:$fact on $date:Did $fact on $date:desc:bool
+\date:$fact on $date:When did $fact:desc:time
+
+birth:$s was born:Was $s born:desc:bool
+death:$s is dead:Is $s dead:desc:bool
+
+place.hometown:$s is from $place:Is $s from $place:desc:bool
+place.lived:$s lived at $place:Did $s lived at $place:desc:bool
+place.visited:$s visited $place:Did $s visited $place:desc:bool
+
+employment:$s worked for $o:Did $s worked at $o:desc:bool
+employment.role:$s worked for $o as $work_role:Did $s was a $work_role at $o:desc:bool
+employment.title:$s was $work_title at $o:Was $s title at $o, $work_title:desc:bool
+
+education:$s attended $o:Did $s attended $o:desc:bool
+education.graduate:$s attended $o:Did $s attended $o:desc:bool
+education.college:$s attended $o:Did $s attended $o:desc:bool
+education.school:$s attended $o:Did $s attended $o:desc:bool
+education.school.elementary:$s attended $o:Did $s attended $o:desc:bool
+education.school.middle:$s attended $o:Did $s attended $o:desc:bool
+education.school.high:$s attended $o:Did $s attended $o:desc:bool
+
 friendship:$s and $o are friends:Are $s and $o friends:desc:bool
+friendship.close:::desc:bool
+friendship.casual:::desc:bool
+friendship.distant:::desc:bool
+friendship.inactive:::desc:bool
+friendship.significant_other.girlfriend:::desc:bool
+friendship.significant_other.boyfriend:::desc:bool
+friendship.significant_other.dating:::desc:bool
+
+family:$s and $o are related:Are $s and $o related:desc:bool
+family.significant_other:$s is $o significant other:Is $s, $o's significant other:desc:bool
+family.mother:$s's mother is $o:Is $o, $s's mother:desc:bool
+family.father:$s's father is $o:Is $o, $s's father:desc:bool
+family.sister:$s's sister is $o:Is $o, $s's sister:desc:bool
+family.brother:$s's brother is $o:Is $o, $s's brother:desc:bool
+family.uncle:$s's uncle is $o:Is $o, $s's uncle:desc:bool
+family.aunt:$s's aunt is $o:Is $o, $s's aunt:desc:bool

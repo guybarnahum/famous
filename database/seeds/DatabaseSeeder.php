@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder {
 
 class ParserSeeder extends Seeder{
     
+    private   $debug = false;
+    
     protected $file  ;
     protected $fmt   ;
     protected $table ;
@@ -39,17 +41,38 @@ class ParserSeeder extends Seeder{
     
     protected function is_comment( $line )
     {
-        $line = trim( $line );
-        
         if (  empty($line)       ) return true;
         if (  $line[0] == ';'    ) return true;
         if (  $line[0] == '#'    ) return true;
         
         if ( ($line[0] == '/' ) &&
-            ($line[1] == '/' )  ) return true;
+             ($line[1] == '/' )  ) return true;
         
         // not a comment line
         return false;
+    }
+    
+    protected function is_option( $line )
+    {
+        if (( $line[0] != '-' )||
+            ( $line[1] != '-' ) ) return false;
+        
+        // its an option line, yay!
+        $options = explode( '--', $line );
+        
+        foreach( $options as $option ){
+            
+            // skip 'false' options..
+            $option = trim( $option);
+            if (empty($option)) continue;
+            
+            switch( $option ){
+            case 'debug': case 'dbg': case 'verbose': $this->debug = true;break;
+            default: $this->command->error('unknown option '.$option)    ;break;
+            }
+        }
+        
+        return true;
     }
     
     // ............................................................ process_line
@@ -119,8 +142,13 @@ class ParserSeeder extends Seeder{
             
             foreach( $lines as $ix => $line ){
                 
+                $line = trim( $line );
+
                 // skip comments
                 if ( $this->is_comment( $line ) ) continue;
+
+                // process options and skip line
+                if ( $this->is_option ( $line ) ) continue;
                 
                 // process lines
                 $ds = $this->process_line( $line );
@@ -132,10 +160,16 @@ class ParserSeeder extends Seeder{
                     break;
                 }
                 
+                // debug output
+                if ( $this->debug ){
+                     $this->command->info( 'parse >> ' . $line );
+                }
+                
                 // Create an db entry with $ds
                 try{
                     $model_create = array($this->model, 'create');
                     $ok = is_callable( $model_create );
+                    
                     if ($ok){
                         call_user_func( $model_create, $ds );
                     }
