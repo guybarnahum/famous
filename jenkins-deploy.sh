@@ -10,6 +10,8 @@ PWD=$(pwd)
 
 DST=$1
 DOMAIN=$2
+OPT=$3
+
 DT=$(date)
 TS=$(date +%s)
 GIT_VER=$(git describe 2>/dev/null)
@@ -38,9 +40,23 @@ if [[ "$PWD" =~ "/var/lib/jenkins" ]]; then
 
     # Prime and migrate laraval
     # not sure how to resolve db conflicts!
-    sudo composer --no-interaction update
-    sudo php artisan --no-interaction migrate
-    sudo php artisan --no-interaction db:seed
+    if [[ $OPT == *"composer"*  ]];then
+        echo "+ composer update"
+        sudo composer --no-interaction update
+        echo "- composer update"
+    fi
+
+    if [[ $OPT == *"migrate"* ]];then
+        echo "+ artisan migrate"
+        sudo php artisan --no-interaction migrate
+        echo "- artisan migrate"
+    fi
+
+    if [[ $OPT == *"seed"* ]]; then
+        echo "+ artisan db:seed"
+        sudo php artisan --no-interaction db:seed
+        echo "- artisan db:seed"
+    fi
 
 else
     echo "Invalid jenkins environment $DST, timestamp, $DT";
