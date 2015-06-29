@@ -3,5 +3,5 @@
 interface AccountFactsContract
 {
     public function set_output( $output );
-    public function process( $act );
+    public function process();
 }

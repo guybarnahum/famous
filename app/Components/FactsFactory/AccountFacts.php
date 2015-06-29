@@ -1,14 +1,22 @@
 <?php namespace App\Components\FactsFactory;
     
 use App\Components\FactsFactory\AccountFactsContract;
+use App\Components\DataMapper;
 
 use App\Models\Fact;
     
 abstract class AccountFacts implements AccountFactsContract{
-        
-    private $act             = null;
-    private $output_callback = false;
+    
+    protected   $mapper;
+    protected   $act             = null;
+    private     $output_callback = false;
 
+    function __construct( $act )
+    {
+        $this->act     = $act;
+        $this->mapper = new DataMapper();
+    }
+    
     // .............................................................. set_output
     public function set_output( $output_callback )
     {
@@ -33,17 +41,17 @@ abstract class AccountFacts implements AccountFactsContract{
     
     // .................................................................... fact
     
-    public function process_birthday ( $act, $user )
+    public function process_birthday ( $user )
     {
         return $this;
     }
     
-    public function prepare_fact( $act, $val_type = 'bool', $value = 'true' )
+    public function prepare_fact( $val_type = 'bool', $value = 'true' )
     {
         $fact_fields = [
-        'uid'         =>  $act->uid,
+        'uid'         =>  $this->act->uid,
         // who claims the fact
-        'act_id'      =>  $act->id,
+        'act_id'      =>  $this->act->id,
         
         // responses to fact question
         'val_type'    =>  $val_type,
@@ -58,7 +66,7 @@ abstract class AccountFacts implements AccountFactsContract{
         return $fact_fields;
     }
     
-    public function process_education( $act, $user )
+    public function process_obj( $obj_name )
     {
         $ok = isset( $user[ 'education' ] );
         
@@ -76,7 +84,7 @@ abstract class AccountFacts implements AccountFactsContract{
                 $fct_name = 'education' . $fct_name;
                 
                 $fields = [
-                'uid'         =>  $act->uid,
+                'uid'         =>  $this->act->uid,
                 'obj_provider_id' => $school_id,
                 'obj_id_type' => 'facebook:education:id',
                 'obj_name'    =>  $school_name,

@@ -25,7 +25,7 @@ class AccountFactsFactory{
         $provider = $act->provider;
         
         switch( $provider ){
-            case 'facebook' : return new FacebookFacts();
+            case 'facebook' : return new FacebookFacts( $act );
         }
     
         // unsupported provider!

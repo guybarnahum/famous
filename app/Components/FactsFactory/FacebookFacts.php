@@ -9,15 +9,31 @@ class FacebookFacts extends AccountFacts{
     
     private $fb;
     
-    function __construct()
+    private static $MAP = [
+    
+            // obj name : src_path : tgt_path
+    
+            // education tgt
+            'facebook/user:education/*/school/id:education/obj_provider_id',
+            'facebook/user:education/*/school/name:education/obj_name',
+            'facebook/user:education/*/type:education/fct_name',
+    
+            // hometown tgt
+            'facebook/user:hometown/id:hometown/obj_provider_id',
+            'facebook/user:hometown/name:hometown/obj_name',
+            ];
+    
+    function __construct( $act )
     {
+        parent::__construct( $act );
         $this->fb = \App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
+        $this->mapper->setup( self::$MAP );
     }
     
     // ................................................... set_token / get_token
-    public function set_token( $act )
+    public function set_token()
     {
-        $token = $act->access_token;
+        $token = $this->act->access_token;
         $this->output('set_token'. $token);
 
         $this->fb->setDefaultAccessToken( $token );
@@ -72,7 +88,7 @@ class FacebookFacts extends AccountFacts{
     // TODO FIXME! Does not handle time zone correctly.. boo!
     // TODO Revalidate expiration from facebook not our database.. boo!
     //
-    public function extend_token( $act, $exp = null )
+    public function extend_token( $exp = null )
     {
         $token = $this->get_token();
         
@@ -115,8 +131,8 @@ class FacebookFacts extends AccountFacts{
             
             // update account with better token
             if ( $token instanceof \Facebook\Authentication\AccessToken ){
-                $act->access_token = $token->getValue();
-                $act->expired_at   = $token->getExpiresAt()->format("Y-m-d H:i:s");
+                $this->act->access_token = $token->getValue();
+                $this->act->expired_at   = $token->getExpiresAt()->format("Y-m-d H:i:s");
             }
             else{
                 $msg  = 'App\Components\FactFactory\FacebookFacts';
@@ -125,12 +141,12 @@ class FacebookFacts extends AccountFacts{
             }
             
             // save into account db
-            $msg = 'extend_token: act updated - ' . $act->toString();
+            $msg = 'extend_token: act updated - ' . $this->act->toString();
             $this->output( $msg );
-            $act->save();
+            $this->act->save();
             
             // make sure we use updated token
-            $this->set_token( $act );
+            $this->set_token();
         }
         
         return $this;
@@ -138,16 +154,21 @@ class FacebookFacts extends AccountFacts{
         
     // ................................................................. process
     
-    public function process( $act )
+    public function process()
     {
         // first things first : set the token so we can talk to graph api
-        $this->set_token( $act )
-             ->extend_token( $act );
+        $this->set_token()
+             ->extend_token();
  
         $user = $this->graph_api( '/me' );
         
-        $this->process_education( $act, $user )
-             ->process_birthday ( $act, $user );
+        $this->output( $this->mapper->toString() );
+        $tgt_objs = $this->mapper->map( 'facebook/user', $user );
+        $this->output( 'facebook/user', $tgt_objs );
+        /*
+        $this->process_education( $user )
+             ->process_birthday ( $user );
+        */
         
         $this->output( '/me', $user );
         
