@@ -26,21 +26,24 @@ null:void:void:desc:bool
 birth:$s was born:Was $s born:desc:bool
 death:$s is dead:Is $s dead:desc:bool
 
+gender:$s is $o:Is $s a $o:$desc:string
+
+place.at:$s is in $place:Is $s in $place:desc:bool
 place.hometown:$s is from $place:Is $s from $place:desc:bool
 place.lived:$s lived at $place:Did $s lived at $place:desc:bool
 place.visited:$s visited $place:Did $s visited $place:desc:bool
 
-employment:$s worked for $o:Did $s worked at $o:desc:bool
-employment.role:$s worked for $o as $work_role:Did $s was a $work_role at $o:desc:bool
-employment.title:$s was $work_title at $o:Was $s title at $o, $work_title:desc:bool
+work:$s worked for $o:Did $s worked at $o:desc:bool
+work.role:$s worked for $o as $work_role:Did $s was a $work_role at $o:desc:bool
+work.title:$s was $title at $o:Was $s a $title at $o:desc:bool
 
 education:$s attended $o:Did $s attended $o:desc:bool
-education.graduate:$s attended $o:Did $s attended $o:desc:bool
-education.college:$s attended $o:Did $s attended $o:desc:bool
 education.school:$s attended $o:Did $s attended $o:desc:bool
 education.school.elementary:$s attended $o:Did $s attended $o:desc:bool
 education.school.middle:$s attended $o:Did $s attended $o:desc:bool
 education.school.high:$s attended $o:Did $s attended $o:desc:bool
+education.school.college:$s attended $o:Did $s attended $o:desc:bool
+education.school.graduate:$s attended $o:Did $s attended $o:desc:bool
 
 friendship:$s and $o are friends:Are $s and $o friends:desc:bool
 friendship.close:::desc:bool
@@ -52,6 +55,10 @@ friendship.significant_other.boyfriend:::desc:bool
 friendship.significant_other.dating:::desc:bool
 
 family:$s and $o are related:Are $s and $o related:desc:bool
+
+family.status:$s is $o:Is $s $o:desc:string
+family.status.married:$s is married:Is $s married:desc:bool
+
 family.significant_other:$s is $o significant other:Is $s, $o's significant other:desc:bool
 family.mother:$s's mother is $o:Is $o, $s's mother:desc:bool
 family.father:$s's father is $o:Is $o, $s's father:desc:bool

@@ -18,6 +18,7 @@ abstract class AccountFacts implements AccountFactsContract{
     }
     
     // .............................................................. set_output
+    
     public function set_output( $output_callback )
     {
         if (!is_callable($output_callback)){
@@ -30,6 +31,7 @@ abstract class AccountFacts implements AccountFactsContract{
     }
     
     // .................................................................. output
+    
     protected function output( $str, $obj = false )
     {
         if (is_callable($this->output_callback)){
@@ -38,81 +40,77 @@ abstract class AccountFacts implements AccountFactsContract{
         }
         return $this;
     }
-    
-    // .................................................................... fact
-    
-    public function process_birthday ( $user )
+
+    // ........................................................... validate_fact
+
+    protected function validate_fact( $fact )
     {
-        return $this;
+        // TODO : Do a better job in validating $fact.. should we use ORM?
+        $ok = is_array( $fact ) && isset( $fact['fct_name'] );
+        return $ok;
     }
     
-    public function prepare_fact( $val_type = 'bool', $value = 'true' )
-    {
-        $fact_fields = [
-        'uid'         =>  $this->act->uid,
-        // who claims the fact
-        'act_id'      =>  $this->act->id,
-        
-        // responses to fact question
-        'val_type'    =>  $val_type,
-        'value'       =>  $value,
-        
-        // accuracy / confidence
-        'error'       => '',
-        'score'       => 0,
-        'confidence'  => 0,
-        ];
-        
-        return $fact_fields;
-    }
+    // ........................................................ prepare_one_fact
     
-    public function process_obj( $obj_name )
+    protected function prepare_one_fact( $type, $fact )
     {
-        $ok = isset( $user[ 'education' ] );
-        
-        if ($ok){
-            
-            foreach( $user[ 'education' ] as $entry ){
-                
-                $school_id   = $entry[ 'school' ][ 'id'   ];
-                $school_name = $entry[ 'school' ][ 'name' ];
-                
-                switch( $entry[ 'type' ] ){
-                    case 'College' : $fct_name = '.college'; break;
-                }
-                
-                $fct_name = 'education' . $fct_name;
-                
-                $fields = [
-                'uid'         =>  $this->act->uid,
-                'obj_provider_id' => $school_id,
-                'obj_id_type' => 'facebook:education:id',
-                'obj_name'    =>  $school_name,
-                
-                // who claims the fact
-                'act_id'      =>  $act->id,
-                
-                // fact type
-                'fct_name'    =>  $fct_name,
-                
-                // responses to fact question
-                'val_type'    =>  'bool',
-                'value'       =>  'true',
-                
-                // accuracy / confidence
-                'error'       => '',
-                'score'       => 0,
-                'confidence'  => 0,
-                ];
-                
-                // avoid duplicates..
-                Fact::firstOrCreate( $fields );
-            }
-            
-            $msg = 'process_education:>>' . $fct_name . ',' . $school_name;
-            $this->output( $msg );
+        // sometime we fct_name through a formatter on the object data..
+        if (!isset($fact['fct_name'])){
+            $fact[ 'fct_name' ] = $type ;
         }
         
-        return $this;
+        $fact[ 'uid'       ] = $this->act->uid; // subject of the fact
+        $fact[ 'act_id'    ] = $this->act->id ; // who claims the fact
+        
+        // object should be already filled
+        
+        // responses to fact question
+        $fact[ 'val_type'  ] =  'bool';
+        $fact[ 'value'     ] =  'true';
+        
+        // accuracy / confidence
+        $fact[ 'error'     ] = '';
+        $fact[ 'score'     ] = 0;
+        $fact[ 'confidence'] = 0;
+        
+        return $fact;
+    }
+
+    // ........................................................... process_facts
+    
+    protected function prcess_facts( $cname, $obj, $store = false )
+    {
+        $facts_collection = $this->mapper->map( $cname, $obj );
+        
+        foreach( $facts_collection as $type => $facts ){
+            
+            foreach( $facts as $ix => $fact ){
+                
+                $fact = $this->prepare_one_fact( $type, $fact );
+
+                if ( $this->validate_fact($fact) ){
+                    $facts_collection[ $type ][ $ix ] = $fact;
+                }
+                // failed to produce a valid fact from object
+                else{
+                    unset( $facts_collection[ $type ][ $ix ] );
+                }
+                
+                if ($store){
+                    try{
+                        // attempt to avoid duplicates..
+                        $res = Fact::firstOrCreate( $fact );
+                        $this->output( 'Fact::firstOrCreate>>' .
+                                        $res->toString() );
+                    }
+                    catch( \Exception $e ){
+                        $this->output( 'Fact::firstOrCreate>>' .
+                                        $e->getMessage() );
+                    }
+                }
+            }
+        }
+        
+        return $facts_collection;
     }
 }

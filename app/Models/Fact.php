@@ -42,4 +42,18 @@ class Fact extends Model {
             'score'     ,
             'confidence',
         ];
+    
+    public function toString($long = false )
+    {
+        $str = $this->fct_name . ':' .
+               $this->uid      . ':' .
+               $this->obj_name . ':' .
+               $this->obj_id_type    ;
+        
+        if ($long){
+            $str .= ':' . $this->value . ':' . $this->val_type;
+        }
+        
+        return $str;
+    }
 }
