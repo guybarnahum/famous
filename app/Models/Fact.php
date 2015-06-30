@@ -9,6 +9,7 @@ class Fact extends Model {
      *
      * @var string
      */
+    // This is a test!
     protected $table = 'facts';
     
     /**
