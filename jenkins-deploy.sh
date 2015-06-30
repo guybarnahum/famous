@@ -44,6 +44,10 @@ if [[ "$PWD" =~ "/var/lib/jenkins" ]]; then
         echo "+ composer update"
         sudo composer --no-interaction update
         echo "- composer update"
+    else
+        echo "+ composer dumpautoload"
+        sudo composer --no-interaction dumpautoload
+        echo "- composer dumpautoload"
     fi
 
     if [[ $OPT == *"migrate"* ]];then
