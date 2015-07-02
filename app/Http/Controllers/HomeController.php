@@ -26,6 +26,7 @@ class HomeController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('auth');
+        $this->accounts_repo = new AccountRepository;
 	}
 
 	/**
@@ -43,7 +44,6 @@ class HomeController extends Controller {
                            ->with( 'accounts', $accounts )
                            ->with( 'msg'     , $msg      );
 	}
-
     
     public function accountByProvider( $provider )
     {
@@ -52,4 +52,31 @@ class HomeController extends Controller {
     
     public function accountsAll()
     {
+        return $this->accounts( null );
+    }
+    
+    public function accounts( $provider )
+    {
+        $user     = Session::get( 'user' );
+        $accounts = false;
+        
+        if ( isset( $user->id ) ){
+            $accounts = $this->accounts_repo->getUserAccounts( $user->id, $provider );
+        }
+        
+        try{
+            $html = view( 'user.accounts', ['user'     => $user     ,
+                                            'accounts' => $accounts ] )->render();
+        }
+        catch( \Exception $e ){
+            $html = $e->getMessage();
+        }
+        
+        return $html;
+    }
+    
+    public function factsByProvider( $provider )
+    {
+        return 'facts by provider : ' . $provider;
+    }
 }
