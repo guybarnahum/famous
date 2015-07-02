@@ -32,7 +32,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf_token" content="{{ csrf_token() }}" />
         <title>
             @section('title')
             @show
@@ -40,23 +40,24 @@
 
         <!-- fav icons -->
 
-<link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicons/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="/assets/images/favicons/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicons/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="/assets/images/favicons/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicons/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicons/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicons/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="/assets/images/favicons/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="/assets/images/favicons/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicons/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicons/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/assets/images/favicons/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+        <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/assets/images/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/assets/images/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/assets/images/favicons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicons/favicon.ico" >
         <link rel="shortcut icon" type="image/png"    href="/assets/images/favicons/favicon.png" >
@@ -105,6 +106,64 @@
             transform: translateY(50%);
         }
         </style>
+
+        <!-- scripts -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script>
+
+        if ( typeof jQuery === 'undefined' ){
+            document.write( unescape('%3Cscript%20src%3D%22/path/to/your/scripts/jquery-2.1.4.min.js%22%3E%3C/script%3E'));
+        }
+
+        function ajax_html(e)
+        {
+            $.ajax( e.data.url,
+                   {
+                        type: 'POST',
+                        context: { div:e.data.div },
+                       
+                        beforeSend: function (xhr) {
+                           var token = $('meta[name="csrf_token"]').attr('content');
+                           if (token){
+                                return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                           }
+                        },
+                        success:function(data){
+                            $(this.div).html(data);
+                        },
+                        error:function(){
+                           $(this.div).html('Failed to load data');
+                        }
+                   }); //end of ajax
+        }
+
+        function setAjax( id, route, div_id )
+        {
+            $(id).click({url: route, div: div_id }, ajax_html );
+        }
+
+        function setAjaxById( id, route, div_id )
+        {
+            if (id instanceof Array){
+                for (ix = 0; ix < id.length; ++ix) {
+                    setAjaxById(id[ix],route,div_id);
+                }
+            }
+            else{
+                if (typeof(route )==='undefined') route  = id;
+                
+                if (typeof(div_id)==='undefined') div_id = '#' + id + '_div';
+                else                              div_id = '#' + div_id;
+                
+                selector  = '#' + id;
+
+                setAjax(selector, route, div_id );
+            }
+        }
+
+        </script>
+
     </head>
 <body>
     <header id="masthead" class="navbar navbar-sticky swatch-{{ $color or "black" }}-white" role="banner">
@@ -127,35 +186,45 @@
             <nav class="collapse navbar-collapse main-navbar va-middle" role="navigation">
             <ul class="inline navbar navbar-right social-icons social-background social-small">
                 <li>
-                    <a href="{{ $url['facebook'] }}/facebook"><i class="fa fa-facebook" style="{{ $style['facebook' ]}}"></i></a>
+                    <a href="{{ $url['facebook'] }}/facebook">
+                        <i class="fa fa-facebook" style="{{ $style['facebook' ]}}"></i>
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ $url['twitter'] }}/twitter"><i class="fa fa-twitter"   style="{{ $style['twitter' ]}}"></i></a>
+                    <a href="{{ $url['twitter'] }}/twitter">
+                        <i class="fa fa-twitter"   style="{{ $style['twitter' ]}}"></i>
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ $url['linkedin'] }}/linkedin"><i class="fa fa-linkedin" style="{{ $style['linkedin' ]}}"></i></a>
+                    <a href="{{ $url['linkedin'] }}/linkedin">
+                        <i class="fa fa-linkedin" style="{{ $style['linkedin' ]}}"></i>
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ $url['google'] }}/google"><i class="fa fa-google-plus" style="{{ $style['google' ]}}"></i></a>
+                    <a href="{{ $url['google'] }}/google">
+                        <i class="fa fa-google-plus" style="{{ $style['google' ]}}"></i>
+                    </a>
                 </li>
 
                 <li>
                 @if ( isset($user)&&!empty( $user ))
                     <img class='img-circle' width=64px
                         src='{{ $user->pri_photo_large or "assets/images/user.png" }}'
-                        alt={{ $user->name }}   />
+                        alt='{{ $user->name }}'/>
                 @else
                     <img class='img-circle' width=64px
                         src="assets/images/user.png"
-                        alt='famous'   />
+                        alt='famous'/>
                 @endif
                 </li>
                 <li>
                 @if ( isset($user)&&!empty( $user ))
-                    <a href="logout"><i class="fa fa-sign-out"></i></a>
+                    <a href='logout'>
                 @else
-<a style="opacity:0.2;"><i class="fa fa-sign-in"></i></a>
+                    <a href='javascript:void(0)' style='opacity:0.2;'>
                 @endif
+                        <i class="fa fa-sign-out"></i>
+                    </a>
                 </li>
             </ul>
             </nav>

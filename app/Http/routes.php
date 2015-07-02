@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('api/callback', 'api\CallbackController@index');
-Route::post('api/callback', 'api\CallbackController@create');
-
 Route::get('/'   , 'HomeController@index');
 Route::get('home', 'HomeController@index');
     
@@ -29,6 +26,16 @@ Route::get('callback/{provider?}' , 'Auth\AuthController@handleProviderCallback'
 
 Route::get('logout_p/{provider?}' , 'Auth\AuthController@logoutFromProvider'    );
 Route::get('logout'               , 'Auth\AuthController@logout'    );
+
+Route::post('accounts'              , 'HomeController@accountsAll'       );
+Route::post('accounts_p/{provider?}', 'HomeController@accountByProvider' );
+
+Route::post('facts_p/{provider?}'   , 'HomeController@factsByProvider' );
+    
+// ................................................................ api/callback
+
+Route::get ('api/callback', 'api\CallbackController@index' );
+Route::post('api/callback', 'api\CallbackController@create');
 
 // ................................................................. controllers
 

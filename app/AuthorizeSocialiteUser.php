@@ -92,7 +92,7 @@ class AuthorizeSocialiteUser{
         $user     = isset( $res->user     )? $res->user     : null;
         
         // finally login our user
-        if ( $user instanceof App\Models\User ){
+        if ( !empty($user) ){
             $this->auth->login( $user, true );
         }
         

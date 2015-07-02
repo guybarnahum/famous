@@ -82,30 +82,32 @@ abstract class AccountFacts implements AccountFactsContract{
     {
         $facts_collection = $this->mapper->map( $cname, $obj );
         
-        foreach( $facts_collection as $type => $facts ){
-            
-            foreach( $facts as $ix => $fact ){
+        if ( is_array($facts_collection) ){
+            foreach( $facts_collection as $type => $facts ){
                 
-                $fact = $this->prepare_one_fact( $type, $fact );
+                foreach( $facts as $ix => $fact ){
+                    
+                    $fact = $this->prepare_one_fact( $type, $fact );
 
-                if ( $this->validate_fact($fact) ){
-                    $facts_collection[ $type ][ $ix ] = $fact;
-                }
-                // failed to produce a valid fact from object
-                else{
-                    unset( $facts_collection[ $type ][ $ix ] );
-                }
-                
-                if ($store){
-                    try{
-                        // attempt to avoid duplicates..
-                        $res = Fact::firstOrCreate( $fact );
-                        $this->output( 'Fact::firstOrCreate>>' .
-                                        $res->toString() );
+                    if ( $this->validate_fact($fact) ){
+                        $facts_collection[ $type ][ $ix ] = $fact;
                     }
-                    catch( \Exception $e ){
-                        $this->output( 'Fact::firstOrCreate>>' .
-                                        $e->getMessage() );
+                    // failed to produce a valid fact from object
+                    else{
+                        unset( $facts_collection[ $type ][ $ix ] );
+                    }
+                    
+                    if ($store){
+                        try{
+                            // attempt to avoid duplicates..
+                            $res = Fact::firstOrCreate( $fact );
+                            $this->output( 'Fact::firstOrCreate>>' .
+                                            $res->toString() );
+                        }
+                        catch( \Exception $e ){
+                            $this->output( 'Fact::firstOrCreate>>' .
+                                            $e->getMessage() );
+                        }
                     }
                 }
             }

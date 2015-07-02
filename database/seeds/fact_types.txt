@@ -13,7 +13,8 @@
 #
 # ==============================================================================
 
-# --debug
+#--debug
+#--dump_table
 
 null:void:void:desc:bool
 
@@ -60,9 +61,33 @@ family.status:$s is $o:Is $s $o:desc:string
 family.status.married:$s is married:Is $s married:desc:bool
 
 family.significant_other:$s is $o significant other:Is $s, $o's significant other:desc:bool
+family.wife:$o is $s's wife:Is $o, $s's wife:desc:bool
 family.mother:$s's mother is $o:Is $o, $s's mother:desc:bool
 family.father:$s's father is $o:Is $o, $s's father:desc:bool
 family.sister:$s's sister is $o:Is $o, $s's sister:desc:bool
 family.brother:$s's brother is $o:Is $o, $s's brother:desc:bool
 family.uncle:$s's uncle is $o:Is $o, $s's uncle:desc:bool
 family.aunt:$s's aunt is $o:Is $o, $s's aunt:desc:bool
+family.cousin:$s and $o are cousins:Are $s and $o cousins:desc:bool
+
+likes:$s likes $o:Does $s like $o:desc:bool
+likes.politics.persona:::desc:bool
+likes.politics.group:::desc:bool
+likes.politics.movement:::desc:bool
+likes.organization:::desc:bool
+likes.organization.community:::desc:bool
+likes.organization.non_profit:::desc:bool
+likes.company:::desc:bool
+likes.media:::desc:bool
+likes.media.music:::desc:bool
+likes.media.music.artist:::desc:bool
+likes.media.music.band:::desc:bool
+likes.media.movies:::desc:bool
+likes.media.web:::desc:bool
+likes.media.book:::desc:bool
+likes.media.magazine:::desc:bool
+likes.media.art:::desc:bool
+likes.media.art.painting:::desc:bool
+likes.media.art.photography:::desc:bool
+likes.services.photography:::desc:bool
+likes:::desc:bool

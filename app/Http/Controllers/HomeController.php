@@ -1,9 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use Session;
+use App\Repositories\AccountRepository;
     
 class HomeController extends Controller {
 
+    public $accounts_repo;
+    
 	/*
 	|--------------------------------------------------------------------------
 	| Home Controller
@@ -41,4 +44,12 @@ class HomeController extends Controller {
                            ->with( 'msg'     , $msg      );
 	}
 
+    
+    public function accountByProvider( $provider )
+    {
+        return $this->accounts( $provider );
+    }
+    
+    public function accountsAll()
+    {
 }

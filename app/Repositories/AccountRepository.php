@@ -15,6 +15,14 @@ class AccountRepository {
         return $scopes;
     }
     
+    public function getUserAccounts( $uid, $provider = false )
+    {
+                         $match = ['uid' => $uid ];
+        if ( $provider ) $match[ 'provider' ] = $provider;
+        
+        return Account::where( $match )->get();
+    }
+    
     public function find_userBySociliteUser( $userData      ,
                                              $update = true ,
                                              $create = false)
@@ -74,7 +82,7 @@ class AccountRepository {
     
         // get all the account(s) information we have for user
         if ($user){
-            $accounts = Account::where( 'uid', $user->id )->get();
+            $accounts = $this->getUserAccounts( $user->id );
         }
         
         $res = (object)[ 'user' => $user, 'accounts' => $accounts ];

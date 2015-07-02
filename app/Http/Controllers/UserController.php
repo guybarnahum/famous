@@ -22,7 +22,7 @@ class UserController extends Controller {
 	public function index()
 	{
         $user = Auth::user();
-        return View::make( 'user.index', ['user' => $user] );
+        return View::make( 'user.info')->with('user',$user)->render();
 	}
 
 	/**

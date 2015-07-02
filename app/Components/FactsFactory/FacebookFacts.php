@@ -12,6 +12,8 @@ class FacebookFactsDataFormatter
     // ............................................................ the data map
     private static $MAP = [
     
+    // .........................................................................
+
     // obj name    : src_path                : tgt_path                  : [fmt]
     // education
     'facebook/user : education/*/school/id   : education/obj_provider_id',
@@ -55,6 +57,14 @@ class FacebookFactsDataFormatter
     'facebook/user : relationship_status/fct_name   : family_status/fct_name    : !family.status',
     'facebook/user : relationship_status/obj_provider_id: family_status/obj_provider_id   : !facebook.rel.enum',
     
+    // .........................................................................
+    // obj name    : src_path                : tgt_path                  : [fmt]
+    // family
+    'facebook/family: */name            : family/obj_name        ',
+    'facebook/family: */id              : family/obj_id_type     ',
+    'facebook/family: */obj_provider_id : family/obj_provider_id : !facebook.uid',
+    'facebook/family: */relationship    : family/fct_name        :  fmt_family_type',
+    
     ];
     
     public static function get_map()
@@ -83,6 +93,19 @@ class FacebookFactsDataFormatter
         
         switch( $val ){
             case 'Married' : $val = 'family.status.married'; break;
+        }
+        
+        return $val;
+    }
+    
+    public function fmt_family_type( $val, $cname, $src_path, $tgt_path )
+    {
+        if (($cname    != 'facebook/family' )||
+            ($tgt_path != 'family/fct_name' ) ) return null;
+        
+        switch( $val ){
+            case 'wife'   : $val = 'family.wife' ; break;
+            case 'cousin' : $val = 'family.cousin'; break;
         }
         
         return $val;
@@ -233,14 +256,30 @@ class FacebookFacts extends AccountFacts{
     
     public function process()
     {
+        $endpoints = [
+            'facebook/user'   => '/me',
+            'facebook/family' => '/me/family',
+            'facebook/likes'  => '/me/likes',
+        ];
+        
         // first things first : set the token so we can talk to graph api
         $this->set_token()
              ->extend_token();
  
-        $user = $this->graph_api( '/me' );
-        $this->output( '/me', $user );
-        $this->prcess_facts( 'facebook/user', $user, $store = true );
-
+        $store = true;
+        
+        foreach( $endpoints as $datamap_cname => $endpoint ){
+            try{
+                $res   = $this->graph_api( $endpoint );
+                $this->output( 'res', $res );
+                $facts = $this->prcess_facts( $datamap_cname , $res, $store );
+                $this->output( 'facts', $facts );
+            }
+            catch( \Exception $e ){
+                $this->output( $e->getMessage() );
+            }
+        }
+        
         return $this;
         
         /*
@@ -269,7 +308,7 @@ class FacebookFacts extends AccountFacts{
          $this->facebook_app_status($fb,$act);
          $res->graph_api = array();
          */
-        
+        /*
         $fact_owner = $provider . $u;
         
         $this->res[ 'provider' ] = $provider;
@@ -289,8 +328,7 @@ class FacebookFacts extends AccountFacts{
         
         // handle errors
         // TODO: collect all errors into an error array
-        
-        return $this->res;
+        */
     }
 }
     

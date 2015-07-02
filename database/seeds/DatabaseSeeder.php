@@ -67,7 +67,18 @@ class ParserSeeder extends Seeder{
             if (empty($option)) continue;
             
             switch( $option ){
-            case 'debug': case 'dbg': case 'verbose': $this->debug = true;break;
+            
+            case 'debug'      :
+            case 'dbg'        :
+            case 'verbose'    : $this->debug = true; break;
+            
+            case 'dump_table' :
+                    if ($this->debug){
+                        $this->command->info( 'DB::table(' . $this->table . ')->delete()');
+                    }
+                    DB::table( $this->table )->delete(); break;
+                    break;
+                    
             default: $this->command->error('unknown option '.$option)    ;break;
             }
         }
@@ -200,10 +211,7 @@ class ParserSeeder extends Seeder{
         $ok = is_array($lines) && (count( $lines ) > 0 );
         
         // do we have lines to process?
-        if ($ok){
-            DB::table( $this->table )->delete();
-            $ok = $this->parse( $lines );
-        }
+        if ($ok) $ok = $this->parse( $lines );
         
         // done!
         if ($ok){

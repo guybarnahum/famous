@@ -23,11 +23,14 @@
                             <th></th>
                         </tr>
                     </thead>
-                    @foreach( $accounts as $account )
                         <tbody>
+                        @foreach( $accounts as $account )
                             <tr>
                                 <td style='vertical-align:middle;'>
-                                    <i class="fa fa-{{$account->provider}}"></i>
+                                    <a id='uid-{{ $account->uid }}-account-{{$account->provider}}-facts'
+                                        href='javascript:void(0)'>
+                                        <i class="fa fa-{{$account->provider}}"></i>
+                                    </a>
                                 </td>
                                 <td style='vertical-align:middle;'>{{ $account->provider_uid }}</td>
                                 <td style='vertical-align:middle;'>
@@ -62,18 +65,30 @@
                                 <td style='vertical-align:middle;'>
                                     <img class='img-circle' width=96px
                                                 src='{{ $account->avatar or "assets/images/logo.png" }}'
-                                                alt={{ $account->name }}
-                                            />
+                                                alt={{ $account->name }}/>
                                 </td>
                                 <td style='vertical-align:middle;'>
                                     <i class="fa fa-{{$account->provider}}"></i>
                                     <h6><small>width x height</small></h6>
                                 </td>
                             </tr>
+                        @endforeach
                         </tbody>
-                    @endforeach
                 </table>
             </div>
         </div>
     </div>
 </section>
+
+<div id='user-accounts-facts-div'></div>
+
+<script>
+
+@foreach( $accounts as $account )
+setAjaxById(
+            'uid-{{ $account->uid }}-account-{{$account->provider}}-facts', // id
+            'facts_p/{{$account->provider}}', // route
+            'user-accounts-facts-div'); // div_id
+@endforeach
+
+</script>

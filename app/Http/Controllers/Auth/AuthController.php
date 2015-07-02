@@ -65,8 +65,6 @@ class AuthController extends Controller {
         \Debugbar::info('logoutFromProvider('. $provider . ')' );
         $au->logoutFromProvider($req->all(), $this, $provider);
         return \Redirect::back()->with('msg', $provider . ' logout');
-        // return redirect('home');
-        // return
     }
     
     // .............................................................. resetUser

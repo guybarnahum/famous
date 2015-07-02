@@ -4,6 +4,9 @@
 # structure sys:name:display:desc
 # ==============================================================================
 
+#--debug
+--dump_table
+
 # Personality:
 hpi:adjustment:adjustment:conﬁdence, self-esteem, and composure under pressure
 hpi:ambltlon:ambltlon:initiative, competitiveness, and desire for leadership roles
