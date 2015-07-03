@@ -5,7 +5,7 @@ use App\Repositories\AccountRepository;
     
 class HomeController extends Controller {
 
-    public $accounts_repo;
+    public $accts;
     
 	/*
 	|--------------------------------------------------------------------------
@@ -26,47 +26,17 @@ class HomeController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('auth');
-        $this->accounts_repo = new AccountRepository;
+        $this->accts = new AccountRepository;
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        $user     = Session::get( 'user'     );
-        $accounts = Session::get( 'accounts' );
-        $msg      = Session::get( 'msg'      );
-        
-		return view('home')->with( 'user'    , $user     )
-                           ->with( 'accounts', $accounts )
-                           ->with( 'msg'     , $msg      );
-	}
+    // .............................................................. renderHtml
     
-    public function accountByProvider( $provider )
+    private function renderHtml( $view, $with )
     {
-        return $this->accounts( $provider );
-    }
-    
-    public function accountsAll()
-    {
-        return $this->accounts( null );
-    }
-    
-    public function accounts( $provider )
-    {
-        $user     = Session::get( 'user' );
-        $accounts = false;
-        
-        if ( isset( $user->id ) ){
-            $accounts = $this->accounts_repo->getUserAccounts( $user->id, $provider );
-        }
+        $html  = false;
         
         try{
-            $html = view( 'user.accounts', ['user'     => $user     ,
-                                            'accounts' => $accounts ] )->render();
+            $html = view( $view, $with )->render();
         }
         catch( \Exception $e ){
             $html = $e->getMessage();
@@ -75,8 +45,84 @@ class HomeController extends Controller {
         return $html;
     }
     
-    public function factsByProvider( $provider )
+    /**
+     * Show the application dashboard to the user.
+     *
+     * @return Response
+     */
+    public function index()
     {
-        return 'facts by provider : ' . $provider;
+        $user     = Session::get( 'user'     );
+        $accounts = Session::get( 'accounts' );
+        $msg      = Session::get( 'msg'      );
+        
+        return view('home')->with( 'user'    , $user     )
+        ->with( 'accounts', $accounts )
+        ->with( 'msg'     , $msg      );
+    }
+
+    // ................................................ getUserAccountByProvider
+    
+    public function getUserAccountByProvider( $provider )
+    {
+        \Debugbar::info( 'getUserAccountByProvider(' . $provider . ')' );
+
+        $user  = Session::get( 'user' );
+        $accts = $this->accts->getUserAccounts( $user->id, $provider );
+        
+        $with  = ['user' => $user, 'accounts' => $accts ];
+
+        return $this->renderHtml( 'user.accounts', $with);
+    }
+    
+    // ......................................................... getUserAccounts
+    
+    public function getUserAccounts()
+    {
+        \Debugbar::info( 'getUserAccounts()' );
+        return $this->getUserAccountByProvider( false );
+    }
+    
+    // ...................................................... getFactsByProvider
+    
+    public function getUserFactsByProvider( $provider )
+    {
+        \Debugbar::info( 'getUserFactsByProvider(' . $provider . ')' );
+
+        $user  = Session::get( 'user' );
+        $facts = $this->accts->getUserFacts( $user->id, $provider );
+        
+        $with  = ['user' => $user, 'facts' => $facts ];
+        
+        return $this->renderHtml( 'user.facts', $with);
+    }
+    
+    // ............................................................ getUserFacts
+    
+    public function getUserFacts()
+    {
+        \Debugbar::info( 'getUserFacts()' );
+        return getUserFactsByProvider( null );
+    }
+    
+    // ............................................. generateUserFactsByProvider
+ 
+    public function generateUserFactsByProvider( $provider )
+    {
+        \Debugbar::info( 'generateUserFactsByProvider(' . $provider . ')' );
+
+        $user  = Session::get( 'user' );
+        $res = $this->accts->generateUserFacts( $user->id, $provider );
+        
+        return json_encode($res);
+    }
+    
+    // ....................................................... generateUserFacts
+
+    public function generateUserFacts()
+    {
+        \Debugbar::info( 'generateFactsByProvider()' );
+
+        return $this->generateFactsByProvider( null );
     }
 }

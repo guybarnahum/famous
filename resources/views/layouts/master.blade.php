@@ -129,11 +129,13 @@
                                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);
                            }
                         },
+                   
                         success:function(data){
                             $(this.div).html(data);
                         },
+                   
                         error:function(){
-                           $(this.div).html('Failed to load data');
+                            $(this.div).html('Failed to load data');
                         }
                    }); //end of ajax
         }

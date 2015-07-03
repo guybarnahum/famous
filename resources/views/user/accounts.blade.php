@@ -27,7 +27,7 @@
                         @foreach( $accounts as $account )
                             <tr>
                                 <td style='vertical-align:middle;'>
-                                    <a id='uid-{{ $account->uid }}-account-{{$account->provider}}-facts'
+                                    <a id='uid-{{ $account->uid }}-{{$account->provider}}-facts'
                                         href='javascript:void(0)'>
                                         <i class="fa fa-{{$account->provider}}"></i>
                                     </a>
@@ -59,6 +59,11 @@
                                                 scope:{{ $account->scope_request}}
                                             </li>
                                             @endif
+                                            <li>
+                                                <a id='uid-{{ $account->uid }}-{{$account->provider}}-gen-facts' href='javascript:void(0)'>
+                                                    generate facts
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -86,9 +91,15 @@
 
 @foreach( $accounts as $account )
 setAjaxById(
-            'uid-{{ $account->uid }}-account-{{$account->provider}}-facts', // id
+            'uid-{{ $account->uid }}-{{$account->provider}}-facts', // id
             'facts_p/{{$account->provider}}', // route
             'user-accounts-facts-div'); // div_id
+
+setAjaxById(
+            'uid-{{ $account->uid }}-{{$account->provider}}-gen-facts', // id
+            'gen_facts_p/{{$account->provider}}', // route
+            false); // div_id
+
 @endforeach
 
 </script>

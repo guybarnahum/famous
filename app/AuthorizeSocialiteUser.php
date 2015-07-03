@@ -24,7 +24,7 @@ class AuthorizeSocialiteUser{
     private function get_socialiteUserData( $provider )
     {
         $s_user    = $this->socialite->with($provider)->user();
-        $scope_req = $this->accounts->get_scopes( $provider );
+        $scope_req = $this->accounts->getProviderScopes( $provider );
         
         // enhace s_user with 'provider'
         if ( !empty( $s_user ) ){
@@ -38,7 +38,7 @@ class AuthorizeSocialiteUser{
     public function autorizeWithProvider($request, $listener, $provider)
     {
         // setup autorization scopes
-        $scope_request =  $this->accounts->get_scopes( $provider );
+        $scope_request =  $this->accounts->getProviderScopes( $provider );
         
         if (!empty($scope_request)){
             $scopes = explode(';',$scope_request);
