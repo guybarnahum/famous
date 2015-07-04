@@ -5,6 +5,6 @@ namespace App\Http\Middleware\CallbackSubscribers;
 use Illuminate\Http\Request;
 
 interface _ICallbackSubscriber {
-    function inspect(Request $request);
-    function accept($payload);
+    function inspect(Request $request, $namespace);
+    function accept(Request $request, $payload);
 } 

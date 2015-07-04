@@ -1,13 +1,27 @@
 <?php
+/**
+ * Resource to allow Famous to handle real-time updates from third-party SNS's
+ */
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Middleware\CallbackManager;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+ use \Log;
+
+/**
+ * Class CallbackController
+ *
+ * NOTE: If you run into problem about not having proper configuration data, you will have
+ * to copy /<project root/conf/famous.ini to /var/conf/famous.ini
+ *
+ * @package App\Http\Controllers\Api
+ */
 class CallbackController extends Controller {
 
     /**
@@ -18,7 +32,6 @@ class CallbackController extends Controller {
      */
     public function index(Request $request)
 	{
-        print_r($request->all());
         return Response::create('ok', 200);
 	}
 
@@ -26,18 +39,15 @@ class CallbackController extends Controller {
      * Handles data posted back (callback) from provider
      *
      * @param Request $request
+     * @param string $namespace
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, $namespace = '')
 	{
-        print_r($request->all());
-        return Response::create('ok', 200);
+        $cb_manager = new CallbackManager();
+        $cb_manager->emit($request, $namespace, []);
+        return Response::create($namespace, 200);
 	}
-
-    private function distribute($payload) {
-
-        // distribute to some subscribers, normalize, and store
-    }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -52,12 +62,15 @@ class CallbackController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+     * @param Request $request
+	 * @param  string $namespace
 	 * @return Response
 	 */
-	public function show($id)
-	{
-		//
+	public function show(Request $request, $namespace)
+    {
+        $cb_manager = new CallbackManager();
+        $cb_manager->emit($request, $namespace, []);
+        return Response::create($namespace, 200);
 	}
 
 	/**

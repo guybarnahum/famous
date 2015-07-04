@@ -57,8 +57,8 @@ class ConfigManager {
     public static function getInstance($custom_path = '') {
         if (!self::$instance) {
             $path = (empty($custom_path)) ? self::INI_FILE : $custom_path;
-            $ini = parse_ini_file($path);
-            if ($ini) {
+            $ini = parse_ini_file($path, true);
+            if (empty($ini)) {
                 $msg = "Config data not found at $path, did you copy and populate it? ";
                 $msg.= "(/var/conf/famous.ini.dist -> /var/conf/famous.ini)";
                 throw new ConfigDataNotFoundException($msg);

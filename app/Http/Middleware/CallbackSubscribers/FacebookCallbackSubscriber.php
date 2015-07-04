@@ -1,27 +1,39 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vchoy
- * Date: 6/17/15
- * Time: 6:25 PM
- */
 
 namespace App\Http\Middleware\CallbackSubscribers;
 
-
 use Illuminate\Http\Request;
+
+use \Log;
 
 class FacebookCallbackSubscriber implements _ICallbackSubscriber {
 
-    function inspect(Request $request)
+    /**
+     * NOTE: This check is kind of lame, keep it?
+     *
+     * @param Request $request
+     * @param $namespace
+     * @return bool
+     */
+    function inspect(Request $request, $namespace)
     {
-        $referrer = $request->server('HTTP_REFERER');
-        if (strpos($referrer, 'facebook') !== false) return true;
+        if ($namespace == 'facebook') return true;
         return false;
     }
 
-    function accept($payload)
+    /**
+     * TODO: Create a parser and store it somewhere
+     *
+     * @param Request $request
+     * @param $payload
+     */
+    function accept(Request $request, $payload)
     {
-        // do stuff
+        $json_string = file_get_contents('php://input');
+        Log::info($json_string);
+//        $obj = json_decode($json_string);
+//        Log::info("object: {$obj->object}");
+//        Log::info('entry: ');
+//        Log::info(print_r($obj->entry, true));
     }
 }

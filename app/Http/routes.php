@@ -34,8 +34,10 @@ Route::post('facts_p/{provider?}'   , 'HomeController@factsByProvider' );
     
 // ................................................................ api/callback
 
-Route::get ('api/callback', 'api\CallbackController@index' );
+Route::get ('api/callback', 'api\CallbackController@index');
+Route::get('api/callback/{namespace?}', 'api\CallbackController@show');
 Route::post('api/callback', 'api\CallbackController@create');
+Route::post('api/callback/{namespace?}', 'api\CallbackController@create');
 
 // ................................................................. controllers
 
