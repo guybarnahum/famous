@@ -21,16 +21,23 @@ Route::get('home', 'HomeController@index');
 //    <a href="/login/twitter">Login in with Twitter</a>
 //
 
-Route::get('login/{provider?}'    , 'Auth\AuthController@autorizeWithProvider'  );
-Route::get('callback/{provider?}' , 'Auth\AuthController@handleProviderCallback');
+Route::get('login/{provider?}'      , 'Auth\AuthController@autorizeWithProvider'  );
+Route::get('callback/{provider?}'   , 'Auth\AuthController@handleProviderCallback');
 
-Route::get('logout_p/{provider?}' , 'Auth\AuthController@logoutFromProvider'    );
-Route::get('logout'               , 'Auth\AuthController@logout'    );
+Route::get('logout_p/{provider?}'   , 'Auth\AuthController@logoutFromProvider'    );
+Route::get('logout'                 , 'Auth\AuthController@logout'    );
 
-Route::post('accounts'              , 'HomeController@accountsAll'       );
-Route::post('accounts_p/{provider?}', 'HomeController@accountByProvider' );
+// ajax api calls
 
-Route::post('facts_p/{provider?}'   , 'HomeController@factsByProvider' );
+Route::post('accounts'              , 'HomeController@getUserAccounts'          );
+Route::post('accounts_p/{provider?}', 'HomeController@getUserAccountByProvider' );
+
+Route::post('facts'                 , 'HomeController@getUserFacts' );
+Route::post('facts_p/{provider?}'   , 'HomeController@getUserFactsByProvider' );
+
+Route::post('gen_facts'             , 'HomeController@generateUserFacts'           );
+Route::post('gen_facts_p/{provider?}','HomeController@generateUserFactsByProvider' );
+
     
 // ................................................................ api/callback
 

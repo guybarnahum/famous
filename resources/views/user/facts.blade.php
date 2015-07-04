@@ -10,5 +10,16 @@
     </div>
     <div>
         <h1>facts go here</h1>
+@if (isset($user))
+<pre>{{ $user->name }}
+@else
+<pre>No $user passed to facts.blade.php
+@endif
+<p>
+@if (isset($facts))
+<pre>{{print_r($facts,true)}}</pre>
+@else
+<pre>No $facts passed to facts.blade.php
+@endif
     </div>
 </section>
