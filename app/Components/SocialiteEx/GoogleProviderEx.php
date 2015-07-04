@@ -32,7 +32,6 @@ class GoogleProviderEx extends GoogleProvider
             $user[ 'image' ][ 'url' ] = $photo_url;
         }
     
-        \Debugbar::info( 'GoogleProviderEx::getUserByToken=>' . print_r( $user, true ) );
         return $user;
     }
 }

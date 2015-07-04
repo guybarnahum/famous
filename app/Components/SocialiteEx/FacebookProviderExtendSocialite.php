@@ -11,7 +11,6 @@ class FacebookProviderExtendSocialite
      */
     public function handle(SocialiteWasCalled $socialiteCalled)
     {
-        \Debugbar::info('FacebookProviderExtendSocialite::handle');
         $socialiteCalled->extendSocialite( 'facebook', __NAMESPACE__.'\FacebookProviderEx' );
     }
 }

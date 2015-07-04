@@ -4,7 +4,9 @@ use App\Models\Account;
 use App\Models\User;
 use App\Models\Dataset;
 use App\Models\Fact;
+    
 use App\Components\FactsFactory\AccountFactsFactory;
+use App\Components\FactsFactory\AccountFacts;
     
 use Hash;
     
@@ -23,12 +25,12 @@ class AccountRepository {
 
     public function generateUserFacts( $uid, $provider = false )
     {
-        \Debugbar::info( 'generateUserFacts(uid:' . $uid . ',' . $provider . ')' );
+        \Debugbar::info( '>> generateUserFacts(uid:' . $uid . ',' . $provider . ')' );
 
-        $accounts = flase;
+        $accounts = false;
+        
         if ( $provider ){
             $match = [ 'uid' => $uid, 'provider' => $provider ];
-            // NOTE: keep as array!
             $accounts = Account::where( $match )->get();
         }
         else{
@@ -39,26 +41,23 @@ class AccountRepository {
         
         foreach( $accounts as $ix => $act ){
         
-            if ( ! $act instanceof Account ){
-                // How do we record errors on malformed objects?
-                $res[ ix ] = 'malformed account! ' . print_r( $act, true );
-            }
-            else{
-                try{
-                    $facts = AccountFactsFactory::make( $act );
+            $msg = '';
+            try{
+                $facts = AccountFactsFactory::make( $act );
             
-                    if ( $facts instanceof AccountFactsContract ){
-                        $res[ $ix ] = $facts->process( $act    );
-                    }
-                    else{
-                        $res[ $ix ] = 'Failed to make facts from account:' .
-                                        $act->toString();
-                    }
+                if ( $facts instanceof AccountFacts ){
+                     $facts->process( $act );
+                     $msg = $act->toString() . '- process facts';
                 }
-                catch( \Exception $e ){
-                    $res[ ix ]  =  $e->getMessage();
+                else{
+                    $msg = $act->toString() . '- could not process facts';
                 }
             }
+            catch( \Exception $e ){
+                $msg  = $e->getMessage();
+            }
+
+            $res[ $ix ] = $msg;
         }
         
         return $res;
@@ -109,6 +108,8 @@ class AccountRepository {
                                              $update = true ,
                                              $create = false)
     {
+        \Debugbar::info( 'find_userBySociliteUser(' . $userData->email . ')' );
+
         // attempt to locate the user for the socialite account
         // by email, need a better way to decide what is the current logged in user
         

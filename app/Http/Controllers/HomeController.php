@@ -102,7 +102,7 @@ class HomeController extends Controller {
     public function getUserFacts()
     {
         \Debugbar::info( 'getUserFacts()' );
-        return getUserFactsByProvider( null );
+        return getUserFactsByProvider( false );
     }
     
     // ............................................. generateUserFactsByProvider
@@ -123,6 +123,6 @@ class HomeController extends Controller {
     {
         \Debugbar::info( 'generateFactsByProvider()' );
 
-        return $this->generateFactsByProvider( null );
+        return $this->generateFactsByProvider( false );
     }
 }
