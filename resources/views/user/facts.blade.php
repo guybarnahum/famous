@@ -8,8 +8,50 @@
             <path d="M0 100 L5 60 L10 100 L5 60 L10 100 L15 60 L20 100 L25 60 L30 100 L35 60 L40 100 L45 60 L50 100 L55 60 L60 100 L65 60 L70 100 L75 60 L80 100 L85 60 L90 100 L95 60 L100 100"></path>
         </svg>
     </div>
-    <div>
-        <h1>facts go here</h1>
+    @if (isset($facts))
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>fact</th>
+                            <th>subject id</th>
+                            <th>object</th>
+                            <th>type</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                        @foreach( $facts as $fact )
+                            <tr>
+                                <td style='vertical-align:middle;'>
+                                    {{$fact->fct_name}}
+                                </td>
+                                <td style='vertical-align:middle;'>
+                                    uid.{{$fact->uid}}.act.{{$fact->act_id}}
+                                </td>
+                                <td style='vertical-align:middle;'>
+                                    {{$fact->obj_name}}
+                                </td>
+                                <td style='vertical-align:middle;'>
+                                    {{$fact->obj_id_type}}.{{$fact->obj_provider_id}}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @else
+    No facts found!
+    @endif
+</section>
+
+<!--
+
+<div>
+<h1>facts go here</h1>
 @if (isset($user))
 <pre>{{ $user->name }}
 @else
@@ -21,5 +63,7 @@
 @else
 <pre>No $facts passed to facts.blade.php
 @endif
-    </div>
-</section>
+</div>
+
+-->
+
