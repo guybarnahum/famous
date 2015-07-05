@@ -16,16 +16,22 @@ class CallbackManager {
     }
 
     public function emit(Request $request, $namespace, $payload) {
+        
         foreach ($this->config->getProviders() as $provider) {
+            
             Log::info("[$provider] callback ns: $namespace");
-            $class_prefix = ucfirst($provider);
+            
+            $class_prefix = ucfirst( $provider );
             $class_name = "\\App\\Http\\Middleware\\CallbackSubscribers\\{$class_prefix}CallbackSubscriber";
             $class = new $class_name();
-            if ($class->inspect($request, $namespace)) {
-                Log::info("provider $provider interested, accepting callback request as own");
-                $class->accept($request, $payload);
-                break;
+            
+            if ( $class->inspect( $request, $namespace ) ) {
+                 Log::info("provider $provider interested, accepting callback request as own");
+                 return $class->accept ( $request, $payload   );
             }
         }
+        
+        return (object) [ 'data' => 'unsupported namespace ('.$namespace.')',
+                          'err'  => 200 ];
     }
 }

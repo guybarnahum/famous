@@ -41,10 +41,15 @@ Route::post('gen_facts_p/{provider?}','HomeController@generateUserFactsByProvide
     
 // ................................................................ api/callback
 
-Route::get ('api/callback', 'api\CallbackController@index');
-Route::get('api/callback/{namespace?}', 'api\CallbackController@show');
-Route::post('api/callback', 'api\CallbackController@create');
-Route::post('api/callback/{namespace?}', 'api\CallbackController@create');
+// Disable our pesky \Debugbar for these api/callback routes..
+Route::filter( 'nodebugbar', function(){ \Debugbar::disable();});
+Route::when  ( 'api/callback/*', 'nodebugbar');
+Route::when  ( 'api/callback'  , 'nodebugbar');
+
+Route::get ('api/callback'             , 'api\CallbackController@index');
+Route::get ('api/callback/{namespace?}', 'api\CallbackController@show' );
+Route::post('api/callback'             , 'api\CallbackController@index');
+Route::post('api/callback/{namespace?}', 'api\CallbackController@show' );
 
 // ................................................................. controllers
 

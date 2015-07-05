@@ -17,8 +17,7 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
      */
     function inspect(Request $request, $namespace)
     {
-        if ($namespace == 'facebook') return true;
-        return false;
+        return ( $namespace == 'facebook' );
     }
 
     /**
@@ -27,10 +26,14 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
      * @param Request $request
      * @param $payload
      */
-    function accept(Request $request, $payload)
+    function accept(Request $request, $payload )
     {
-        $json_string = file_get_contents('php://input');
-        Log::info($json_string);
+        Log::info( $request->fullUrl() );
+        
+        return (object) [ 'data' => 'ok', 'err' => 200 ];
+        
+//        $json_string = file_get_contents('php://input');
+//        Log::info($json_string);
 //        $obj = json_decode($json_string);
 //        Log::info("object: {$obj->object}");
 //        Log::info('entry: ');

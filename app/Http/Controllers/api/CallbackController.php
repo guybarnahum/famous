@@ -30,10 +30,42 @@ class CallbackController extends Controller {
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Request $request)
+    public function index( Request $request )
 	{
-        return Response::create('ok', 200);
+        // obtain the payload from $request
+        
+        $input = $request->all();
+        
+        // TODO: filter out named options and their values
+        
+        // check number of other args
+        if ( count( $input ) != 1 ){
+            return Response::create( 'invalid number of arguments', 200 );
+        }
+        
+        $keys = array_keys( $input );
+        $namespace = $keys[ 0 ];
+        
+        // What to do with all other input? I guess it is still in the
+        // $request object..
+        
+        return $this->show( $request, $namespace );
 	}
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @param  string $namespace
+     * @return Response
+     */
+    public function show( Request $request, $namespace )
+    {
+        $cb_manager = new CallbackManager();
+        $res = $cb_manager->emit( $request, $namespace, [] );
+        
+        return Response::create( $res->data, $res->err );
+    }
 
     /**
      * Handles data posted back (callback) from provider
@@ -44,10 +76,8 @@ class CallbackController extends Controller {
      */
     public function create(Request $request, $namespace = '')
 	{
-        $cb_manager = new CallbackManager();
-        $cb_manager->emit($request, $namespace, []);
-        return Response::create($namespace, 200);
-	}
+        //
+    }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -57,20 +87,6 @@ class CallbackController extends Controller {
 	public function store()
 	{
 		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-     * @param Request $request
-	 * @param  string $namespace
-	 * @return Response
-	 */
-	public function show(Request $request, $namespace)
-    {
-        $cb_manager = new CallbackManager();
-        $cb_manager->emit($request, $namespace, []);
-        return Response::create($namespace, 200);
 	}
 
 	/**

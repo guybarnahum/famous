@@ -13,7 +13,7 @@ namespace App\Components;
  */
 class ConfigManager {
 
-    const INI_FILE = '/var/conf/famous.ini';
+    const INI_PATHS = '/var/conf/famous.ini:conf/famous.ini';
     /**
      * @ignore
      */
@@ -54,17 +54,54 @@ class ConfigManager {
      * @return ConfigManager
      * @throws ConfigDataNotFoundException
      */
-    public static function getInstance($custom_path = '') {
+    public static function getInstance( $custom_path = '' ) {
         if (!self::$instance) {
-            $path = (empty($custom_path)) ? self::INI_FILE : $custom_path;
-            $ini = parse_ini_file($path, true);
-            if (empty($ini)) {
-                $msg = "Config data not found at $path, did you copy and populate it? ";
-                $msg.= "(/var/conf/famous.ini.dist -> /var/conf/famous.ini)";
+            
+            $paths       = empty($custom_path)? self::INI_PATHS : $custom_path;
+            $paths_array = explode(':', $paths );
+            $searched    = '';
+            $err         = '';
+            
+            foreach( $paths_array as $path ){
+                
+                if ( $path[0] != '/' ){
+                    $path = $_SERVER[ 'DOCUMENT_ROOT' ] . '/../' . $path;
+                    $path = realpath( $path );
+                }
+                
+                // try this path!
+                $ini = false;
+                
+                try{
+                    $ini = parse_ini_file( $path, true );
+                }
+                catch( \Exception $e ){
+                    // do noting!
+                    $searched .= $path . ',';
+                    $err .= $e->getMessage() . '. ';
+                }
+                
+                // do we have a valid $ini from $path?
+                if ( is_array( $ini ) ){
+                    break;
+                }
+            }
+            
+            // boo! no $ini from all the $searched paths
+            if ( empty( $ini ) ){
+                
+                $msg  = "Config data not found at $paths, did you copy and populate it?";
+                $msg .= " (/var/conf/famous.ini.dist -> /var/conf/famous.ini)";
+                $msg .= " Searched for famous.ini in $searched";
+                $msg .= " Errors: $err";
+                
                 throw new ConfigDataNotFoundException($msg);
             }
+            
+            // generate the singlton
             self::$instance = new self($ini);
         }
+        
         return self::$instance;
     }
 
