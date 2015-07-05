@@ -61,8 +61,8 @@ class FacebookFactsDataFormatter
     // obj name    : src_path                : tgt_path                  : [fmt]
     // family
     'facebook/family: */name            : family/obj_name        ',
-    'facebook/family: */id              : family/obj_id_type     ',
-    'facebook/family: */obj_provider_id : family/obj_provider_id : !facebook.uid',
+    'facebook/family: */id              : family/obj_provider_id ',
+    'facebook/family: */obj_provider_id : family/obj_id_type     : !facebook.uid',
     'facebook/family: */relationship    : family/fct_name        :  fmt_family_type',
     
     ];

@@ -18,7 +18,7 @@
                             <th>uid</th>
                             <th>email/username</th>
                             <th>state</th>
-                            <th>access</th>
+                            <th>token</th>
                             <th>photo</th>
                             <th></th>
                         </tr>
@@ -59,11 +59,6 @@
                                                 scope:{{ $account->scope_request}}
                                             </li>
                                             @endif
-                                            <li>
-                                                <a id='uid-{{ $account->uid }}-{{$account->provider}}-gen-facts' href='javascript:void(0)'>
-                                                    generate facts
-                                                </a>
-                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -71,10 +66,16 @@
                                     <img class='img-circle' width=96px
                                                 src='{{ $account->avatar or "assets/images/logo.png" }}'
                                                 alt={{ $account->name }}/>
+                                    <br>
+                                    <h6><small>width x height</small></h6>
                                 </td>
                                 <td style='vertical-align:middle;'>
                                     <i class="fa fa-{{$account->provider}}"></i>
-                                    <h6><small>width x height</small></h6>
+                                    <br>
+                                    <a id='uid-{{ $account->uid }}-{{$account->provider}}-gen-facts'
+                                        href='javascript:void(0)'>
+                                        Regenerate facts!
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -90,6 +91,8 @@
 <script>
 
 @foreach( $accounts as $account )
+
+
 setAjaxById(
             'uid-{{ $account->uid }}-{{$account->provider}}-facts', // id
             'facts_p/{{$account->provider}}', // route
@@ -101,5 +104,17 @@ setAjaxById(
             false); // div_id
 
 @endforeach
+
+@if ( count( $accounts) == 1 )
+
+onreadyAjax( 'facts_p/{{ $accounts[0]->provider }}', // route
+            'user-accounts-facts-div');// div_id
+
+@else
+
+onreadyAjax( 'facts', // route
+            'user-accounts-facts-div');// div_id
+
+@endif
 
 </script>

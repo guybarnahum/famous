@@ -64,22 +64,26 @@
 
 <script>
 
-    var ids = [ 'uid-{{ $user->id }}-accounts',
-                'uid-{{$user->id}}-name',
-                'uid-{{$user->id}}-box'
-    ];
+var ids = [ 'uid-{{ $user->id }}-accounts',
+            'uid-{{$user->id}}-name',
+            'uid-{{$user->id}}-box'
+];
 
-    setAjaxById(
-         ids ,  // id
-        'accounts'                     ,  // route
-        'user-accounts-div'            ); // div_id
+setAjaxById(
+     ids ,  // id
+    'accounts'                     ,  // route
+    'user-accounts-div'            ); // div_id
 
- @foreach( $accounts as $account )
-    setAjaxById(
+@foreach( $accounts as $account )
+
+setAjaxById(
         'uid-{{ $user->id }}-{{ $account->provider }}', // id
         'accounts_p/{{$account->provider}}', // route
         'user-accounts-div'); // div_id
+
 @endforeach
+
+onreadyAjax( 'accounts', 'user-accounts-div' );
 
 </script>
 

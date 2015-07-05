@@ -118,6 +118,8 @@
 
         function ajax_html(e)
         {
+            // alert( 'ajax_html:' + e.data.url + ',div:' + e.data.div );
+            
             $.ajax( e.data.url,
                    {
                         type: 'POST',
@@ -131,13 +133,37 @@
                         },
                    
                         success:function(data){
+                            // alert('sucess:' + this.div );
                             $(this.div).html(data);
                         },
                    
                         error:function(){
+                            // alert('failure:' + this.div );
                             $(this.div).html('Failed to load data');
                         }
                    }); //end of ajax
+        }
+
+        function build_postAjax( route, div_id )
+        {
+            // since $.ready does not accept args, we build dynamic
+            // no argument function from args!
+            return function(){
+                        var e = { data: {url: route, div: div_id } };
+                        ajax_html( e );
+                    };
+        }
+
+        function onreadyAjax( route, div_id )
+        {
+            div_id = '#' + div_id;
+
+            if (jQuery.isReady){
+                build_postAjax( route, div_id )();
+            }
+            else{
+                $(document).ready( build_postAjax( route, div_id ) );
+            }
         }
 
         function setAjax( id, route, div_id )
