@@ -225,22 +225,24 @@ class FacebookFacts extends AccountFacts{
         catch( \Exception $e )
         {
             $err = get_class($this).' - ('.$endpoint.')'.$e->getMessage();
-            $res = (object)[ 'err' => $err, 'endpoint' => $endpoint ];
+            $res = [ 'err' => $err, 'endpoint' => $endpoint ];
         }
         
         if ( $res instanceof \Facebook\FacebookResponse ){
             $res = $res->getDecodedBody();
-            if ( is_array( $res ) && isset($res['data']) ){
-                $data = $res[ 'data' ];
-            }
+            
             // TODO: handle paging!!
             if ( is_array( $res ) && isset($res['paging']) ){
                 $paging = $res[ 'paging' ];
                 $this->output( 'graph_api::' . $endpoint, $paging );
             }
+
+            if ( is_array( $res ) && isset($res['data']) ){
+                $res = $res[ 'data' ];
+            }
         }
         
-        return $data;
+        return $res;
     }
     
     // .............................................................. token_info
