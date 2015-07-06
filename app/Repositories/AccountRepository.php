@@ -86,7 +86,17 @@ class AccountRepository {
             $facts = Fact::where( 'uid'   , $uid     )->get();
         }
         
-        return $facts;
+        // repackage as an array
+        if ( !empty( $facts )){
+            $a = array();
+            foreach( $facts as $fact ){
+                $a[] = $fact;
+            }
+            return $a;
+        }
+        
+        // $facts is empty!
+        return null;
     }
     
     // ......................................................... getUserAccounts
@@ -98,7 +108,18 @@ class AccountRepository {
         $match = ['uid' => $uid ];
         if ( $provider ) $match[ 'provider' ] = $provider;
         
-        return Account::where( $match )->get();
+        $accts = Account::where( $match )->get();
+        
+        // repackage as an array
+        if (!empty( $accts )){
+            $a = array();
+            foreach( $accts as $act ){
+                $a[] = $act;
+            }
+            return $a;
+        }
+        
+        return null;
     }
     
     
