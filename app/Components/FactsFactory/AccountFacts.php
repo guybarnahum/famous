@@ -81,7 +81,7 @@ abstract class AccountFacts implements AccountFactsContract{
     protected function prcess_facts( $cname, $obj, $store = false )
     {
         $facts_collection = $this->mapper->map( $cname, $obj );
-        
+  
         if ( is_array($facts_collection) ){
             foreach( $facts_collection as $type => $facts ){
                 

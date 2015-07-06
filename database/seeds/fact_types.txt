@@ -77,6 +77,8 @@ likes.politics.movement:::desc:bool
 likes.organization:::desc:bool
 likes.organization.community:::desc:bool
 likes.organization.non_profit:::desc:bool
+likes.organization.tech:::desc:bool
+likes.organization.health:::desc:bool
 likes.company:::desc:bool
 likes.media:::desc:bool
 likes.media.music:::desc:bool
@@ -87,7 +89,9 @@ likes.media.web:::desc:bool
 likes.media.book:::desc:bool
 likes.media.magazine:::desc:bool
 likes.media.art:::desc:bool
+likes.media.art.artist:::desc:bool
 likes.media.art.painting:::desc:bool
 likes.media.art.photography:::desc:bool
+likes.services:::desc:bool
 likes.services.photography:::desc:bool
-likes:::desc:bool
+

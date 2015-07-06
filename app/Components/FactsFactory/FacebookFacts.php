@@ -12,58 +12,77 @@ class FacebookFactsDataFormatter
     // ............................................................ the data map
     private static $MAP = [
     
-    // .........................................................................
-
+    // ............................................................... education
     // obj name    : src_path                : tgt_path                  : [fmt]
-    // education
+    
     'facebook/user : education/*/school/id   : education/obj_provider_id',
     'facebook/user : education/*/school/name : education/obj_name'       ,
     'facebook/user : education/*/obj_id_type : education/obj_id_type     : !facebook.entity.id',
     'facebook/user : education/*/type        : education/fct_name        : fmt_school_type',
     
-    // hometown
-    'facebook/user : hometown/id             : hometown/obj_provider_id' ,
-    'facebook/user : hometown/name           : hometown/obj_name'        ,
-    'facebook/user : hometown/obj_id_type    : hometown/obj_id_type      : !facebook.place.id',
-    'facebook/user : hometown/fct_name       : hometown/fct_name         : !place.hometown',
+    // ................................................................ hometown
+    // obj name     : src_path               : tgt_path                 : [fmt]
+    'facebook/user  : hometown/id            : hometown/obj_provider_id',
+    'facebook/user  : hometown/name          : hometown/obj_name'       ,
+    'facebook/user  : hometown/obj_id_type   : hometown/obj_id_type     : !facebook.place.id',
+    'facebook/user  : hometown/fct_name      : hometown/fct_name        : !place.hometown',
     
-    // location
-    'facebook/user : location/id             : location/obj_provider_id' ,
-    'facebook/user : location/name           : location/obj_name'        ,
-    'facebook/user : location/obj_id_type    : location/obj_id_type      : !facebook.place.id',
-    'facebook/user : location/fct_name       : location/fct_name         : !place.at',
+    // ................................................................ location
+    // obj name     : src_path               : tgt_path                 : [fmt]
+    'facebook/user  : location/id            : location/obj_provider_id',
+    'facebook/user  : location/name          : location/obj_name'       ,
+    'facebook/user  : location/obj_id_type   : location/obj_id_type     : !facebook.place.id',
+    'facebook/user  : location/fct_name      : location/fct_name        : !place.at',
     
-    // work
-    'facebook/user : work/*/employer/id      : work/obj_provider_id'    ,
-    'facebook/user : work/*/employer/name    : work/obj_name'           ,
-    'facebook/user : work/*/obj_id_type      : work/obj_id_type         : !facebook.entity.id',
-    'facebook/user : work/*/fct_name         : work/fct_name            : !work',
+    // .................................................................... work
+    // obj name     : src_path               : tgt_path                 : [fmt]
+    'facebook/user  : work/*/employer/id     : work/obj_provider_id'    ,
+    'facebook/user  : work/*/employer/name   : work/obj_name'           ,
+    'facebook/user  : work/*/obj_id_type     : work/obj_id_type         : !facebook.entity.id',
+    'facebook/user  : work/*/fct_name        : work/fct_name            : !work',
     
-    // gender
-    'facebook/user : gender                  : gender/obj_name'         ,
-    'facebook/user : gender/obj_id_type      : gender/obj_id_type       : !facebook.gender',
-    'facebook/user : gender/fct_name         : gender/fct_name          : !gender',
-    'facebook/user : gender/obj_provider_id  : gender/obj_provider_id   : !facebook.gender.enum',
+    // .................................................................. gender
+    // obj name     : src_path               : tgt_path                 : [fmt]
+    'facebook/user  : gender                 : gender/obj_name'         ,
+    'facebook/user  : gender/obj_id_type     : gender/obj_id_type       : !facebook.gender',
+    'facebook/user  : gender/fct_name        : gender/fct_name          : !gender',
+    'facebook/user  : gender/obj_provider_id : gender/obj_provider_id   : !facebook.gender.enum',
     
-    // significant other
-    'facebook/user : significant_other/name  : significant_other/obj_name'         ,
-    'facebook/user : significant_other/id    : significant_other/obj_provider_id'  ,
-    'facebook/user : significant_other/obj_id_type : significant_other/obj_id_type : !facebook.uid',
-    'facebook/user : significant_other/fct_name : significant_other/fct_name       : !family.significant_other',
+    // ....................................................... significant other
+    // obj name     : src_path               : tgt_path                            : [fmt]
+    'facebook/user  : significant_other/name : significant_other/obj_name'         ,
+    'facebook/user  : significant_other/id   : significant_other/obj_provider_id'  ,
+    'facebook/user  : significant_other/obj_id_type : significant_other/obj_id_type: !facebook.uid',
+    'facebook/user  : significant_other/fct_name : significant_other/fct_name      : !family.significant_other',
     
-    // relationship_status
-    'facebook/user : relationship_status            : family_status/obj_name'   ,
-    'facebook/user : relationship_status/obj_id_type: family_status/obj_id_type : !facebook.rel' ,
-    'facebook/user : relationship_status/fct_name   : family_status/fct_name    : !family.status',
-    'facebook/user : relationship_status/obj_provider_id: family_status/obj_provider_id   : !facebook.rel.enum',
+    // ........................................................... family_status
+    // obj name     : src_path                       : tgt_path                  : [fmt]
+    'facebook/user  : relationship_status            : family_status/obj_name'   ,
+    'facebook/user  : relationship_status/obj_id_type: family_status/obj_id_type : !facebook.rel' ,
+    'facebook/user  : relationship_status/fct_name   : family_status/fct_name    : !family.status',
+    'facebook/user  : relationship_status/obj_provider_id: family_status/obj_provider_id : !facebook.rel.enum',
     
-    // .........................................................................
-    // obj name    : src_path                : tgt_path                  : [fmt]
-    // family
+    // .................................................................. family
+    // obj name     : src_path          : tgt_path               : [fmt]
     'facebook/family: */name            : family/obj_name        ',
     'facebook/family: */id              : family/obj_provider_id ',
-    'facebook/family: */obj_provider_id : family/obj_id_type     : !facebook.uid',
+    'facebook/family: */obj_id_type     : family/obj_id_type     : !facebook.uid',
     'facebook/family: */relationship    : family/fct_name        :  fmt_family_type',
+    
+    // ................................................................... likes
+    /*
+     [0] => Array
+     (
+     [name] => זהבה גלאון Zehava Galon
+     [category] => Politician
+     [id] => 115028251920872
+     [created_time] => 2015-06-12T03:55:53+0000
+     */
+    // obj name     : src_path          : tgt_path               : [fmt]
+    'facebook/likes : */name            : likes/obj_name        ',
+    'facebook/likes : */id              : likes/obj_provider_id ',
+    'facebook/likes : */obj_id_type     : likes/obj_id_type      :!facebook.entity.id',
+    'facebook/likes : */category        : likes/fct_name         : fmt_likes_type',
     
     ];
     
@@ -110,7 +129,51 @@ class FacebookFactsDataFormatter
         
         return $val;
     }
+    
+    // .......................................................... fmt_likes_type
+    //
+    // identify various cannonical like types, all the rest go it likes.#name
+    // format
+    
+    public function fmt_likes_type( $val, $cname, $src_path, $tgt_path )
+    {
+        if (!is_string($val)) return null;
+        
+        if (($cname    != 'facebook/likes' )||
+            ($tgt_path != 'likes/fct_name' ) ) return null;
 
+        $search = array( ' ', '/', '|', '#' );
+        
+        $val = str_replace( $search, '_', strtolower( $val ) );
+        
+        switch( $val ){
+            
+            case 'politician'             : $val = 'politics.persona'   ; break;
+            case 'political_ideology'     : $val = 'politics.movement'  ; break;
+                
+            case 'organization'           : $val = 'organization'       ; break;
+            case 'community'              : $val = 'organization.community' ; break;
+            case 'non-profit_organization': $val = 'organization.non_profit'; break;
+            case 'computers_technology'   : $val = 'organization.tech'  ; break;
+            case 'health_medical_pharmaceuticals'
+                                          : $val = 'organization.health'; break;
+                
+            case 'professional_services'  : $val = 'services'           ; break;
+
+            // media
+            case 'musician_band'   : $val = 'media.music.artist'; break;
+            case 'artist'          : $val = 'media.art.artist'  ; break;
+            case 'book'            : $val = 'media.book'        ; break;
+            case 'magazine'        : $val = 'media.magazine'    ; break;
+            case 'website'         : $val = 'media.web'         ; break;
+            case 'movie'           : $val = 'media.movies' ; break;
+            
+            default                : $val = '#'.$val ; break;
+        }
+        
+        $val = 'likes.' . $val;
+        return $val;
+    }
 }
 
 class FacebookFacts extends AccountFacts{
@@ -153,7 +216,7 @@ class FacebookFacts extends AccountFacts{
             $endpoint .= '?fields=' . $fields;
         }
         
-        $this->output[] = 'graph_api::' . $endpoint;
+        $this->output( 'graph_api::' . $endpoint );
         
         try {
             $token = $this->fb->getDefaultAccessToken();
@@ -168,11 +231,16 @@ class FacebookFacts extends AccountFacts{
         if ( $res instanceof \Facebook\FacebookResponse ){
             $res = $res->getDecodedBody();
             if ( is_array( $res ) && isset($res['data']) ){
-                $res = $res[ 'data' ];
+                $data = $res[ 'data' ];
+            }
+            // TODO: handle paging!!
+            if ( is_array( $res ) && isset($res['paging']) ){
+                $paging = $res[ 'paging' ];
+                $this->output( 'graph_api::' . $endpoint, $paging );
             }
         }
         
-        return $res;
+        return $data;
     }
     
     // .............................................................. token_info
@@ -257,9 +325,11 @@ class FacebookFacts extends AccountFacts{
     public function process()
     {
         $endpoints = [
-            'facebook/user'   => '/me',
-            'facebook/family' => '/me/family',
-            'facebook/likes'  => '/me/likes',
+            'facebook/user'             => '/me',
+            'facebook/family'           => '/me/family',
+            'facebook/likes'            => '/me/likes',
+            'facebook/taggable_friends' => '/me/taggable_friends',
+            'facebook/invitable_friends'=> '/me/invitable_friends',
         ];
         
         // first things first : set the token so we can talk to graph api
@@ -271,9 +341,8 @@ class FacebookFacts extends AccountFacts{
         foreach( $endpoints as $datamap_cname => $endpoint ){
             try{
                 $res   = $this->graph_api( $endpoint );
-                $this->output( 'res', $res );
+                $this->output( 'res:' . $endpoint, $res );
                 $facts = $this->prcess_facts( $datamap_cname , $res, $store );
-                $this->output( 'facts', $facts );
             }
             catch( \Exception $e ){
                 $this->output( $e->getMessage() );
@@ -282,32 +351,6 @@ class FacebookFacts extends AccountFacts{
         
         return $this;
         
-        /*
-        
-         $u    = '/' . $act->provider_uid;
-       // app status
-        $ver        = $fb->getDefaultGraphVersion();;
-        $this->res[ 'Graph API' ] = $ver;
-        
-        $perms = $this->graph_api( $fb, $u . '/permissions');
-        
-        if ( is_array($perms)){
-            foreach( $perms as $perm ){
-          //      $this->info( 'Permision `' . $perm[ 'permission'] .
-          //                  '` was '      . $perm[ 'status'    ] );
-            }
-        }
-        else{
-       //     $this->error( 'Failed to obtain $perms' );
-        //    $this->error( print_r($perms,true) );
-        }
-        */
-        /*
-         $res->rerequest_url = $fb->getReRequestUrl(['email']);
-         
-         $this->facebook_app_status($fb,$act);
-         $res->graph_api = array();
-         */
         /*
         $fact_owner = $provider . $u;
         
@@ -323,9 +366,6 @@ class FacebookFacts extends AccountFacts{
         $this->res[ 'cover'  ] = $this->graph_api( $fb, $u . '/cover'  );
         
         // handle bio
-        
-        // handle likes
-        
         // handle errors
         // TODO: collect all errors into an error array
         */
