@@ -196,7 +196,7 @@ class FacebookFacts extends AccountFacts{
     public function set_token()
     {
         $token = $this->act->access_token;
-        $this->output('set_token'. $token);
+        $this->output('set_token:' . $token);
 
         $this->fb->setDefaultAccessToken( $token );
         return $this;
@@ -216,8 +216,10 @@ class FacebookFacts extends AccountFacts{
         
         do{ // pagination ..
             $q = '';
-            foreach( $params as $key => $val ) $q .= $key . '=' . $val;
-            $this->output( 'graph_api::' . $endpoint . '?' . $q );
+            foreach( $params as $key => $val ) $q .= '&' . $key . '=' . $val;
+            $q = substr($q,1);
+            
+            $this->output( 'graph_api::' . $endpoint . ', params:' . $q );
             
             try {
                 $token = $this->fb->getDefaultAccessToken();
@@ -272,8 +274,9 @@ class FacebookFacts extends AccountFacts{
     
     public function token_info( $token )
     {
-        $endpoint = '/debug_token?input_token=' . $token;
-        return $this->graph_api( $endpoint );
+        $endpoint = '/debug_token';
+        $params = [ 'input_token' => $token ];
+        return $this->graph_api( $endpoint, $params );
     }
     
     // ............................................................ extend_token
