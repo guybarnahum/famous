@@ -46,14 +46,19 @@ education.school.high:$s attended $o:Did $s attended $o:desc:bool
 education.school.college:$s attended $o:Did $s attended $o:desc:bool
 education.school.graduate:$s attended $o:Did $s attended $o:desc:bool
 
-friendship:$s and $o are friends:Are $s and $o friends:desc:bool
-friendship.close:::desc:bool
-friendship.casual:::desc:bool
-friendship.distant:::desc:bool
-friendship.inactive:::desc:bool
-friendship.significant_other.girlfriend:::desc:bool
-friendship.significant_other.boyfriend:::desc:bool
-friendship.significant_other.dating:::desc:bool
+friend:$s and $o are friends:Are $s and $o friends:desc:bool
+friend.close:::desc:bool
+friend.casual:::desc:bool
+friend.distant:::desc:bool
+friend.inactive:::desc:bool
+friend.sns:::desc.bool
+friend.sns.facebook:::desc.bool
+friend.sns.linkedin:::desc.bool
+friend.sns.twitter:::desc.bool
+friend.sns.google:::desc.bool
+friend.significant_other.girlfriend:::desc:bool
+friend.significant_other.boyfriend:::desc:bool
+friend.significant_other.dating:::desc:bool
 
 family:$s and $o are related:Are $s and $o related:desc:bool
 

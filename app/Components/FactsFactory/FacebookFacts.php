@@ -4,8 +4,8 @@ use App\Components\FactsFactory\AccountFactsContract;
 use App\Components\FactsFactory\AccountFacts;
     
 use App\Models\Fact;
+use App\Components\StringUtils;
     
-// use App\Components\FactsFactory\FacebookFactsDataFormatter;
     
 class FacebookFactsDataFormatter
 {
@@ -67,17 +67,16 @@ class FacebookFactsDataFormatter
     'facebook/family: */name            : family/obj_name        ',
     'facebook/family: */id              : family/obj_provider_id ',
     'facebook/family: */obj_id_type     : family/obj_id_type     : !facebook.uid',
-    'facebook/family: */relationship    : family/fct_name        :  fmt_family_type',
+    'facebook/family: */fct_name        : family/fct_name        :  fmt_family_type',
+    
+    // ........................................................ taggable_friends
+    // obj name     : src_path          : tgt_path               : [fmt]
+    'facebook/friend: */name            : friend/obj_name        ',
+    'facebook/friend: */id              : friend/obj_provider_id ',
+    'facebook/friend: */obj_id_type     : friend/obj_id_type     : !facebook.tag_uid',
+    'facebook/friend: */fct_name        : friend/fct_name        : !friend.sns.facebook',
     
     // ................................................................... likes
-    /*
-     [0] => Array
-     (
-     [name] => זהבה גלאון Zehava Galon
-     [category] => Politician
-     [id] => 115028251920872
-     [created_time] => 2015-06-12T03:55:53+0000
-     */
     // obj name     : src_path          : tgt_path               : [fmt]
     'facebook/likes : */name            : likes/obj_name        ',
     'facebook/likes : */id              : likes/obj_provider_id ',
@@ -209,40 +208,64 @@ class FacebookFacts extends AccountFacts{
     }
     
     // ............................................................... graph_api
-    
-    public function graph_api( $endpoint, $fields = false)
-    {
-        if (!empty($fields)){
-            $endpoint .= '?fields=' . $fields;
-        }
-        
-        $this->output( 'graph_api::' . $endpoint );
-        
-        try {
-            $token = $this->fb->getDefaultAccessToken();
-            $res   = $this->fb->get( $endpoint, $token );
-        }
-        catch( \Exception $e )
-        {
-            $err = get_class($this).' - ('.$endpoint.')'.$e->getMessage();
-            $res = [ 'err' => $err, 'endpoint' => $endpoint ];
-        }
-        
-        if ( $res instanceof \Facebook\FacebookResponse ){
-            $res = $res->getDecodedBody();
-            
-            // TODO: handle paging!!
-            if ( is_array( $res ) && isset($res['paging']) ){
-                $paging = $res[ 'paging' ];
-                $this->output( 'graph_api::' . $endpoint, $paging );
-            }
 
-            if ( is_array( $res ) && isset($res['data']) ){
-                $res = $res[ 'data' ];
-            }
-        }
+    public function graph_api( $endpoint, array $params = [] )
+    {
+        $data = array();
+        $params[ 'method' ] = 'GET';
         
-        return $res;
+        do{ // pagination ..
+            $q = '';
+            foreach( $params as $key => $val ) $q .= $key . '=' . $val;
+            $this->output( 'graph_api::' . $endpoint . '?' . $q );
+            
+            try {
+                $token = $this->fb->getDefaultAccessToken();
+                $res   = $this->fb->post( $endpoint, $params, $token );
+            }
+            catch( \Exception $e )
+            {
+                $err = get_class($this).' ('. $endpoint .')'. $e->getMessage();
+                
+                $res = [ 'err' => $err, 'endpoint' => $endpoint ];
+                if ($params){
+                    $res[ 'params' ] = $params;
+                }
+            }
+            
+            $next = false;
+            
+            if ( $res instanceof \Facebook\FacebookResponse ){
+                
+                 $res = $res->getDecodedBody();
+                
+                 // get $next $limit from paging section
+                 if ( is_array( $res ) && isset( $res['paging']) ){
+                    
+                     $next = isset( $res['paging']['next'] )?
+                                    $res['paging']['next']  : false;
+                    
+                     $this->output( 'next: ' . $next );
+                     
+                     $limit  = StringUtils::getUrlParam( $next, 'limit' );
+                     $after  = StringUtils::getUrlParam( $next, 'after' );
+                     
+                     if ($limit) $params[ 'limit' ] = $limit;
+                     if ($after) $params[ 'after' ] = $after;
+                }
+
+                if ( is_array( $res ) && isset( $res['data']) ){
+                    $res = $res[ 'data' ];
+                }
+            }
+            
+            // add  $res page to $data
+            foreach( $res as $item ) $data[] = $item;
+            unset( $res );
+            
+        }while( $next ); // pagination
+        
+        return $data;
     }
     
     // .............................................................. token_info
@@ -327,11 +350,10 @@ class FacebookFacts extends AccountFacts{
     public function process()
     {
         $endpoints = [
-            'facebook/user'             => '/me',
-            'facebook/family'           => '/me/family',
-            'facebook/likes'            => '/me/likes',
-            'facebook/taggable_friends' => '/me/taggable_friends',
-            'facebook/invitable_friends'=> '/me/invitable_friends',
+            'facebook/user'    => '/me',
+            'facebook/family'  => '/me/family',
+            'facebook/likes'   => '/me/likes',
+            'facebook/friend'  => '/me/taggable_friends',
         ];
         
         // first things first : set the token so we can talk to graph api
@@ -343,7 +365,6 @@ class FacebookFacts extends AccountFacts{
         foreach( $endpoints as $datamap_cname => $endpoint ){
             try{
                 $res   = $this->graph_api( $endpoint );
-                $this->output( 'res:' . $endpoint, $res );
                 $facts = $this->prcess_facts( $datamap_cname , $res, $store );
             }
             catch( \Exception $e ){

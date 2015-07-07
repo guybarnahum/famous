@@ -22,11 +22,24 @@
                         </tr>
                     </thead>
                         <tbody>
+                        @if ( $fact_name = '' ) @endif
                         @foreach( $facts as $fact )
+                            @if ( $fact->fct_name != $fact_name )
                             <tr>
                                 <td style='vertical-align:middle;'>
                                     {{$fact->fct_name}}
                                 </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            @if ( $fact_name = $fact->fct_name ) @endif
+
+                            @endif
+
+                            <tr>
+                                <td></td>
                                 <td style='vertical-align:middle;'>
                                     uid.{{$fact->uid}}:act.{{$fact->act_id}}
                                 </td>
@@ -34,9 +47,17 @@
                                     {{$fact->obj_name}}
                                 </td>
                                 <td style='vertical-align:middle;'>
-                                    {{$fact->obj_id_type}}:{{$fact->obj_provider_id}}
+
+                                @if ( $str = $fact->obj_id_type . ':' . $fact->obj_provider_id ) @endif
+
+                                @if ( strlen( $str ) > 32 )
+                                    {{ substr($str,0,32)}}...
+                                @else
+                                    {{        $str      }}
+                                @endif
                                 </td>
                             </tr>
+                            </div>
                         @endforeach
                         </tbody>
                 </table>

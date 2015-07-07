@@ -84,7 +84,7 @@ class HomeController extends Controller {
     }
     
     // ...................................................... getFactsByProvider
-    public function fact_cmp( $a, $b )
+    public function fact_cmp_name( $a, $b )
     {
         $fct_name_a = is_array( $a )? $a[ 'fct_name' ] : $a->fct_name;
         $fct_name_b = is_array( $b )? $b[ 'fct_name' ] : $b->fct_name;
@@ -99,11 +99,14 @@ class HomeController extends Controller {
         $user  = Session::get( 'user' );
         $facts = $this->accts->getUserFacts( $user->id, $provider );
         
-        $cmp_fn = array( $this, 'fact_cmp'  );
+        // sort facts by 'fct_name'
+        $cmp_fn = array( $this, 'fact_cmp_name'  );
         
         if ( is_callable($cmp_fn) ){
             usort( $facts, $cmp_fn );
         }
+        
+        // TODO: format further for display.. 
         
         $with  = ['user' => $user, 'facts' => $facts ];
         
