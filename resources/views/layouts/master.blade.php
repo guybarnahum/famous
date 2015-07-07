@@ -105,6 +105,11 @@
             -ms-transform: translateY(50%);
             transform: translateY(50%);
         }
+
+        tr.clickable{
+            cursor:pointer;
+        }
+
         </style>
 
         <!-- scripts -->

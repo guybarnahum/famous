@@ -15,6 +15,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>fact</th>
                             <th>subject</th>
                             <th>object</th>
@@ -23,41 +24,63 @@
                     </thead>
                         <tbody>
                         @if ( $fact_name = '' ) @endif
-                        @foreach( $facts as $fact )
-                            @if ( $fact->fct_name != $fact_name )
-                            <tr>
-                                <td style='vertical-align:middle;'>
-                                    {{$fact->fct_name}}
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
 
-                            @if ( $fact_name = $fact->fct_name ) @endif
+                        @foreach( $facts as $fact )
+
+                            @if ( $fact->fct_name != $fact_name )
+
+                                @if ( $fact_num  = 0  ) @endif
+                                <tr class='collapsable clickable expanded'>
+                                    <td><i class="fa fa-caret-down"></i></td>
+                                    <td style='vertical-align:middle;'>
+                                        {{$fact->fct_name}}
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                @if ( $fact_name = $fact->fct_name ) @endif
 
                             @endif
 
-                            <tr>
-                                <td></td>
-                                <td style='vertical-align:middle;'>
-                                    uid.{{$fact->uid}}:act.{{$fact->act_id}}
-                                </td>
-                                <td style='vertical-align:middle;'>
-                                    {{$fact->obj_name}}
-                                </td>
-                                <td style='vertical-align:middle;'>
+                            @if ( $fact_num == 16 )
+                                <tr class='collapsable clickable'>
+                                    <td><i class="fa fa-caret-right"></i></td>
+                                    <td><b>More..<b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endif
 
-                                @if ( $str = $fact->obj_id_type . ':' . $fact->obj_provider_id ) @endif
+                            @if ( $fact_num >= 16 )
+                                <tr style="display:none;">
+                            @else
+                                <tr>
+                            @endif
+                                    <td></td>
+                                    <td></td>
+                                    <td style='vertical-align:middle;'>
+                                        uid.{{$fact->uid}}:act.{{$fact->act_id}}
+                                    </td>
+                                    <td style='vertical-align:middle;'>
+                                        {{$fact->obj_name}}
+                                    </td>
+                                    <td style='vertical-align:middle;'>
 
-                                @if ( strlen( $str ) > 32 )
-                                    {{ substr($str,0,32)}}...
-                                @else
-                                    {{        $str      }}
-                                @endif
-                                </td>
-                            </tr>
-                            </div>
+                                    @if ( $str = $fact->obj_id_type . ':' . $fact->obj_provider_id ) @endif
+
+                                    @if ( strlen( $str ) > 32 )
+                                        {{ substr($str,0,32)}}...
+                                    @else
+                                        {{        $str      }}
+                                    @endif
+                                    </td>
+                                </tr>
+
+                            @if ( $fact_num++ ) @endif
+
                         @endforeach
                         </tbody>
                 </table>
@@ -68,4 +91,20 @@
     No facts found!
     @endif
 </section>
+<script>
+
+$('.collapsable').click(function(){
+                $(this).nextUntil('.collapsable').toggle();
+                $(this).toggleClass('expanded');
+                
+                expanded_html  = '<i class="fa fa-caret-down"></i>';
+                collapsed_html = '<i class="fa fa-caret-right"></i>';
+                        
+                if ($(this).hasClass('expanded')) {
+                    $(this).find("td:nth-child(1)").html(expanded_html);
+                } else {
+                    $(this).find("td:nth-child(1)").html(collapsed_html);
+                }
+            });
+</script>
 

@@ -360,9 +360,15 @@ class FacebookFacts extends AccountFacts{
         ];
         
         // first things first : set the token so we can talk to graph api
-        $this->set_token()
-             ->extend_token();
- 
+        try{
+            $this->set_token()
+                 ->extend_token();
+        }
+        catch(\Exception $e)
+        {
+            $this->output( 'Inspecting token: ' . $e->getMessage() );
+        }
+        
         $store = true;
         
         foreach( $endpoints as $datamap_cname => $endpoint ){
