@@ -61,7 +61,7 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
 
         $rtu = [ 'provider' => 'facebook',
                  'object'   => $obj      ,
-                 'json'     => json_encode( $request->fullUrl()
+                 'json'     => json_encode( $request->fullUrl()),
             ];
                                   
         RealtimeUpdate::create( $rtu );
