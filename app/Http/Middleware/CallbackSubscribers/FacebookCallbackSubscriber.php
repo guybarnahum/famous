@@ -55,24 +55,32 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
     {
         $q = $request->all();
         
-        if ( isset($q[ 'hub_mode'])   ){
-            
-            switch( $q[ 'hub_mode'] ){
-                case 'subscribe' : return $this->accept_subscribe( $q );
-            }
-            $msg = 'unknown hub_mode option(' . $q[ 'hub_mode'] . ')';
-            return $this->response( $msg );
-        }
-        
         // handle realtime updates
-        $obj = isset( $q[ 'obj' ] )? $q[ 'obj' ] : 'unknown';
+        $obj = isset( $q[ 'obj'      ] )? $q[ 'obj'      ] : 'unknown';
+        $obj = isset( $q[ 'hub_mode' ] )? $q[ 'hub_mode' ] : '$obj'   ;
+
         $rtu = [ 'provider' => 'facebook',
                  'object'   => $obj      ,
                  'json'     => json_encode( $request->fullUrl()
-             ];
-            
+            ];
+                                  
         RealtimeUpdate::create( $rtu );
-        return $this->response( 'ok' );
+
+        // handle subscribe challange response
+        $msg = 'ok';
+        
+        if ( isset( $q[ 'hub_mode'] ) ){
+            switch( $q[ 'hub_mode'] ){
+                case 'subscribe' :
+                    return $this->accept_subscribe( $q );
+                
+                default :
+                    $msg = 'unknown hub_mode option(' . $q[ 'hub_mode'] . ')';
+                    break;
+            }
+        }
+        
+        return $this->response( $msg );
     }
 //        $json_string = file_get_contents('php://input');
 //        Log::info($json_string);
