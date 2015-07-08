@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware\CallbackSubscribers;
 
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+use App\Models\RealtimeUpdate;
+    
 use \Log;
 
 class FacebookCallbackSubscriber implements _ICallbackSubscriber {
