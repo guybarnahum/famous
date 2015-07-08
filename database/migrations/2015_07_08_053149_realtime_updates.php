@@ -18,9 +18,9 @@ class RealtimeUpdates extends Migration {
         // 'qoura', 'stackoverflow', 'github',
         // 'gmail', 'goolgle+'
         
-        Schema::dropIfExists( 'realtime-updates' );
+        Schema::dropIfExists( 'realtime_updates' );
         
-        Schema::create( 'realtime-updates', function(Blueprint $table)
+        Schema::create( 'realtime_updates', function(Blueprint $table)
                        {
                        // id is our primary index -
                        // used in other tables as a foreign key 'ds_id'
@@ -42,7 +42,7 @@ class RealtimeUpdates extends Migration {
 	 */
 	public function down()
 	{
-        Schema::dropIfExists( 'realtime-updates' );
+        Schema::dropIfExists( 'realtime_updates' );
 	}
 
 }
