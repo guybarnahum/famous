@@ -9,12 +9,25 @@ abstract class AccountFacts implements AccountFactsContract{
     
     protected   $mapper;
     protected   $act             = null;
+    protected   $options         = null;
     private     $output_callback = false;
 
     function __construct( $act )
     {
         $this->act     = $act;
         $this->mapper = new DataMapper();
+    }
+   
+    // ................................................................. options
+    public function set_options( $options )
+    {
+        $this->options = $options;
+        return $this;
+    }
+
+    public function get_option( $option )
+    {
+        return isset($this->options[ $option ])? $this->options[ $option ]:null;
     }
     
     // .............................................................. set_output

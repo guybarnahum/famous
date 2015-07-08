@@ -49,7 +49,8 @@ class ProcessAccounts extends Command {
 	 */
     public function handle()
 	{
-        $accts = Account::All();
+        $options = $this->option();
+        $accts   = Account::All();
         
         foreach( $accts as $act ){
             
@@ -63,8 +64,9 @@ class ProcessAccounts extends Command {
                     
                     $output = array($this, 'info');
                     
-                    $facts->set_output( $output )
-                          ->process   ( $act    );
+                    $facts->set_output ( $output  )
+                          ->set_options( $options )
+                          ->process    ( $act     );
                 }
                 else{
                     $msg = 'Failed to make fact factory for '. $act->toString();
@@ -134,7 +136,8 @@ class ProcessAccounts extends Command {
 	protected function getOptions()
 	{
 		return [
-			['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
+            ['x', null, InputOption::VALUE_NONE, 'Invoke only experimental options.', null],
+            ['s', null, InputOption::VALUE_NONE, 'Subscribe callback to accounts.', null],
 		];
 	}
 

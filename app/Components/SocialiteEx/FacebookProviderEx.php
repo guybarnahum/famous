@@ -3,7 +3,7 @@
 use Laravel\Socialite\Two\FacebookProvider;
     
 class FacebookProviderEx extends FacebookProvider
-{
+{    
     /**
      * Get the scopes of the requested access.
      *

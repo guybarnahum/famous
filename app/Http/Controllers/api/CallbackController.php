@@ -38,11 +38,6 @@ class CallbackController extends Controller {
         
         // TODO: filter out named options and their values
         
-        // check number of other args
-        if ( count( $input ) != 1 ){
-            return Response::create( 'invalid number of arguments', 200 );
-        }
-        
         $keys = array_keys( $input );
         $namespace = $keys[ 0 ];
         

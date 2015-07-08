@@ -20,6 +20,31 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
         return ( $namespace == 'facebook' );
     }
 
+    function response( $msg )
+    {
+        return (object) [ 'data' => $msg, 'err' => 200 ];
+    }
+    
+    function accept_subscribe( $q )
+    {
+        // test verify token
+        
+        $app_id       = env( 'FACEBOOK_CLIENT_ID' );
+        $verify_token = md5( $app_id );
+        $sent_token   = isset( $q[ 'hub_verify_token'])?
+                               $q[ 'hub_verify_token'] : '' ;
+        
+        // echo challange or reject
+        if ( $verify_token == $sent_token ){
+            $data = $q[ 'hub_challenge'];
+        }
+        else{
+            $data = 'verify token failure';
+        }
+
+        return $this->response( $data );
+    }
+    
     /**
      * TODO: Create a parser and store it somewhere
      *
@@ -28,15 +53,32 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
      */
     function accept(Request $request, $payload )
     {
-        Log::info( $request->fullUrl() );
+        $q = $request->all();
         
-        return (object) [ 'data' => 'ok', 'err' => 200 ];
+        if ( isset($q[ 'hub_mode'])   ){
+            
+            switch( $q[ 'hub_mode'] ){
+                case 'subscribe' : return $this->accept_subscribe( $q );
+            }
+            $msg = 'unknown hub_mode option(' . $q[ 'hub_mode'] . ')';
+            return $this->response( $msg );
+        }
         
+        // handle realtime updates
+        $obj = isset( $q[ 'obj' ] )? $q[ 'obj' ] : 'unknown';
+        $rtu = [ 'provider' => 'facebook',
+                 'object'   => $obj      ,
+                 'json'     => json_encode( $request->fullUrl()
+             ];
+            
+        RealtimeUpdate::create( $rtu );
+        return $this->response( 'ok' );
+    }
 //        $json_string = file_get_contents('php://input');
 //        Log::info($json_string);
 //        $obj = json_decode($json_string);
 //        Log::info("object: {$obj->object}");
 //        Log::info('entry: ');
 //        Log::info(print_r($obj->entry, true));
-    }
+//
 }
