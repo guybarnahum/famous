@@ -69,15 +69,9 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
         // handle subscribe challange response
         $msg = 'ok';
         
-        if ( isset( $q[ 'hub_mode'] ) ){
-            switch( $q[ 'hub_mode'] ){
-                case 'subscribe' :
-                    return $this->accept_subscribe( $q );
-                
-                default :
-                    $msg = 'unknown hub_mode option(' . $q[ 'hub_mode'] . ')';
-                    break;
-            }
+        switch( $obj ){
+            case 'subscribe' : return $this->accept_subscribe( $q );
+            default : $msg = 'unknown option (' . $obj . ')'; break;
         }
         
         return $this->response( $msg );
