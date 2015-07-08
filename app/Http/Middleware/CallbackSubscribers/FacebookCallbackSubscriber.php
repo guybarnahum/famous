@@ -69,14 +69,12 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
         RealtimeUpdate::create( $rtu );
 
         // handle subscribe challange response
-        $msg = 'ok';
         
         switch( $obj ){
             case 'subscribe' : return $this->accept_subscribe( $q );
-            default : $msg = 'unknown option (' . $obj . ')'; break;
         }
         
-        return $this->response( $msg );
+        return $this->response( 'ok' );
     }
 //        $json_string = file_get_contents('php://input');
 //        Log::info($json_string);
