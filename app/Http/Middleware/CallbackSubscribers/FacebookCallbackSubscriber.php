@@ -58,7 +58,7 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
         $q = $request->all();
         
         // handle realtime updates
-        if (   isset( $q[ 'hub_mode' ] ){
+        if (   isset( $q[ 'hub_mode' ] )){
             $object = $q[ 'hub_mode' ];
             
             $rtu = [ 'provider' => 'facebook',
@@ -77,10 +77,14 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
             return $this->response( 'unknown hub_mode' );
         }
             
-        $body    = $request->getBody();
-        $updates = json_decode($body, true);
+        $json    = $request->json();
+        if (!is_string($json)){
+            $json = json_encode( $request->fullUrl() );
+        }
+        
+        $updates = json_decode($json, true);
         $object  = isset( $updates['object'] )?
-                          $updates['object']  : '';
+                          $updates['object']  : '?';
         
         // validate request
         $signature = $request->header( 'X_HUB_SIGNATURE' );
@@ -88,7 +92,7 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
 
         if ( !empty($signature) ){
             $app_secret = env( 'FACEBOOK_CLIENT_SECRET' );
-            $expected   = 'sha1=' . hash_hmac('sha1', $body, $app_secret );
+            $expected   = 'sha1=' . hash_hmac('sha1', $json, $app_secret );
             $ok = $signature == $expected;
         }
 
@@ -97,8 +101,8 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
         }
         
         $rtu = [ 'provider' => 'facebook',
-            'object'   => $object   ,
-            'json'     => $body     ),
+                 'object'   => $object   ,
+                 'json'     => $json     ,
         ];
         // Allways store callbacks..
         RealtimeUpdate::create( $rtu );
