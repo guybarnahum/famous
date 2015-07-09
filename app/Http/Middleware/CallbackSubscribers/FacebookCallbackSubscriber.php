@@ -58,29 +58,51 @@ class FacebookCallbackSubscriber implements _ICallbackSubscriber {
         $q = $request->all();
         
         // handle realtime updates
-        $obj = isset( $q[ 'obj'      ] )? $q[ 'obj'      ] : 'unknown';
-        $obj = isset( $q[ 'hub_mode' ] )? $q[ 'hub_mode' ] : '$obj'   ;
-
-        $rtu = [ 'provider' => 'facebook',
-                 'object'   => $obj      ,
-                 'json'     => json_encode( $request->fullUrl()),
+        if (   isset( $q[ 'hub_mode' ] ){
+            $object = $q[ 'hub_mode' ];
+            
+            $rtu = [ 'provider' => 'facebook',
+                     'object'   => $object   ,
+                     'json'     => $request->fullUrl(),
             ];
-                                  
-        RealtimeUpdate::create( $rtu );
 
-        // handle subscribe challange response
+            // Allways store callbacks..
+            RealtimeUpdate::create( $rtu );
+            
+            // handle subscribe challange response
+            switch( $object ){
+                case 'subscribe' : return $this->accept_subscribe( $q );
+            }
+            
+            return $this->response( 'unknown hub_mode' );
+        }
+            
+        $body    = $request->getBody();
+        $updates = json_decode($body, true);
+        $object  = isset( $updates['object'] )?
+                          $updates['object']  : '';
         
-        switch( $obj ){
-            case 'subscribe' : return $this->accept_subscribe( $q );
+        // validate request
+        $signature = $request->header( 'X_HUB_SIGNATURE' );
+        $ok        = true;
+
+        if ( !empty($signature) ){
+            $app_secret = env( 'FACEBOOK_CLIENT_SECRET' );
+            $expected   = 'sha1=' . hash_hmac('sha1', $body, $app_secret );
+            $ok = $signature == $expected;
+        }
+
+        if (!$ok){
+            $object .= '!invalid';
         }
         
+        $rtu = [ 'provider' => 'facebook',
+            'object'   => $object   ,
+            'json'     => $body     ),
+        ];
+        // Allways store callbacks..
+        RealtimeUpdate::create( $rtu );
+
         return $this->response( 'ok' );
     }
-//        $json_string = file_get_contents('php://input');
-//        Log::info($json_string);
-//        $obj = json_decode($json_string);
-//        Log::info("object: {$obj->object}");
-//        Log::info('entry: ');
-//        Log::info(print_r($obj->entry, true));
-//
 }
