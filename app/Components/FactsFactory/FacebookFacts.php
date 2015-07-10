@@ -316,7 +316,7 @@ class FacebookFacts extends AccountFacts{
     {
         $endpoint = '/debug_token';
         $params = [ 'input_token' => $token ];
-        return $this->graph_api( $endpoint, $params );
+        return $this->graph_api( $endpoint, $limit = false, $params );
     }
     
     // ............................................................... subscribe
