@@ -109,6 +109,7 @@ abstract class AccountFacts implements AccountFactsContract{
                 }
                 // failed to produce a valid fact from object
                 else{
+                    $this->output( 'invalid fact:', $fact );
                     unset( $fc[ $type ][ $ix ] );
                 }
                 

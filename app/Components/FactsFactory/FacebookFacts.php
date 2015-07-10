@@ -717,7 +717,7 @@ class FacebookFacts extends AccountFacts{
         }
         
         $endpoints = [
-                'facebook/user'    => '/me/user',
+                'facebook/user'    => '/me',
                 'facebook/family'  => '/me/family',
                 'facebook/likes'   => '/me/likes',
                 'facebook/friend'  => '/me/taggable_friends',
@@ -729,15 +729,14 @@ class FacebookFacts extends AccountFacts{
         }
         
         // Process endpoints
-        
-        $store = true;
-        
+                
         foreach( $endpoints as $datamap_cname => $endpoint ){
             
             try{
                 $res   = $this->graph_api( $endpoint );
-                $this->output( 'res:', $res );
-                $facts = $this->prcess_facts( $datamap_cname , $res, $store );
+                $this->output( 'res:' . print_r( $res, true ) );
+                $facts = $this->prcess_facts( $datamap_cname , $res, $store = true );
+               
             }
             catch( \Exception $e ){
                 $this->output( $e->getMessage() );
