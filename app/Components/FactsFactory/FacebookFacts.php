@@ -213,40 +213,42 @@ class FacebookFacts extends AccountFacts{
     
     // ............................................................... graph_api
 
-    public function graph_api( $endpoint, array $params = [] )
+    public function graph_api( $endpoint, $limit = false, array $params = [] )
     {
+        // there is always a limit
+        if (!$limit ) $limit = self::$MAX_DATA;
+        
         $data = array();
-        $params[ 'method' ] = 'GET';
-        
-        $max_data = self::$MAX_DATA;
-        
-        if (isset($param['max_data'])){
-            $max_data = $param['max_data'];
-            unset( $param['max_data'] );
-        }
-        
         $token = $this->fb->getDefaultAccessToken();
 
-        do{ // pagination ..
+        do{ // first time + pagination ..
             
+            // we post with method get so we can use param
+            // to better shape our fb request
+            $params[ 'method' ] = 'GET';
+
             $q = '';
             foreach( $params as $key => $val ) $q .= '&' . $key . '=' . $val;
             $q = substr($q,1);
             
-            $this->output( 'graph_api::' . $endpoint . ', params:' . $q );
+            $this->output( 'graph_api::' . $endpoint . '?' . $q );
             
             try {
                 $res   = $this->fb->post( $endpoint, $params, $token );
             }
-            catch( \Exception $e )
-            {
-                $err = get_class($this).' ('. $endpoint .')'. $e->getMessage();
+            catch( \Exception $e ){
                 
-                $res = [ 'err' => $err, 'endpoint' => $endpoint ];
-                if ($params){
-                    $res[ 'params' ] = $params;
-                }
+                $err = get_class($this) .' (' . $endpoint . ')' . $e->getMessage();
+                
+                $res = [ 'err'      => $err     ,
+                         'endpoint' => $endpoint,
+                         'params'   => $params
+                    ];
+                
+                $this->output( $err );
             }
+            
+            
             
             $next = false;
             
@@ -254,7 +256,7 @@ class FacebookFacts extends AccountFacts{
                 
                  $res = $res->getDecodedBody();
                 
-                 // get $next $limit from paging section
+                 // get $next from paging section
                  if ( is_array( $res ) && isset( $res['paging']) ){
                      
                      $this->output( 'paging', $res['paging'] );
@@ -273,13 +275,33 @@ class FacebookFacts extends AccountFacts{
             }
             
             // add  $res page to $data
-            foreach( $res as $item ){
-                $data[] = $item;
+            foreach( $res as $key => $value ){
+                
+                // be careful with existing $key(s)!
+                if ( is_int( $key ) ){
+                    // numeric keys should not be preserved..
+                    $data[      ] = $value;
+                }
+                else
+                if ( !isset( $data[ $key ] )){
+                    $data[ $key ] = $value;
+                }
+                else{
+                    if (is_array( $data[ $key ] )){
+                        $data[ $key ][] = $value;
+                    }
+                    else{
+                        $tmp = $data[ $key ];
+                        $data[ $key ] = array();
+                        $data[ $key ][] = $tmp;
+                        $data[ $key ][] = $value;
+                    }
+                }
             }
             
             unset( $res );
             
-            if ( count($data) > $max_data ){
+            if ( count($data) > $limit ){
                 break;
             }
             
@@ -364,7 +386,7 @@ class FacebookFacts extends AccountFacts{
                 $token = $this->fb->getOAuth2Client()
                                   ->getLongLivedAccessToken( $token );
                 
-                $this->output( 'extend_token:new token=' . print_r($token,true));
+                $this->output( 'extend_token:new token=' , $token );
                 $ok = !empty( $token );
                 
             } catch (Facebook\Exceptions\FacebookSDKException $e) {
@@ -734,7 +756,7 @@ class FacebookFacts extends AccountFacts{
             
             try{
                 $res   = $this->graph_api( $endpoint );
-                $this->output( 'res:' . print_r( $res, true ) );
+                $this->output( 'res:', $res );
                 $facts = $this->prcess_facts( $datamap_cname , $res, $store = true );
                
             }
