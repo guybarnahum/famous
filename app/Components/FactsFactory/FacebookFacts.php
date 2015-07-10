@@ -231,7 +231,7 @@ class FacebookFacts extends AccountFacts{
             foreach( $params as $key => $val ) $q .= '&' . $key . '=' . $val;
             $q = substr($q,1);
             
-            $this->output( 'graph_api::' . $endpoint . '?' . $q );
+            // $this->output( 'graph_api::' . $endpoint . '?' . $q );
             
             try {
                 $res   = $this->fb->post( $endpoint, $params, $token );
@@ -259,12 +259,12 @@ class FacebookFacts extends AccountFacts{
                  // get $next from paging section
                  if ( is_array( $res ) && isset( $res['paging']) ){
                      
-                     $this->output( 'paging', $res['paging'] );
+                     // $this->output( 'paging', $res['paging'] );
                      
                      $next = isset( $res['paging']['next'] )?
                                     $res['paging']['next']  : false;
                     
-                     $this->output( 'next: ' . $next );
+                     // $this->output( 'next: ' . $next );
                      
                      $params = StringUtils::getUrlParams( $next );
                 }
@@ -366,6 +366,7 @@ class FacebookFacts extends AccountFacts{
     // TODO FIXME! Does not handle time zone correctly.. boo!
     // TODO Revalidate expiration from facebook not our database.. boo!
     //
+    
     public function extend_token( $exp = null )
     {
         $token = $this->get_token();
@@ -431,6 +432,8 @@ class FacebookFacts extends AccountFacts{
         return $this;
     }
     
+    // ....................................................... prepare_post_fact
+
     public function prepare_post_fact( $post )
     {
         $fact = $this->prepare_one_fact();
@@ -438,12 +441,14 @@ class FacebookFacts extends AccountFacts{
         $created = isset( $post[ 'created_time' ] )? $post[ 'created_time' ] : false;
         $updated = isset( $post[ 'created_time' ] )? $post[ 'created_time' ] : false;
         
-        if ( $created ) $fact[ 'created_time' ] = $created;
-        if ( $updated ) $fact[ 'updated_time' ] = $updated;
+        if ( $created ) $fact[ 'created_at' ] = new \DateTime( $created );
+        if ( $updated ) $fact[ 'updated_at' ] = new \DateTime( $updated );
         
         return $fact;
     }
 
+    // ........................................................ process_post_app
+    
     public function process_post_app  ( $post, $app  )
     {
         $facts = [];
@@ -467,6 +472,24 @@ class FacebookFacts extends AccountFacts{
         return $facts;
     }
     
+    // ....................................................... process_post_tags
+    
+    public function process_post_tags   ( $post, $tags   )
+    {
+        $facts = [];
+        $fact  = $this->prepare_post_fact( $post );
+        
+        if ( is_array($tags) ){
+            foreach( $tags as $tag ){
+                // TODO: what kind of facts can we get from story tags?
+            }
+        }
+        
+        return $facts;
+    }
+    
+    // ...................................................... process_post_place
+
     public function process_post_place  ( $post, $place   )
     {
         $facts = [];
@@ -498,6 +521,8 @@ class FacebookFacts extends AccountFacts{
         return $facts;
     }
     
+    // .................................................... process_post_comment
+    
     public function process_post_comment( $post, $comment )
     {
         $facts = [];
@@ -509,7 +534,7 @@ class FacebookFacts extends AccountFacts{
         $likes_num = isset( $comment[ 'like_count'   ] )? $comment[ 'like_count'   ] : false;
         $user_like = isset( $comment[ 'user_like'    ] )? $comment[ 'user_like'    ] : false;
         
-        if ( $created ) $fact[ 'fcreated_time' ] = $created;
+        if ( $created ) $fact[ 'created_at' ] = new \DateTime( $created );
         
         $fact[ 'fct_name'        ] = 'feed.comment'  ;
         $fact[ 'obj_provider_id' ] = $src_id;
@@ -519,7 +544,7 @@ class FacebookFacts extends AccountFacts{
         $facts[] = $fact;
         
         // src is not the account owner -- make a note of her existance
-        if ( $src_id && ( $src_id != $this->act->uid )){
+        if ( $src_id && ( $src_id != $this->act->provider_uid )){
             
             $fact[ 'fct_name'        ] = 'friend.sns.facebook'  ;
             $fact[ 'obj_provider_id' ] = $src_id;
@@ -554,6 +579,8 @@ class FacebookFacts extends AccountFacts{
         return $facts;
     }
     
+    // ........................................................ process_any_post
+
     public function process_any_post( $post )
     {
         $all_facts = [];
@@ -563,7 +590,7 @@ class FacebookFacts extends AccountFacts{
         $src_name= isset( $post[ 'from' ]['name'] )? $post[ 'from' ]['name'] : false;
         
         // src is not the account owner -- make a note of her existance
-        if ( $src_id && ( $src_id != $this->act->uid )){
+        if ( $src_id && ( $src_id != $this->act->provider_uid )){
             
             $fact[ 'fct_name'        ] = 'friend.sns.facebook'  ;
             $fact[ 'obj_provider_id' ] = $src_id;
@@ -596,9 +623,17 @@ class FacebookFacts extends AccountFacts{
             $all_facts = array_merge( $all_facts, $facts );
         }
         
+        $story_tags = isset( $post[ 'story_tags' ] )? $post[ 'story_tags' ] : false;
+        if ($story_tags){
+            $facts = $this->process_post_tags( $post, $story_tags );
+            $all_facts = array_merge( $all_facts, $facts );
+        }
+        
         return $all_facts;
     }
     
+    // ............................................... process_shared_story_post
+
     public function process_shared_story_post( $post )
     {
         $facts = [];
@@ -608,6 +643,7 @@ class FacebookFacts extends AccountFacts{
 
         // TODO: how do we know the type of src_id?
         $fact[ 'src_id'          ] = $src_id;
+        $fact[ 'src_id_type'     ] = 'facebook.uid' ;
         $fact[ 'fct_name'        ] = 'feed.shared'  ;
         $fact[ 'obj_provider_id' ] = $post[ 'link' ];
         $fact[ 'obj_name'        ] = $post[ 'name' ];
@@ -618,17 +654,23 @@ class FacebookFacts extends AccountFacts{
         return $facts;
     }
     
+    // .............................................. process_mobile_update_post
+    
     public function process_mobile_update_post( $post )
     {
         $facts = [];
         return $facts;
     }
 
+    // ............................................... process_added_photos_post
+
     public function process_added_photos_post( $post )
     {
         $facts = [];
         return $facts;
     }
+
+    // .................................................. process_wall_post_post
 
     public function process_wall_post_post( $post )
     {
@@ -640,14 +682,26 @@ class FacebookFacts extends AccountFacts{
 
     public function process_post( $post )
     {
-        $this->output( 'post:', $post );
+        // $this->output( 'post:', $post );
         
         // process common post facts
         $common_facts = $this->process_any_post( $post );
         $facts = [];
         
-        $st = isset( $post[ 'status_type' ] )? $post[ 'status_type' ] : false;
-
+        $type = isset( $post[ 'type'        ] )? $post[ 'type'        ] : false;
+        $st   = isset( $post[ 'status_type' ] )? $post[ 'status_type' ] : false;
+        
+        // try to recover if we are missing 'status_type'
+        if ( $st === false ){
+            switch( $type ){
+                case 'link' : $st = 'shared_story'; break;
+                default :
+                    $this->output( 'process_post: TODO add type=' . $type );
+                    break;
+            }
+        }
+        
+        // handle specific post types
         switch( $st ){
             case 'shared_story' :
                 $facts = $this->process_shared_story_post( $post ); break;
@@ -658,8 +712,9 @@ class FacebookFacts extends AccountFacts{
             case 'wall_post'    :
                 $facts = $this->process_wall_post_post    ( $post ); break;
                 
-            default : $this->output( 'process_post unknown status_type', $post);
-                    break;
+            default :
+                $this->output( 'process_post unknown status_type', $post);
+                break;
         }
         
         $facts = array_merge( $facts, $common_facts );
@@ -671,9 +726,10 @@ class FacebookFacts extends AccountFacts{
 
     public function process_feed()
     {
+        $all_facts = [];
+
         try{
-            $posts     = $this->graph_api( '/me/feed' );
-            $all_facts = [];
+            $posts = $this->graph_api( '/me/feed' );
             
             if ( is_array( $posts ) ){
                 foreach( $posts as $post ){
@@ -689,9 +745,20 @@ class FacebookFacts extends AccountFacts{
             $this->output( 'process_feed: ' . $e->getMessage() );
         }
         
-        $this->output( 'facts', $all_facts );
-
-        return $this;
+        // pack results into a fact_collection format..
+        $fc = [];
+        
+        foreach( $all_facts as $fact ){
+            $fct_name = $fact[ 'fct_name' ];
+            
+            if ( !isset( $fc[ $fct_name ] ) ){
+                $fc[ $fct_name ] = array();
+            }
+                
+            $fc[ $fct_name ][] = $fact;
+        }
+        
+        return $this->save_facts( $fc );
     }
     
     
@@ -736,16 +803,16 @@ class FacebookFacts extends AccountFacts{
     
     public function process()
     {
-        // first things first! we can't do any open graph without a valid token
+        // First things first!
+        // we can't do any open graph without a valid token
         $this->process_token();
         
-        $x_option = $this->get_option( 'x' );
-        $x_option = !empty( $x_option );
-        
-        if ( $x_option ){
-            return $this->process_feed( );
-
+        // Subscribe?
+        if ( $this->get_option( 's' ) ){
+            return $this->process_subscribe();
         }
+
+        // Process endpoints
         
         $endpoints = [
                 'facebook/user'    => '/me',
@@ -754,18 +821,11 @@ class FacebookFacts extends AccountFacts{
                 'facebook/friend'  => '/me/taggable_friends',
         ];
         
-        // Subscribe?
-        if ( $this->get_option( 's' ) ){
-            return $this->process_subscribe();
-        }
-        
-        // Process endpoints
-                
         foreach( $endpoints as $datamap_cname => $endpoint ){
             
             try{
                 $res   = $this->graph_api( $endpoint );
-                $this->output( 'res:', $res );
+                // $this->output( 'res:', $res );
                 $facts = $this->prcess_facts( $datamap_cname , $res, $store = true );
                
             }
@@ -773,6 +833,10 @@ class FacebookFacts extends AccountFacts{
                 $this->output( $e->getMessage() );
             }
         }
+
+        // Draw facts from our feed
+        // TODO: process just updated posts, not everything!
+        $this->process_feed( );
 
         return $this;
     }

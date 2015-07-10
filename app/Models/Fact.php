@@ -28,6 +28,7 @@ class Fact extends Model {
     
             // who claims the fact
             'src_id'      , // who gave the answer? according to who?
+            'src_id_type' , // format of src_id
             'act_id'      , // account id, who is the source
     
             // fact type
@@ -42,6 +43,10 @@ class Fact extends Model {
             'error'     ,
             'score'     ,
             'confidence',
+    
+            'created_at',
+            'updated_at',
+    
         ];
     
     public function toString($long = false )
@@ -52,7 +57,8 @@ class Fact extends Model {
                $this->obj_id_type    ;
         
         if ($long){
-            $str .= ':' . $this->value . ':' . $this->val_type;
+            $str .= ':' . $this->value        . ':' . $this->val_type;
+            $str .= ':' . $this->created_time . ':' . $this->updated_time;
         }
         
         return $str;

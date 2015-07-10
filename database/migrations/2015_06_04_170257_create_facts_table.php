@@ -76,11 +76,9 @@ class CreateFactsTable extends Migration {
                        $table->unsignedInteger('src_id')
                              ->nullable();
                        
-                       $table->foreign('src_id')->references('id')
-                                                ->on('users')
-                                                ->onDelete('cascade')
-                                                ->onUpdate('cascade');
-
+                       $table->string('src_id')->nullable();
+                       $table->string('src_id_type')->nullable();
+                       
                        // source dataset account (accroding to)(null is unknown)
                        $table->unsignedInteger('act_id')
                              ->nullable();

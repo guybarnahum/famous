@@ -67,8 +67,10 @@ abstract class AccountFacts implements AccountFactsContract{
     
     protected function prepare_one_fact( $fact = [], $type = false )
     {
-        // sometime we fct_name through a formatter on the object data..
-        if ($type){
+        // in case we did not get the fct_name through a formatter
+        // on the object data..
+        
+        if ( !isset( $fact[ 'fct_name' ] ) && $type){
             $fact[ 'fct_name' ] = $type ;
         }
         
@@ -112,22 +114,33 @@ abstract class AccountFacts implements AccountFactsContract{
                     $this->output( 'invalid fact:', $fact );
                     unset( $fc[ $type ][ $ix ] );
                 }
-                
-                if ($store){
-                    try{
-                        // attempt to avoid duplicates..
-                        $res = Fact::firstOrCreate( $fact );
-                        $this->output( 'Fact::firstOrCreate>>' .
-                                      $res->toString() );
-                    }
-                    catch( \Exception $e ){
-                        $this->output( 'Fact::firstOrCreate>>' .
-                                      $e->getMessage() );
-                    }
+             }
+        }
+
+        if ( $store ) $this->save_facts( $fc );
+        
+        return $this;
+    }
+    
+    // .............................................................. save_facts
+
+    protected function save_facts( $fc )
+    {
+        foreach( $fc as $type => $facts ){
+            
+            $this->output( 'Saving type:' . $type );
+            
+            foreach( $facts as $fact ){
+                try{
+                    // attempt to avoid duplicates..
+                    $res = Fact::firstOrCreate( $fact );
+                    $this->output( 'Fact::firstOrCreate>>' . $res->toString() );
+                }
+                catch( \Exception $e ){
+                    $this->output( 'Fact::firstOrCreate>>' . $e->getMessage(), $fact );
                 }
             }
         }
-
         return $this;
     }
     

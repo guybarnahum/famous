@@ -12,7 +12,6 @@ class AddScopeToDatasetsTable extends Migration {
 	 */
 	public function up()
 	{
-		//
         Schema::table('datasets', function(Blueprint $table)
                       {
                       $table->string('scope')->after('oath_callback_uri')

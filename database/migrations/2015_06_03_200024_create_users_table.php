@@ -82,7 +82,7 @@ class CreateUsersTable extends Migration {
 
                        // dataset provider access
                        $table->string('provider_uid' );
-                       $table->string('access_token' )->nullable();
+                       $table->string('access_token', 2048 )->nullable();
                        
                        // provider user info
                        $table->string('avatar'  )->nullable();
