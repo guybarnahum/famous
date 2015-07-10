@@ -383,6 +383,8 @@ class FacebookFacts extends AccountFacts{
             else{
                 $msg  = 'App\Components\FactFactory\FacebookFacts';
                 $msg .= '::extend_token - unknown token object';
+                $msg .= print_r( $token, true );
+                
                 throw new Facebook\Exceptions\FacebookSDKException( $msg );
             }
             
