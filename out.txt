@@ -1344,3 +1344,1416 @@ www.yle.fi/prophecy
 [32m--> Start processing linkedin:guy@barnahum.com:qZ8I5fFclo[39m
 [32m\InvalidArgumentException : AccountFactsFactory::make-unsupported account type (linkedin)[39m
 [32m<-- End processing linkedin:guy@barnahum.com:qZ8I5fFclo[39m
+[32m--> Start processing facebook:guy@barnahum.com:10153349360058427[39m
+[32mgraph_api::/debug_token, params:input_token=CAAUaFvFKzEYBAI69TrQoWZA0SlFZCmmFYiw8DMPbiyrKqUEqjRjxfxnZA6bSZC0fZC4CNz6FdUE7uIOVA0b7pWNxfWEzZAycZBXi6se3ZBUTJTAbR8qGpxPzg0FgKDfjYHJjppOZBSicnZAaYjvAGkyOOTXaRIbPWu6rvlaP3N3SruUEXl9q4qMGuOX5wtfRZAyYOUZD&method=GET[39m
+[32mgraph_api::/me/feed, params:method=GET[39m
+[32mpaging : Array
+(
+    [previous] => https://graph.facebook.com/v2.3/10153349360058427/feed?since=1433720189&limit=25&__paging_token=enc_AdCnNEYjD22NZAw6RBlWfB05izbi5cFm1ONC1JzgQHqn8jmYO9wTafumXU0g8lDBE48HhoQrZCdU7mD77aiBpGsnJ2&__previous=1
+    [next] => https://graph.facebook.com/v2.3/10153349360058427/feed?limit=25&until=1388877656&__paging_token=enc_AdDc5545ZBvWPjTBCPHcsYChbdCKjzqiqLzx35JRIaTpqnVWn6e1qsOdlhZAXTCAuJ9xaRFStDNUqMKlpKoT75yAZB5
+)
+[39m
+[32mnext: https://graph.facebook.com/v2.3/10153349360058427/feed?limit=25&until=1388877656&__paging_token=enc_AdDc5545ZBvWPjTBCPHcsYChbdCKjzqiqLzx35JRIaTpqnVWn6e1qsOdlhZAXTCAuJ9xaRFStDNUqMKlpKoT75yAZB5[39m
+[32mgraph_api::/me/feed, params:limit=25&until=1388877656&__paging_token=enc_AdDc5545ZBvWPjTBCPHcsYChbdCKjzqiqLzx35JRIaTpqnVWn6e1qsOdlhZAXTCAuJ9xaRFStDNUqMKlpKoT75yAZB5[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10153351838443427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum shared a link.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+        )
+
+    [picture] => https://fbexternal-a.akamaihd.net/safe_image.php?d=AQAVQsJ5OkkPHwjz&w=130&h=130&url=http%3A%2F%2Fi.huffpost.com%2Fgen%2F2968290%2Fimages%2Fo-BUTTERFLY-TABLEAU-2010-facebook.jpg&cfs=1&sx=888&sy=0&sw=1000&sh=1000
+    [link] => http://www.huffingtonpost.com/2015/05/24/inside-out-portraits-cross-gender-children_n_7318026.html
+    [name] => Transgender Kids Take Center Stage In Stunning, Empowering Photo Series
+    [caption] => huffingtonpost.com
+    [description] => For the past 12 years, Dutch photographer Sarah Wong has documented the lives and experiences of a group of children who have transitioned -- or are in the process of transitioning -- to live as their
+    [icon] => https://www.facebook.com/images/icons/post.gif
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10153351838443427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10153351838443427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [type] => link
+    [status_type] => shared_story
+    [created_time] => 2015-06-07T23:36:29+0000
+    [updated_time] => 2015-06-07T23:36:29+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+    [likes] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                        )
+
+                )
+
+            [paging] => Array
+                (
+                    [cursors] => Array
+                        (
+                            [after] => MTAxNTMzNDkzNjAwNTg0Mjc=
+                            [before] => MTAxNTMzNDkzNjAwNTg0Mjc=
+                        )
+
+                )
+
+        )
+
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10153341217853427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum shared a link.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+        )
+
+    [picture] => https://fbexternal-a.akamaihd.net/safe_image.php?d=AQAAY9mQEe6xK5Ek&w=130&h=130&url=http%3A%2F%2Fparse.com%2Fimages%2Fog%2Fdefault.jpg&cfs=1
+    [link] => http://blog.parse.com/learn/make-a-cloud-controlled-car-using-parse-for-iot/?mkt_tok=3RkMMJWWfF9wsRonuKzAZKXonjHpfsX96eQpUaC%2BlMI%2F0ER3fOvrPUfGjI4AT8FlI%2BSLDwEYGJlv6SgFTbHGMblmy7gNUxU%3D
+    [name] => Make a Cloud-Controlled Car using Parse for IoT
+    [caption] => blog.parse.com
+    [description] => If you walk into a model shop or toy store today, you'll probably see a wide variety of remotely-controlled toy cars available. Almost all of them are RC-based (radio control), meaning you'll lose control when outside of the radio range. But with a cloud-controlled car, you can control it from anywh…
+    [icon] => https://www.facebook.com/images/icons/post.gif
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10153341217853427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10153341217853427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [type] => link
+    [status_type] => shared_story
+    [application] => Array
+        (
+            [link] => http://www.parse.com/
+            [name] => Parse
+            [namespace] => parseplatform
+            [id] => 361736430535656
+        )
+
+    [created_time] => 2015-06-02T20:19:34+0000
+    [updated_time] => 2015-06-02T20:19:34+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+    [likes] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                        )
+
+                )
+
+            [paging] => Array
+                (
+                    [cursors] => Array
+                        (
+                            [after] => MTAxNTMzNDkzNjAwNTg0Mjc=
+                            [before] => MTAxNTMzNDkzNjAwNTg0Mjc=
+                        )
+
+                )
+
+        )
+
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10207339308945949
+    [from] => Array
+        (
+            [name] => Katariina Engblom
+            [id] => 10207702255219379
+        )
+
+    [to] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => Guy Bar-Nahum
+                            [id] => 10153349360058427
+                        )
+
+                )
+
+        )
+
+    [message] => :-)
+    [story] => Katariina Engblom shared a photo to your timeline.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10207702255219379
+                            [name] => Katariina Engblom
+                            [type] => user
+                            [offset] => 0
+                            [length] => 17
+                        )
+
+                )
+
+            [27] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 813875178630177
+                            [name] => 
+                            [offset] => 27
+                            [length] => 5
+                        )
+
+                )
+
+            [41] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 41
+                            [length] => 8
+                        )
+
+                )
+
+        )
+
+    [picture] => https://scontent.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/s130x130/10389708_813875178630177_2328216971970979104_n.jpg?oh=41cfac6be1fcf2a6bd27a82f21dbe3e9&oe=56222C29
+    [link] => https://www.facebook.com/813875011963527/photos/a.813875168630178.1073741825.813875011963527/813875178630177/?type=1
+    [name] => I Speak Finnish
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10207339308945949
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10207339308945949
+                )
+
+            [2] => Array
+                (
+                    [name] => Share
+                    [link] => https://www.facebook.com/10153349360058427/posts/10207339308945949
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => 
+            [description] => 
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [type] => photo
+    [status_type] => shared_story
+    [object_id] => 813875178630177
+    [created_time] => 2015-05-29T10:19:34+0000
+    [updated_time] => 2015-05-29T10:19:34+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153955803796102_10153790214976102
+    [from] => Array
+        (
+            [name] => Risto Kuulasmaa
+            [id] => 10153955803796102
+        )
+
+    [with_tags] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => Guy Bar-Nahum
+                            [id] => 10153349360058427
+                        )
+
+                )
+
+        )
+
+    [message] => Co-creating the 2020 Yle Online Media Vision 
+www.yle.fi/prophecy
+#yleprophecy
+    [story] => Risto Kuulasmaa with Guy Bar-Nahum
+    [picture] => https://scontent.xx.fbcdn.net/hphotos-xat1/v/t1.0-9/s130x130/11256550_10153790214976102_2124477185923504995_n.jpg?oh=cc965f5b7935a9af97252b5a485c8e51&oe=562A4BFD
+    [link] => https://www.facebook.com/photo.php?fbid=10153790214976102&set=p.10153790214976102&type=1
+    [icon] => https://www.facebook.com/images/icons/photo.gif
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153955803796102/posts/10153790214976102
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153955803796102/posts/10153790214976102
+                )
+
+            [2] => Array
+                (
+                    [name] => Share
+                    [link] => https://www.facebook.com/10153955803796102/posts/10153790214976102
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => 
+            [description] => 
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [type] => photo
+    [status_type] => added_photos
+    [object_id] => 10153790214976102
+    [created_time] => 2015-05-11T07:20:02+0000
+    [updated_time] => 2015-05-11T07:20:02+0000
+    [shares] => Array
+        (
+            [count] => 1
+        )
+
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10153173749123427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum was at Kepler's Books and Magazines.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+            [21] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 127062676095
+                            [name] => Kepler's Books and Magazines
+                            [type] => page
+                            [offset] => 21
+                            [length] => 28
+                        )
+
+                )
+
+        )
+
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10153173749123427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10153173749123427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 127062676095
+            [name] => Kepler's Books and Magazines
+            [location] => Array
+                (
+                    [city] => Menlo Park
+                    [country] => United States
+                    [latitude] => 37.453367109445
+                    [longitude] => -122.18214615205
+                    [state] => CA
+                    [street] => 1010 El Camino Real
+                    [zip] => 94025
+                )
+
+        )
+
+    [type] => status
+    [status_type] => mobile_status_update
+    [created_time] => 2015-03-31T21:50:02+0000
+    [updated_time] => 2015-03-31T21:50:02+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152906846548427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum at NEMA
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+            [21] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 402404333191831
+                            [name] => NEMA
+                            [type] => page
+                            [offset] => 21
+                            [length] => 4
+                        )
+
+                )
+
+        )
+
+    [picture] => https://scontent.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/p130x130/10675520_10152906846478427_7428943496955732203_n.jpg?oh=9b9eac2cb97bf9f2b956d443952455d6&oe=561BC4A5
+    [link] => https://www.facebook.com/photo.php?fbid=10152906846478427&set=a.10152830358528427.1073741825.725053426&type=1
+    [name] => iOS Photos
+    [icon] => https://www.facebook.com/images/icons/photo.gif
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152906846548427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152906846548427
+                )
+
+            [2] => Array
+                (
+                    [name] => Share
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152906846548427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 402404333191831
+            [name] => NEMA
+            [location] => Array
+                (
+                    [city] => San Francisco
+                    [country] => United States
+                    [latitude] => 37.775807568405
+                    [longitude] => -122.41711040616
+                    [state] => CA
+                    [street] => 8 10th St
+                    [zip] => 94103
+                )
+
+        )
+
+    [type] => photo
+    [status_type] => added_photos
+    [object_id] => 10152906846478427
+    [application] => Array
+        (
+            [link] => http://www.apple.com/ios/
+            [name] => iOS
+            [id] => 213546525407071
+        )
+
+    [created_time] => 2014-12-22T17:58:12+0000
+    [updated_time] => 2014-12-22T17:58:12+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152830358578427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum at NEMA
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+            [21] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 402404333191831
+                            [name] => NEMA
+                            [type] => page
+                            [offset] => 21
+                            [length] => 4
+                        )
+
+                )
+
+        )
+
+    [picture] => https://scontent.xx.fbcdn.net/hphotos-xta1/v/t1.0-9/s130x130/1508128_10152830358538427_6001650932081823013_n.jpg?oh=40e9b1335aa02b615ab0a373a4c797b5&oe=562A21C9
+    [link] => https://www.facebook.com/photo.php?fbid=10152830358538427&set=a.10152830358528427.1073741825.725053426&type=1
+    [name] => iOS Photos
+    [icon] => https://www.facebook.com/images/icons/photo.gif
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152830358578427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152830358578427
+                )
+
+            [2] => Array
+                (
+                    [name] => Share
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152830358578427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 402404333191831
+            [name] => NEMA
+            [location] => Array
+                (
+                    [city] => San Francisco
+                    [country] => United States
+                    [latitude] => 37.775807568405
+                    [longitude] => -122.41711040616
+                    [state] => CA
+                    [street] => 8 10th St
+                    [zip] => 94103
+                )
+
+        )
+
+    [type] => photo
+    [status_type] => added_photos
+    [object_id] => 10152830358538427
+    [application] => Array
+        (
+            [link] => http://www.apple.com/ios/
+            [name] => iOS
+            [id] => 213546525407071
+        )
+
+    [created_time] => 2014-11-18T03:29:06+0000
+    [updated_time] => 2014-11-18T03:29:06+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152415850463427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [message] => Jennifer
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152415850463427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152415850463427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [type] => status
+    [status_type] => mobile_status_update
+    [created_time] => 2014-05-25T22:28:27+0000
+    [updated_time] => 2014-05-25T22:28:27+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152370173733427
+    [from] => Array
+        (
+            [name] => Ezer Meshriki
+            [id] => 670217779788480
+        )
+
+    [to] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => Guy Bar-Nahum
+                            [id] => 10153349360058427
+                        )
+
+                )
+
+        )
+
+    [message] => לגיא מזל טוב ליום הולדתך מדוד עזר  מקבוץ נען (ישלך ילדות מקסימות)
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152370173733427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152370173733427
+                )
+
+            [2] => Array
+                (
+                    [name] => See Friendship
+                    [link] => /profile.php?id=100004007936004&and=725053426
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => 
+            [description] => 
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [type] => status
+    [status_type] => wall_post
+    [created_time] => 2014-05-05T14:21:39+0000
+    [updated_time] => 2014-05-05T15:17:02+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+    [comments] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10152370173733427_10152370263888427
+                            [from] => Array
+                                (
+                                    [name] => Guy Bar-Nahum
+                                    [id] => 10153349360058427
+                                )
+
+                            [message] => Toda Raba!
+                            [can_remove] => 1
+                            [created_time] => 2014-05-05T15:17:02+0000
+                            [like_count] => 0
+                            [user_likes] => 
+                        )
+
+                )
+
+            [paging] => Array
+                (
+                    [cursors] => Array
+                        (
+                            [after] => WTI5dGJXVnVkRjlqZFhKemIzSTZNVEF4TlRJek56QXlOak00T0RnME1qYzZNekEzTlRFd09UYz0=
+                            [before] => WTI5dGJXVnVkRjlqZFhKemIzSTZNVEF4TlRJek56QXlOak00T0RnME1qYzZNekEzTlRFd09UYz0=
+                        )
+
+                )
+
+        )
+
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152304679573427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum was at Coupa Cafe - Palo Alto.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+            [21] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 115933368419883
+                            [name] => Coupa Cafe - Palo Alto
+                            [type] => page
+                            [offset] => 21
+                            [length] => 22
+                        )
+
+                )
+
+        )
+
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152304679573427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152304679573427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 115933368419883
+            [name] => Coupa Cafe - Palo Alto
+            [location] => Array
+                (
+                    [city] => Palo Alto
+                    [country] => United States
+                    [latitude] => 37.444784916292
+                    [longitude] => -122.16152870522
+                    [state] => CA
+                    [street] => 538 Ramona St
+                    [zip] => 94301
+                )
+
+        )
+
+    [type] => status
+    [status_type] => mobile_status_update
+    [created_time] => 2014-04-08T14:58:52+0000
+    [updated_time] => 2014-04-08T14:58:52+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10151431229218427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum added a life event from March 2014: Left Job at 삼성 (Samsung) — in Seoul, Korea.
+    [link] => https://www.facebook.com/10153349360058427/timeline/story?ut=32&wstart=-2051193600&wend=2147483647&hash=10151431229218427&pagefilter=3&ustart=1
+    [name] => Left Job at 삼성 (Samsung)
+    [caption] => Left Job at 삼성 (Samsung)
+    [icon] => https://www.facebook.com/images/icons/post.gif
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10151431229218427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10151431229218427
+                )
+
+            [2] => Array
+                (
+                    [name] => Share
+                    [link] => https://www.facebook.com/10153349360058427/posts/10151431229218427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => EVERYONE
+            [description] => Public
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 108259475871818
+            [name] => Seoul, Korea
+            [location] => Array
+                (
+                    [city] => Seoul
+                    [country] => South Korea
+                    [latitude] => 37.5689
+                    [longitude] => 126.977
+                    [zip] => <[39m[32m<not-applicable>[39m[32m>
+                )
+
+        )
+
+    [type] => link
+    [object_id] => 10151431229218427
+    [created_time] => 2014-03-31T19:00:00+0000
+    [updated_time] => 2013-02-20T10:33:52+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152251331018427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum was at Philz Coffee - Middlefield Rd.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+            [21] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 106698019370638
+                            [name] => Philz Coffee - Middlefield Rd
+                            [type] => page
+                            [offset] => 21
+                            [length] => 29
+                        )
+
+                )
+
+        )
+
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152251331018427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152251331018427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 106698019370638
+            [name] => Philz Coffee - Middlefield Rd
+            [location] => Array
+                (
+                    [city] => Palo Alto
+                    [country] => United States
+                    [latitude] => 37.4296494
+                    [longitude] => -122.1228867
+                    [state] => CA
+                    [street] => 3191 Middlefield Rd
+                    [zip] => 94306-3044
+                )
+
+        )
+
+    [type] => status
+    [status_type] => mobile_status_update
+    [created_time] => 2014-03-14T17:31:27+0000
+    [updated_time] => 2014-03-14T17:31:27+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152230459288427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum was at MEZZANINE.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+            [21] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 73276865566
+                            [name] => MEZZANINE
+                            [type] => page
+                            [offset] => 21
+                            [length] => 9
+                        )
+
+                )
+
+        )
+
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152230459288427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152230459288427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 73276865566
+            [name] => MEZZANINE
+            [location] => Array
+                (
+                    [city] => San Francisco
+                    [country] => United States
+                    [latitude] => 37.782601886426
+                    [longitude] => -122.40805548262
+                    [state] => CA
+                    [street] => 444 Jessie St
+                    [zip] => 94103
+                )
+
+        )
+
+    [type] => status
+    [status_type] => mobile_status_update
+    [created_time] => 2014-03-05T02:20:23+0000
+    [updated_time] => 2014-03-05T02:20:23+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152621612132222
+    [from] => Array
+        (
+            [name] => Lisa Pinsker
+            [id] => 10154047574312222
+        )
+
+    [to] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => Guy Bar-Nahum
+                            [id] => 10153349360058427
+                        )
+
+                )
+
+        )
+
+    [message] => I've been thinking of you, miss seeing you and your family. Hope you are really well...
+    [picture] => https://scontent.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/s130x130/1610030_10152621612132222_1218417411_n.jpg?oh=358f27e95c09e95d0bef841f1120201f&oe=560E70B8
+    [link] => https://www.facebook.com/photo.php?fbid=10152621612132222&set=p.10152621612132222&type=1
+    [icon] => https://www.facebook.com/images/icons/photo.gif
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152621612132222
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152621612132222
+                )
+
+            [2] => Array
+                (
+                    [name] => Share
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152621612132222
+                )
+
+            [3] => Array
+                (
+                    [name] => See Friendship
+                    [link] => /profile.php?id=809377221&and=725053426
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => 
+            [description] => 
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [type] => photo
+    [status_type] => added_photos
+    [object_id] => 10152621612132222
+    [created_time] => 2014-02-08T11:13:33+0000
+    [updated_time] => 2014-02-11T02:53:17+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+    [comments] => Array
+        (
+            [data] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10152621612132222_14722434
+                            [from] => Array
+                                (
+                                    [name] => Lisa Pinsker
+                                    [id] => 10154047574312222
+                                )
+
+                            [message] => Pianist hands...
+                            [can_remove] => 1
+                            [created_time] => 2014-02-08T11:14:07+0000
+                            [like_count] => 0
+                            [user_likes] => 
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 10152621612132222_14748460
+                            [from] => Array
+                                (
+                                    [name] => Guy Bar-Nahum
+                                    [id] => 10153349360058427
+                                )
+
+                            [message] => I miss you too, my dear. I felt so humiliated when you laughed at me back then, that was the way we met! Its a good story.
+                            [can_remove] => 1
+                            [created_time] => 2014-02-11T02:53:17+0000
+                            [like_count] => 1
+                            [user_likes] => 
+                        )
+
+                )
+
+            [paging] => Array
+                (
+                    [cursors] => Array
+                        (
+                            [after] => WTI5dGJXVnVkRjlqZFhKemIzSTZNVEF4TlRJMk1qZ3pPVGN5TnpjeU1qSTZNVFEzTkRnME5qQT0=
+                            [before] => WTI5dGJXVnVkRjlqZFhKemIzSTZNVEF4TlRJMk1qRTJNVE0wT0RJeU1qSTZNVFEzTWpJME16UT0=
+                        )
+
+                )
+
+        )
+
+)
+[39m
+[32mpost: : Array
+(
+    [id] => 10153349360058427_10152100055833427
+    [from] => Array
+        (
+            [name] => Guy Bar-Nahum
+            [id] => 10153349360058427
+        )
+
+    [story] => Guy Bar-Nahum was at Philz Coffee - Middlefield Rd.
+    [story_tags] => Array
+        (
+            [0] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 10153349360058427
+                            [name] => Guy Bar-Nahum
+                            [type] => user
+                            [offset] => 0
+                            [length] => 13
+                        )
+
+                )
+
+            [21] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 106698019370638
+                            [name] => Philz Coffee - Middlefield Rd
+                            [type] => page
+                            [offset] => 21
+                            [length] => 29
+                        )
+
+                )
+
+        )
+
+    [actions] => Array
+        (
+            [0] => Array
+                (
+                    [name] => Comment
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152100055833427
+                )
+
+            [1] => Array
+                (
+                    [name] => Like
+                    [link] => https://www.facebook.com/10153349360058427/posts/10152100055833427
+                )
+
+        )
+
+    [privacy] => Array
+        (
+            [value] => SELF
+            [description] => Only Me
+            [friends] => 
+            [allow] => 
+            [deny] => 
+        )
+
+    [place] => Array
+        (
+            [id] => 106698019370638
+            [name] => Philz Coffee - Middlefield Rd
+            [location] => Array
+                (
+                    [city] => Palo Alto
+                    [country] => United States
+                    [latitude] => 37.4296494
+                    [longitude] => -122.1228867
+                    [state] => CA
+                    [street] => 3191 Middlefield Rd
+                    [zip] => 94306-3044
+                )
+
+        )
+
+    [type] => status
+    [status_type] => mobile_status_update
+    [created_time] => 2014-01-04T23:20:56+0000
+    [updated_time] => 2014-01-04T23:20:56+0000
+    [is_hidden] => 
+    [subscribed] => 1
+    [is_expired] => 
+)
+[39m
+[32mpost: : App\Components\FactsFactory\FacebookFacts (/me/feed)(#200) The user hasn't authorized the application to perform this action[39m
+[32mpost: : /me/feed[39m
+[32mpost: : Array
+(
+    [limit] => 25
+    [until] => 1388877656
+    [__paging_token] => enc_AdDc5545ZBvWPjTBCPHcsYChbdCKjzqiqLzx35JRIaTpqnVWn6e1qsOdlhZAXTCAuJ9xaRFStDNUqMKlpKoT75yAZB5
+)
+[39m
+
+[32m<-- End processing facebook:guy@barnahum.com:10153349360058427[39m
+[32m--> Start processing twitter::25172413[39m
+[32m\InvalidArgumentException : AccountFactsFactory::make-unsupported account type (twitter)[39m
+[32m<-- End processing twitter::25172413[39m
+[32m--> Start processing linkedin:guy@barnahum.com:qZ8I5fFclo[39m
+[32m\InvalidArgumentException : AccountFactsFactory::make-unsupported account type (linkedin)[39m
+[32m<-- End processing linkedin:guy@barnahum.com:qZ8I5fFclo[39m

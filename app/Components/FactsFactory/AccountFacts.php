@@ -65,10 +65,10 @@ abstract class AccountFacts implements AccountFactsContract{
     
     // ........................................................ prepare_one_fact
     
-    protected function prepare_one_fact( $type, $fact )
+    protected function prepare_one_fact( $fact = [], $type = false )
     {
         // sometime we fct_name through a formatter on the object data..
-        if (!isset($fact['fct_name'])){
+        if ($type){
             $fact[ 'fct_name' ] = $type ;
         }
         
@@ -89,43 +89,52 @@ abstract class AccountFacts implements AccountFactsContract{
         return $fact;
     }
 
-    // ........................................................... process_facts
-    
-    protected function prcess_facts( $cname, $obj, $store = false )
-    {
-        $facts_collection = $this->mapper->map( $cname, $obj );
-  
-        if ( is_array($facts_collection) ){
-            foreach( $facts_collection as $type => $facts ){
-                
-                foreach( $facts as $ix => $fact ){
-                    
-                    $fact = $this->prepare_one_fact( $type, $fact );
+    // ................................................. process_fact_collection
 
-                    if ( $this->validate_fact($fact) ){
-                        $facts_collection[ $type ][ $ix ] = $fact;
+    protected function process_fact_collection( $fc, $store = false )
+    {
+        if ( !is_array($fc) ){
+            $this->output( 'process_fact_collection: invalid input - ', $fc );
+            return $this;
+        }
+            
+        foreach( $fc as $type => $facts ){
+                
+            foreach( $facts as $ix => $fact ){
+                
+                $fact = $this->prepare_one_fact( $fact, $type );
+                
+                if ( $this->validate_fact($fact) ){
+                    $fc[ $type ][ $ix ] = $fact;
+                }
+                // failed to produce a valid fact from object
+                else{
+                    unset( $fc[ $type ][ $ix ] );
+                }
+                
+                if ($store){
+                    try{
+                        // attempt to avoid duplicates..
+                        $res = Fact::firstOrCreate( $fact );
+                        $this->output( 'Fact::firstOrCreate>>' .
+                                      $res->toString() );
                     }
-                    // failed to produce a valid fact from object
-                    else{
-                        unset( $facts_collection[ $type ][ $ix ] );
-                    }
-                    
-                    if ($store){
-                        try{
-                            // attempt to avoid duplicates..
-                            $res = Fact::firstOrCreate( $fact );
-                            $this->output( 'Fact::firstOrCreate>>' .
-                                            $res->toString() );
-                        }
-                        catch( \Exception $e ){
-                            $this->output( 'Fact::firstOrCreate>>' .
-                                            $e->getMessage() );
-                        }
+                    catch( \Exception $e ){
+                        $this->output( 'Fact::firstOrCreate>>' .
+                                      $e->getMessage() );
                     }
                 }
             }
         }
-        
-        return $facts_collection;
+
+        return $this;
+    }
+    
+    // ........................................................... process_facts
+    
+    protected function prcess_facts( $cname, $obj, $store = false )
+    {
+        $fc = $this->mapper->map( $cname, $obj );
+        return $this->process_fact_collection( $fc, $store );
     }
 }

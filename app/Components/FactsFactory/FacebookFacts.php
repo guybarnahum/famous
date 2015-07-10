@@ -131,6 +131,8 @@ class FacebookFactsDataFormatter
     
     // .......................................................... fmt_likes_type
     //
+    // TODO: use a database table for this conversion!
+    //
     // identify various cannonical like types, all the rest go it likes.#name
     // format
     
@@ -394,56 +396,340 @@ class FacebookFacts extends AccountFacts{
         
         return $this;
     }
-        
-    // ................................................................. process
     
-    public function process()
+    public function prepare_post_fact( $post )
     {
-        $opt = $this->get_option( 'x' );
-        if ( $opt != null ){
-            $endpoints = [
-                'facebook/feed'    => '/me/feed',
-            ];
-        }
-        else{
-            $endpoints = [
-                'facebook/user'    => '/me',
-                'facebook/family'  => '/me/family',
-                'facebook/likes'   => '/me/likes',
-                'facebook/friend'  => '/me/taggable_friends',
-            ];
+        $fact = $this->prepare_one_fact();
+        
+        $created = isset( $post[ 'created_time' ] )? $post[ 'created_time' ] : false;
+        $updated = isset( $post[ 'created_time' ] )? $post[ 'created_time' ] : false;
+        
+        if ( $created ) $fact[ 'created_time' ] = $created;
+        if ( $updated ) $fact[ 'updated_time' ] = $updated;
+        
+        return $fact;
+    }
+
+    public function process_post_app  ( $post, $app  )
+    {
+        $facts = [];
+        $fact  = $this->prepare_post_fact( $post );
+        
+        $app_id   =isset( $app['id'       ] )? $app['id'       ] : false;
+        $app_name =isset( $app['name'     ] )? $app['name'     ] : false;
+        $app_ns   =isset( $app['namespace'] )? $app['namespace'] : false;
+        if ($app_ns ) $app_name = $app_ns. '.' . $app_name;
+        
+        if ($app_id ){
+            
+            $fact[ 'fct_name'        ] = 'app';
+            $fact[ 'obj_provider_id' ] = $app_id;
+            $fact[ 'obj_name'        ] = $app_name ;
+            $fact[ 'obj_id_type'     ] = 'facebook.application.id';
+            
+            $facts[] = $fact;
         }
         
-        // first things first : set the token so we can talk to graph api
+        return $facts;
+    }
+    
+    public function process_post_place  ( $post, $place   )
+    {
+        $facts = [];
+        $fact  = $this->prepare_post_fact( $post );
+        
+        $place_id   = isset( $place[ 'id' ] )? $place[ 'id' ] : false;
+        $place_name = isset( $place['name'] )? $place['name'] : false;
+        $location   = isset( $place['location'] )? $place['location'] : false;
+        
+        if ( $place_id ){
+            
+            $fact[ 'fct_name'        ] = 'place.visited';
+            $fact[ 'obj_provider_id' ] = $place_id;
+            $fact[ 'obj_name'        ] = $place_name;
+            $fact[ 'obj_id_type'     ] = 'facebook.place.id';
+        
+            $facts[] = $fact;
+        }
+        
+        if ($location){
+            $fact[ 'fct_name'        ] = 'place.location';
+            $fact[ 'obj_provider_id' ] = $place_id;
+            $fact[ 'obj_name'        ] = json_encode($location);
+            $fact[ 'obj_id_type'     ] = 'facebook.place.id';
+            
+            $facts[] = $fact;
+        }
+        
+        return $facts;
+    }
+    
+    public function process_post_comment( $post, $comment )
+    {
+        $facts = [];
+        $fact  = $this->prepare_post_fact( $post );
+        
+        $created   = isset( $comment[ 'created_time' ] )? $comment[ 'created_time' ] : false;
+        $src_id    = isset( $comment[ 'from' ][ 'id' ] )? $comment[ 'from' ][ 'id' ] : false;
+        $src_name  = isset( $comment[ 'from' ]['name'] )? $comment[ 'from' ]['name'] : false;
+        $likes_num = isset( $comment[ 'like_count'   ] )? $comment[ 'like_count'   ] : false;
+        $user_like = isset( $comment[ 'user_like'    ] )? $comment[ 'user_like'    ] : false;
+        
+        if ( $created ) $fact[ 'fcreated_time' ] = $created;
+        
+        $fact[ 'fct_name'        ] = 'feed.comment'  ;
+        $fact[ 'obj_provider_id' ] = $src_id;
+        $fact[ 'obj_name'        ] = $src_name;
+        $fact[ 'obj_id_type'     ] = 'facebook.uid';
+
+        $facts[] = $fact;
+        
+        // src is not the account owner -- make a note of her existance
+        if ( $src_id && ( $src_id != $this->act->uid )){
+            
+            $fact[ 'fct_name'        ] = 'friend.sns.facebook'  ;
+            $fact[ 'obj_provider_id' ] = $src_id;
+            $fact[ 'obj_name'        ] = $src_name;
+            $fact[ 'obj_id_type'     ] = 'facebook.uid';
+            
+            $facts[] = $fact;
+        }
+
+        // we liked the comment made by $src
+        if ( !empty($user_like) ){
+            
+            $fact[ 'fct_name'        ] = 'feed.liked' ;
+            $fact[ 'obj_provider_id' ] = $src_id;
+            $fact[ 'obj_name'        ] = $src_name;
+            $fact[ 'obj_id_type'     ] = 'facebook.uid';
+            
+            $facts[] = $fact;
+        }
+        
+        // $src comment was liked so many times
+        if ( $likes_num ){
+            
+            $fact[ 'fct_name'        ] = 'feed.likes' ;
+            $fact[ 'obj_provider_id' ] = $src_id;
+            $fact[ 'obj_name'        ] = $src_name;
+            $fact[ 'obj_id_type'     ] = 'facebook.likes';
+            
+            $facts[] = $fact;
+        }
+        
+        return $facts;
+    }
+    
+    public function process_any_post( $post )
+    {
+        $all_facts = [];
+        $fact  = $this->prepare_post_fact( $post );
+        
+        $src_id  = isset( $post[ 'from' ][ 'id' ] )? $post[ 'from' ][ 'id' ] : false;
+        $src_name= isset( $post[ 'from' ]['name'] )? $post[ 'from' ]['name'] : false;
+        
+        // src is not the account owner -- make a note of her existance
+        if ( $src_id && ( $src_id != $this->act->uid )){
+            
+            $fact[ 'fct_name'        ] = 'friend.sns.facebook'  ;
+            $fact[ 'obj_provider_id' ] = $src_id;
+            $fact[ 'obj_name'        ] = $src_name;
+            $fact[ 'obj_id_type'     ] = 'facebook.uid';
+            
+            $all_facts[] = $fact;
+        }
+        
+        // do we have comments?
+        $comments = isset( $post[ 'commets' ] )? $post[ 'commets' ]:false;
+        if ($comments){
+            // TODO: FIXME: handle paging!
+            foreach( $commets['data'] as $commet ){
+                $facts = $this->process_post_comment( $post, $commet );
+                $all_facts = array_merge( $all_facts, $facts );
+            }
+        }
+        
+        $place = isset( $post[ 'place' ] )? $post[ 'place' ] : false;
+        
+        if ($place){
+            $facts = $this->process_post_place( $post, $place );
+            $all_facts = array_merge( $all_facts, $facts );
+        }
+        
+        $app = isset( $post[ 'application' ] )? $post[ 'application' ] : false;
+        if ($app){
+            $facts = $this->process_post_app( $post, $app );
+            $all_facts = array_merge( $all_facts, $facts );
+        }
+        
+        return $all_facts;
+    }
+    
+    public function process_shared_story_post( $post )
+    {
+        $facts = [];
+        
+        $fact = $this->prepare_post_fact( $post );
+        $src_id  = isset( $post[ 'from' ][ 'id' ] )? $post[ 'from' ][ 'id' ] : false;
+
+        // TODO: how do we know the type of src_id?
+        $fact[ 'src_id'          ] = $src_id;
+        $fact[ 'fct_name'        ] = 'feed.shared'  ;
+        $fact[ 'obj_provider_id' ] = $post[ 'link' ];
+        $fact[ 'obj_name'        ] = $post[ 'name' ];
+        $fact[ 'obj_id_type'     ] = 'url';
+        
+        $facts[] = $fact;
+        
+        return $facts;
+    }
+    
+    public function process_mobile_update_post( $post )
+    {
+        $facts = [];
+        return $facts;
+    }
+
+    public function process_added_photos_post( $post )
+    {
+        $facts = [];
+        return $facts;
+    }
+
+    public function process_wall_post_post( $post )
+    {
+        $facts = [];
+        return $facts;
+    }
+    
+    // ........................................................ process_one_post
+
+    public function process_post( $post )
+    {
+        $this->output( 'post:', $post );
+        
+        // process common post facts
+        $common_facts = $this->process_any_post( $post );
+        $facts = [];
+        
+        $st = isset( $post[ 'status_type' ] )? $post[ 'status_type' ] : false;
+
+        switch( $st ){
+            case 'shared_story' :
+                $facts = $this->process_shared_story_post( $post ); break;
+            case 'mobile_status_update' :
+                $facts = $this->process_mobile_update_post( $post ); break;
+            case 'added_photos' :
+                $facts = $this->process_added_photos_post ( $post ); break;
+            case 'wall_post'    :
+                $facts = $this->process_wall_post_post    ( $post ); break;
+                
+            default : $this->output( 'process_post unknown status_type', $post);
+                    break;
+        }
+        
+        $facts = array_merge( $facts, $common_facts );
+        
+        return $facts;
+    }
+    
+    // ............................................................ process_feed
+
+    public function process_feed()
+    {
+        try{
+            $posts     = $this->graph_api( '/me/feed' );
+            $all_facts = [];
+            
+            if ( is_array( $posts ) ){
+                foreach( $posts as $post ){
+                    $facts = $this->process_post( $post );
+                    $all_facts = array_merge( $all_facts, $facts );
+                }
+            }
+            else{
+                $this->output( 'process_feed: invalid posts ' , $posts );
+            }
+        }
+        catch( \Exception $e ){
+            $this->output( 'process_feed: ' . $e->getMessage() );
+        }
+        
+        $this->output( 'facts', $all_facts );
+
+        return $this;
+    }
+    
+    
+    // ....................................................... process_subscribe
+
+    public function process_subscribe()
+    {
+        try{
+            // TODO: Get this from Dataset table!
+            $object       = 'user';
+            $fields       = 'about,work';
+            $callback_url = 'http://famous-dev.happen.ly/api/callback/facebook';
+            
+            $res   = $this->subscribe( $object, $fields, $callback_url );
+            $this->output( 'process_subscribe:', $res );
+            
+        }
+        catch( \Exception $e ){
+            $this->output( 'process_subscribe: ' . $e->getMessage() );
+        }
+        
+        return $this;
+    }
+
+    // ........................................................... process_token
+
+    public function process_token()
+    {
         try{
             $this->set_token()
                  ->extend_token();
         }
         catch(\Exception $e)
         {
-            $this->output( 'Inspecting token: ' . $e->getMessage() );
+            $this->output( 'process_token: ' . $e->getMessage() );
         }
         
-        // Subscribe?
-        $opt = $this->get_option( 's' );
-        if ( $opt != null ){
-            try{
-                $res   = $this->subscribe( 'user', 'about,work',
-                                          'http://famous-dev.happen.ly/api/callback/facebook' );
-                $this->output( 'res:', $res );
-                
-            }
-            catch( \Exception $e ){
-                $this->output( $e->getMessage() );
-            }
-            
-            return $this;
-        }
+        return $this;
+    }
 
+    // ................................................................. process
+    
+    public function process()
+    {
+        // first things first! we can't do any open graph without a valid token
+        $this->process_token();
+        $x_option = $this->get_option( 'x' );
+        $x_option = !empty( $x_option );
+        
+        if ( $x_option ){
+            return $this->process_feed( );
+
+        }
+        
+        $endpoints = [
+                'facebook/user'    => '/me/user',
+                'facebook/family'  => '/me/family',
+                'facebook/likes'   => '/me/likes',
+                'facebook/friend'  => '/me/taggable_friends',
+        ];
+        
+        // Subscribe?
+        if ( $this->get_option( 's' ) ){
+            return $this->process_subscribe();
+        }
+        
+        // Process endpoints
         
         $store = true;
         
         foreach( $endpoints as $datamap_cname => $endpoint ){
+            
             try{
                 $res   = $this->graph_api( $endpoint );
                 $this->output( 'res:', $res );
@@ -453,27 +739,8 @@ class FacebookFacts extends AccountFacts{
                 $this->output( $e->getMessage() );
             }
         }
-        
+
         return $this;
-        
-        /*
-        $fact_owner = $provider . $u;
-        
-        $this->res[ 'provider' ] = $provider;
-        $this->res[ 'uid'      ] = $act->provider_uid;
-        $this->res[ 'user'   ] = $this->graph_api( $fb, $u );
-        $this->res[ 'bio'    ] = $this->graph_api( $fb, $u , 'bio'  );
-        $this->res[ 'friends'] = $this->graph_api( $fb, $u . '/friends');
-        $this->res[ 'family' ] = $this->graph_api( $fb, $u . '/family' );
-        $this->res[ 'likes'  ] = $this->graph_api( $fb, $u . '/likes'  );
-        $this->res[ 'albums' ] = $this->graph_api( $fb, $u . '/albums' );
-        $this->res[ 'photos' ] = $this->graph_api( $fb, $u . '/photos' );
-        $this->res[ 'cover'  ] = $this->graph_api( $fb, $u . '/cover'  );
-        
-        // handle bio
-        // handle errors
-        // TODO: collect all errors into an error array
-        */
     }
 }
     

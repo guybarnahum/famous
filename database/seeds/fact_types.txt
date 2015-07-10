@@ -18,25 +18,42 @@
 
 null:void:void:desc:bool
 
+#
+# fact extras
+#
 \start:$fact from $start:Did $fact from $start:desc:bool
 \end:$fact until $end:Did $fact until $end:desc:bool
-\period:$fact from $start to $end:Did $fact from $start until $end:desc:bool
+\period:$fact from $period:Did $fact from $period:desc:bool
 \date:$fact on $date:Did $fact on $date:desc:bool
 \date:$fact on $date:When did $fact:desc:time
+\with:$fact with $o:Was $fact with $o:desc:bool
+\what:$fact a $o:Did $fact a $o:desc:bool
 
-birth:$s was born:Was $s born:desc:bool
-death:$s is dead:Is $s dead:desc:bool
+bio.birth:$s was born:Was $s born:desc:bool
+bio.death:$s is dead:Is $s dead:desc:bool
+bio.gender:$s is $o:Is $s a $o:$desc:string
 
-gender:$s is $o:Is $s a $o:$desc:string
+#
+# Place
+#
 
+place.location:a place at $o:::desc:bool
 place.at:$s is in $place:Is $s in $place:desc:bool
 place.hometown:$s is from $place:Is $s from $place:desc:bool
 place.lived:$s lived at $place:Did $s lived at $place:desc:bool
 place.visited:$s visited $place:Did $s visited $place:desc:bool
 
+#
+# Work
+#
+
 work:$s worked for $o:Did $s worked at $o:desc:bool
 work.role:$s worked for $o as $work_role:Did $s was a $work_role at $o:desc:bool
 work.title:$s was $title at $o:Was $s a $title at $o:desc:bool
+
+#
+# Education
+#
 
 education:$s attended $o:Did $s attended $o:desc:bool
 education.school:$s attended $o:Did $s attended $o:desc:bool
@@ -45,6 +62,10 @@ education.school.middle:$s attended $o:Did $s attended $o:desc:bool
 education.school.high:$s attended $o:Did $s attended $o:desc:bool
 education.school.college:$s attended $o:Did $s attended $o:desc:bool
 education.school.graduate:$s attended $o:Did $s attended $o:desc:bool
+
+#
+# Friend
+#
 
 friend:$s and $o are friends:Are $s and $o friends:desc:bool
 friend.close:::desc:bool
@@ -60,6 +81,10 @@ friend.significant_other.girlfriend:::desc:bool
 friend.significant_other.boyfriend:::desc:bool
 friend.significant_other.dating:::desc:bool
 
+#
+# Family
+#
+
 family:$s and $o are related:Are $s and $o related:desc:bool
 
 family.status:$s is $o:Is $s $o:desc:string
@@ -74,6 +99,10 @@ family.brother:$s's brother is $o:Is $o, $s's brother:desc:bool
 family.uncle:$s's uncle is $o:Is $o, $s's uncle:desc:bool
 family.aunt:$s's aunt is $o:Is $o, $s's aunt:desc:bool
 family.cousin:$s and $o are cousins:Are $s and $o cousins:desc:bool
+
+#
+# Likes
+#
 
 likes:$s likes $o:Does $s like $o:desc:bool
 likes.politics.persona:::desc:bool
@@ -99,4 +128,23 @@ likes.media.art.painting:::desc:bool
 likes.media.art.photography:::desc:bool
 likes.services:::desc:bool
 likes.services.photography:::desc:bool
+
+#
+# Feed
+#
+
+feed:::desc:bool
+feed.with:::desc:bool
+feed.at:::desc:bool
+feed.shared:::desc:bool
+feed.liked:::desc:bool
+feed.likes:::desc:bool
+feed.comment:::desc:bool
+feed.message:::desc:bool
+
+#
+# App
+#
+
+app:$s is used $o:::desc:bool
 
