@@ -314,9 +314,19 @@ class FacebookFacts extends AccountFacts{
     
     public function token_info( $token )
     {
-        $endpoint = '/debug_token';
-        $params = [ 'input_token' => $token ];
-        return $this->graph_api( $endpoint, $limit = false, $params );
+        $endpoint = '/debug_token?input_token=' . $token;
+        
+        try {
+            $res   = $this->fb->get( $endpoint, $token );
+            $body = $res->getDecodedBody();
+            $res  = isset($body['data'])? $body['data'] : $body;
+        }
+        catch( \Exception $e ){
+            $err = get_class($this).' ('. $endpoint .')'. $e->getMessage();
+            $res = [ 'err' => $err, 'endpoint' => $endpoint ];
+        }
+        
+        return $res;
     }
     
     // ............................................................... subscribe
@@ -365,20 +375,19 @@ class FacebookFacts extends AccountFacts{
          
             $info = $this->token_info( $token );
             
-            if (isset( $info->expires_at )){
-                $exp = $info->expires_at ;
+            if (isset( $info[ 'expires_at' ] ) ){
+                $exp = $info[ 'expires_at' ] ;
             }
         }
     
-        // strtotime may be === false
-        $exp_time = empty( $exp )? (time() - 1): strtotime( $exp );
+        if (empty( $exp )) $exp = time() - 1;
         
-        // if we have exp_time check if we expired already (<= time())
-        // if we could not find exp_time try to extend (true)
-        $needs_extending = ($exp_time !== false)? $exp_time <= time() : true;
+        $needs_extending = $exp <= time();
         $ok = true;
         
-        $msg = 'extend_token:needs_extending='.($needs_extending? 'Yes':'No');
+        $msg = 'extend_token : time is ' . date( DATE_RFC2822, $exp) .
+               ' needs_extending='.($needs_extending? 'Yes':'No');
+                
         $this->output( $msg );
        
         if ( $needs_extending ){
