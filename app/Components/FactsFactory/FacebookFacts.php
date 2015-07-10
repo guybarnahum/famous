@@ -200,7 +200,7 @@ class FacebookFacts extends AccountFacts{
     public function set_token()
     {
         $token = $this->act->access_token;
-        // $this->output('set_token:' . $token);
+        $this->output('set_token:' . $token);
 
         $this->fb->setDefaultAccessToken( $token );
         return $this;
@@ -228,6 +228,7 @@ class FacebookFacts extends AccountFacts{
         $token = $this->fb->getDefaultAccessToken();
 
         do{ // pagination ..
+            
             $q = '';
             foreach( $params as $key => $val ) $q .= '&' . $key . '=' . $val;
             $q = substr($q,1);
@@ -355,15 +356,15 @@ class FacebookFacts extends AccountFacts{
         $needs_extending = ($exp_time !== false)? $exp_time <= time() : true;
         $ok = true;
         
-        // $msg = 'extend_token:needs_extending='.($needs_extending? 'Yes':'No');
-        // $this->output( $msg );
+        $msg = 'extend_token:needs_extending='.($needs_extending? 'Yes':'No');
+        $this->output( $msg );
        
         if ( $needs_extending ){
             try {
                 $token = $this->fb->getOAuth2Client()
                                   ->getLongLivedAccessToken( $token );
                 
-                // $this->output( 'extend_token:new token=' . print_r($token,true));
+                $this->output( 'extend_token:new token=' . print_r($token,true));
                 $ok = !empty( $token );
                 
             } catch (Facebook\Exceptions\FacebookSDKException $e) {
@@ -386,8 +387,8 @@ class FacebookFacts extends AccountFacts{
             }
             
             // save into account db
-            // $msg = 'extend_token: act updated - ' . $this->act->toString();
-            // $this->output( $msg );
+            $msg = 'extend_token: act updated - ' . $this->act->toString();
+            $this->output( $msg );
             $this->act->save();
             
             // make sure we use updated token
@@ -704,6 +705,7 @@ class FacebookFacts extends AccountFacts{
     {
         // first things first! we can't do any open graph without a valid token
         $this->process_token();
+        
         $x_option = $this->get_option( 'x' );
         $x_option = !empty( $x_option );
         
