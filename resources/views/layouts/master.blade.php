@@ -231,7 +231,7 @@
                 </li>
 
                 <li>
-                @if ( isset($user)&&!empty( $user ))
+                @if ( isset($user) && $user && !empty( $user ))
                     <img class='img-circle' width=64px
                         src='{{ $user->pri_photo_large or "assets/images/user.png" }}'
                         alt='{{ $user->name }}'/>
@@ -242,7 +242,7 @@
                 @endif
                 </li>
                 <li>
-                @if ( isset($user)&&!empty( $user ))
+                @if ( isset($user) && $user && !empty( $user ))
                     <a href='logout'>
                 @else
                     <a href='javascript:void(0)' style='opacity:0.2;'>

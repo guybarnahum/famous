@@ -68,18 +68,19 @@ class AuthController extends Controller {
     
     // .............................................................. resetUser
     
-    public function resetUser( $msg=null )
+    public function resetUser( $msg=false )
     {
-        return $this->updateUser( null, null, $msg, $keep_session=false);
+        return $this->updateUser( false, $msg );
     }
     
     // .............................................................. updateUser
     
-    public function updateUser( $user, $accounts, $msg=null, $keep_session=true)
+    public function updateUser( $uid, $msg=false)
     {
-        if ( !empty($user    ) || !$keep_session) \Session::put('user'    , $user     );
-        if ( !empty($accounts) || !$keep_session) \Session::put('accounts', $accounts );
-        if ( !empty($msg     )                  ) \Session::flash( 'msg'  , $msg );
+        \Session::put( 'uid', $uid );
+        
+        if ( empty($msg) ) $msg = false;
+        \Session::flash('msg',$msg );
         
         return redirect('home');
     }

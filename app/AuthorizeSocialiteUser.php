@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Auth\Guard;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
-use App\Repositories\AccountRepository;
+use App\Repositories\UserRepository;
 use Request;
 
 class AuthorizeSocialiteUser{
@@ -14,10 +14,10 @@ class AuthorizeSocialiteUser{
     
     public function __construct(Socialite         $socialite    ,
                                 Guard             $auth     ,
-                                AccountRepository $accounts )
+                                UserRepository    $db )
     {
         $this->socialite = $socialite;
-        $this->accounts  = $accounts;
+        $this->db        = $db;
         $this->auth      = $auth;
     }
     
@@ -26,7 +26,7 @@ class AuthorizeSocialiteUser{
     private function get_socialiteUserData( $provider )
     {
         $s_user    = $this->socialite->with($provider)->user();
-        $scope_req = $this->accounts->getProviderScopes( $provider );
+        $scope_req = $this->db->getProviderScopes( $provider );
         
         // enhace s_user with 'provider'
         if ( !empty( $s_user ) ){
@@ -42,7 +42,7 @@ class AuthorizeSocialiteUser{
     public function autorizeWithProvider($request, $listener, $provider)
     {
         // setup autorization scopes
-        $scope_request =  $this->accounts->getProviderScopes( $provider );
+        $scope_request =  $this->db->getProviderScopes( $provider );
         
         if (!empty($scope_request)){
             $scopes = explode(';',$scope_request);
@@ -69,7 +69,7 @@ class AuthorizeSocialiteUser{
         // Follow https://github.com/SammyK/LaravelFacebookSdk#ioc-container
         //
         // attempt to obtain socialite user data from provider
-        $err    = false;
+        $err    = '';
         $s_user = false;
         
         try{
@@ -81,32 +81,33 @@ class AuthorizeSocialiteUser{
             }
         }
         catch( \Exception $e) {
-           $err = $e->getMessage();
+           $err = $e->getMessage() . ' ';
         }
  
         // attempt to map to user from soclite user account
         // if not found create account / user from socilite account
-        $res = (object)[];
+        $user = false;
         
-        if ($s_user){
-            $res = $this->accounts->find_userBySociliteUser( $s_user        ,
-                                                             $update = true ,
-                                                             $create = true );
-        }
+        $user = $this->db->find_userBySociliteUser( $s_user,
+                                                    $update = true ,
+                                                    $create = true );
         
-        $accounts = isset( $res->accounts )? $res->accounts : null;
-        $user     = isset( $res->user     )? $res->user     : null;
+        $uid = isset( $user->id )?  $user->id : false;
         
         // finally login our user
-        if ( !empty($user) ){
+        if ( $uid ){
             $this->auth->login( $user, true );
         }
+        else{
+            $err .= ' Could not find ' . $provider . ' user';
+            $err  = trim( $err );
+        }
         
-        if ($err){
+        if ( !empty($err) ){
             \Debugbar::info( $err );
         }
         
-        return $listener->updateUser( $user, $accounts, $err );
+        return $listener->updateUser( $uid, $err );
     }
     
     // ...................................................... logoutFromProvider
@@ -114,6 +115,6 @@ class AuthorizeSocialiteUser{
     public function logoutFromProvider($request, $listener, $provider)
     {
         // $this->auth->logout();
-        // return $listener->updateUser( null, null );
+        // return $listener->updateUser( false );
     }
 }

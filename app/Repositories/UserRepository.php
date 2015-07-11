@@ -10,7 +10,7 @@ use App\Components\FactsFactory\AccountFacts;
     
 use Hash;
     
-class AccountRepository {
+class UserRepository {
     
     // ....................................................... getProviderScopes
 
@@ -25,7 +25,7 @@ class AccountRepository {
 
     public function generateUserFacts( $uid, $provider = false )
     {
-        \Debugbar::info( '>> generateUserFacts(uid:' . $uid . ',' . $provider . ')' );
+        \Debugbar::info( 'UserRepository::generateUserFacts(uid:' . $uid . ',' . $provider . ')' );
 
         $accounts = false;
         
@@ -63,11 +63,41 @@ class AccountRepository {
         return $res;
     }
     
+    // ............................................................ getUserInfo
+    //
+    // TODO: optimize db to keep accounts info in user object so we don't need
+    // to access accounts to recreate it
+    //
+    // TODO: Create getUserInfo by match that returns a list of users
+    //
+    public function getUserInfo( $uid )
+    {
+        \Debugbar::info( 'UserRepository::getUserInfo(uid:' . $uid . ')' );
+        $match = [ 'id' => $uid ];
+        
+        $user = User::where( $match )->first();
+        $acts = $this->getUserAccounts( $uid );
+        
+        if ( $acts && $user ){
+            
+            $providers = [];
+            
+            foreach( $acts as $act ){
+                $providers[ $act->provider ] = 1;
+            }
+            
+            $user->providers = $providers;
+        }
+
+        return $user;
+    }
+    
+    
     // ............................................................ getUserFacts
     
     public function getUserFacts( $uid, $provider = false )
     {
-        \Debugbar::info( 'getUserFacts(uid:' . $uid . ',' . $provider . ')' );
+        \Debugbar::info( 'UserRepository::getUserFacts(uid:' . $uid . ',' . $provider . ')' );
         
         $match = [ 'uid' => $uid ];
         $facts = false;
@@ -103,7 +133,7 @@ class AccountRepository {
 
     public function getUserAccounts( $uid, $provider = false )
     {
-        \Debugbar::info( 'getUserAccounts(uid:' . $uid . ',' . $provider . ')' );
+        \Debugbar::info( 'UserRepository::getUserAccounts(uid:' . $uid . ',' . $provider . ')' );
 
         $match = ['uid' => $uid ];
         if ( $provider ) $match[ 'provider' ] = $provider;
@@ -129,7 +159,7 @@ class AccountRepository {
                                              $update = true ,
                                              $create = false)
     {
-        \Debugbar::info( 'find_userBySociliteUser(' . $userData->email . ')' );
+        \Debugbar::info( 'UserRepository::find_userBySociliteUser(' . $userData->email . ')' );
 
         // attempt to locate the user for the socialite account
         // by email, need a better way to decide what is the current logged in user
@@ -183,14 +213,8 @@ class AccountRepository {
         if ( $account && $update ){
             $this->update_accountBySociliteUser( $account, $userData );
         }
-    
-        // get all the account(s) information we have for user
-        if ($user){
-            $accounts = $this->getUserAccounts( $user->id );
-        }
-        
-        $res = (object)[ 'user' => $user, 'accounts' => $accounts ];
-        return $res;
+
+        return $user;
     }
     
     // ............................................ update_accountBySociliteUser

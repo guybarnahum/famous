@@ -5,7 +5,7 @@
     @if(isset($title)&&!empty($title))
         <h1 class="headline hyper hairline">{{$title}}</h1>
     @endif
-    @if (isset($msg)&&!empty($msg))
+    @if ( isset($msg) && $msg && !empty($msg) )
         <div class="alert alert-info" role="alert">{{ $msg }}</div>
     @endif
     </header>

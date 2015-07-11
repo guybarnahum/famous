@@ -38,6 +38,8 @@ Route::post('facts_p/{provider?}'   , 'HomeController@getUserFactsByProvider' );
 Route::post('gen_facts'             , 'HomeController@generateUserFacts'           );
 Route::post('gen_facts_p/{provider?}','HomeController@generateUserFactsByProvider' );
 
+Route::get ('user/{uid?}'           , 'HomeController@show' );
+Route::post('user/{uid?}'           , 'HomeController@show' );
     
 // ................................................................ api/callback
 

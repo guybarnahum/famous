@@ -65,8 +65,8 @@
 <script>
 
 var ids = [ 'uid-{{ $user->id }}-accounts',
-            'uid-{{$user->id}}-name',
-            'uid-{{$user->id}}-box'
+            'uid-{{ $user->id }}-name',
+            'uid-{{ $user->id }}-box'
 ];
 
 setAjaxById(

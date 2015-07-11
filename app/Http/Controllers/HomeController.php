@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Session;
-use App\Repositories\AccountRepository;
+use App\Repositories\UserRepository;
     
 class HomeController extends Controller {
 
@@ -26,7 +26,7 @@ class HomeController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('auth');
-        $this->accts = new AccountRepository;
+        $this->db = new UserRepository;
 	}
 
     // .............................................................. renderHtml
@@ -52,32 +52,55 @@ class HomeController extends Controller {
      */
     public function index()
     {
-        $user     = Session::get( 'user'     );
-        $accounts = Session::get( 'accounts' );
- 
-        $providers = [];
+        \Debugbar::info( 'HomeController::index()' );
+
+        $uid = Session::get( 'uid' );
+        $msg = Session::get( 'msg' );
+
+        $user = $this->db->getUserInfo( $uid );
         
-        foreach( $accounts as $account ){
-            $providers[ $account->provider ] = 1;
-        }
-        $user->providers = $providers;
-        
-        $msg      = Session::get( 'msg'      );
-        
-        return view('home')->with( 'user', $user     )
-                           ->with( 'msg'     , $msg      );
+        return view('home')->with( 'user', $user )
+                           ->with( 'msg' , $msg  );
     }
 
+    /**
+     * Show the application dashboard to the user.
+     *
+     * @return Response
+     */
+    public function show( $uid )
+    {
+        \Debugbar::info( 'HomeController::show(' . $uid . ')' );
+        
+        $user = $this->db->getUserInfo( $uid );
+        $msg  = ($user === false) ? 'User not found!' : false;
+        
+        return view('home')->with( 'user', $user )
+                           ->with( 'msg' , $msg  );
+    }
+    
+    // ............................................................. getUserInfo
+    
+    public function getUserInfo( $uid )
+    {
+        \Debugbar::info( 'HomeController::getUserInfo(' . $uid . ')' );
+        $user  = $this->db->getUserInfo( $uid );
+        
+        $with  = ['user' => $user ];
+
+        return $this->renderHtml( 'user.info', $with);
+    }
+    
     // ................................................ getUserAccountByProvider
     
     public function getUserAccountByProvider( $provider )
     {
-        \Debugbar::info( 'getUserAccountByProvider(' . $provider . ')' );
+        \Debugbar::info( 'HomeController::getUserAccountByProvider(' . $provider . ')' );
 
-        $user  = Session::get( 'user' );
-        $accts = $this->accts->getUserAccounts( $user->id, $provider );
+        $uid  = Session::get( 'uid' );
+        $accts = $this->db->getUserAccounts( $uid, $provider );
         
-        $with  = ['user' => $user, 'accounts' => $accts ];
+        $with  = [ 'accounts' => $accts ];
 
         return $this->renderHtml( 'user.accounts', $with);
     }
@@ -86,7 +109,7 @@ class HomeController extends Controller {
     
     public function getUserAccounts()
     {
-        \Debugbar::info( 'getUserAccounts()' );
+        \Debugbar::info( 'HomeController::getUserAccounts()' );
         return $this->getUserAccountByProvider( false );
     }
     
@@ -101,10 +124,10 @@ class HomeController extends Controller {
     
     public function getUserFactsByProvider( $provider )
     {
-        \Debugbar::info( 'getUserFactsByProvider(' . $provider . ')' );
+        \Debugbar::info( 'HomeController::getUserFactsByProvider(' . $provider . ')' );
 
-        $user  = Session::get( 'user' );
-        $facts = $this->accts->getUserFacts( $user->id, $provider );
+        $uid  = Session::get( 'uid' );
+        $facts = $this->db->getUserFacts( $uid, $provider );
         
         // sort facts by 'fct_name'
         $cmp_fn = array( $this, 'fact_cmp_name'  );
@@ -115,7 +138,7 @@ class HomeController extends Controller {
         
         // TODO: format further for display.. 
         
-        $with  = ['user' => $user, 'facts' => $facts ];
+        $with  = [ 'facts' => $facts ];
         
         return $this->renderHtml( 'user.facts', $with);
     }
@@ -124,7 +147,7 @@ class HomeController extends Controller {
     
     public function getUserFacts()
     {
-        \Debugbar::info( 'getUserFacts()' );
+        \Debugbar::info( 'HomeController::getUserFacts()' );
         return $this->getUserFactsByProvider( false );
     }
     
@@ -132,10 +155,10 @@ class HomeController extends Controller {
  
     public function generateUserFactsByProvider( $provider )
     {
-        \Debugbar::info( 'generateUserFactsByProvider(' . $provider . ')' );
+        \Debugbar::info( 'HomeController::generateUserFactsByProvider(' . $provider . ')' );
 
-        $user  = Session::get( 'user' );
-        $res = $this->accts->generateUserFacts( $user->id, $provider );
+        $uid = Session::get( 'uid' );
+        $res = $this->db->generateUserFacts( $uid, $provider );
         
         return json_encode($res);
     }
@@ -144,7 +167,7 @@ class HomeController extends Controller {
 
     public function generateUserFacts()
     {
-        \Debugbar::info( 'generateFactsByProvider()' );
+        \Debugbar::info( 'HomeController::generateFactsByProvider()' );
 
         return $this->generateFactsByProvider( false );
     }
