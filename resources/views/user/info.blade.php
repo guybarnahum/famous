@@ -45,10 +45,10 @@
                                 <i class="fa fa-user"></i>
                             </a>
                         </li>
-                        @foreach( $accounts as $account )
+                        @foreach( $user->providers as $provider => $value )
                         <li>
-                            <a id='uid-{{ $user->id }}-{{ $account->provider }}' href='javascript:void(0)'>
-                                <i class='fa fa-{{ $account->provider }}'></i>
+                            <a id='uid-{{ $user->id }}-{{ $provider }}' href='javascript:void(0)'>
+                                <i class='fa fa-{{ $provider }}'></i>
                             </a>
                         </li>
                         @endforeach
@@ -74,11 +74,11 @@ setAjaxById(
     'accounts'                     ,  // route
     'user-accounts-div'            ); // div_id
 
-@foreach( $accounts as $account )
+@foreach( $user->providers as $provider => $value )
 
 setAjaxById(
-        'uid-{{ $user->id }}-{{ $account->provider }}', // id
-        'accounts_p/{{$account->provider}}', // route
+        'uid-{{ $user->id }}-{{ $provider }}', // id
+        'accounts_p/{{ $provider }}', // route
         'user-accounts-div'); // div_id
 
 @endforeach

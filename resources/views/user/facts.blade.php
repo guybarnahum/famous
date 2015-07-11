@@ -12,12 +12,12 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span12">
-                <table class="table table-hover">
+                <table class="table table-hover" style="table-layout:fixed;">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>fact</th>
-                            <th>subject</th>
+                            <th style='width:30px;'></th>
+                            <th style='width:50px;'>fact</th>
+                            <th style='width:150px;'>subject</th>
                             <th>object</th>
                             <th>type</th>
                         </tr>
@@ -31,11 +31,11 @@
 
                                 @if ( $fact_num  = 0  ) @endif
                                 <tr class='collapsable clickable expanded'>
-                                    <td><i class="fa fa-caret-down"></i></td>
-                                    <td style='vertical-align:middle;'>
+                                    <td style='width:30px;' ><i class="fa fa-caret-down"></i></td>
+                                    <td style='vertical-align:middle;width:50px;'>
                                         {{$fact->fct_name}}
                                     </td>
-                                    <td></td>
+                                    <td style='width:150px;'></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -46,9 +46,9 @@
 
                             @if ( $fact_num == 16 )
                                 <tr class='collapsable clickable'>
-                                    <td><i class="fa fa-caret-right"></i></td>
-                                    <td><b>More..<b></td>
-                                    <td></td>
+                                    <td style='width:30px;'><i class="fa fa-caret-right"></i></td>
+                                    <td style='width:50px;'><b>More..<b></td>
+                                    <td style='width:150px;'></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -59,23 +59,26 @@
                             @else
                                 <tr>
                             @endif
-                                    <td></td>
-                                    <td></td>
-                                    <td style='vertical-align:middle;'>
+                                    <td style='width:30px;'></td>
+                                    <td style='width:50px;'></td>
+                                    <td style='vertical-align:middle;width:150px;'>
                                         uid.{{$fact->uid}}:act.{{$fact->act_id}}
                                     </td>
-                                    <td style='vertical-align:middle;'>
-                                        {{$fact->obj_name}}
-                                    </td>
+
+                            <td style='vertical-align:middle; width:200px; word-wrap:break-word;'>
+                                {{$fact->obj_name}}
+                            </td>
+
                                     <td style='vertical-align:middle;'>
 
-                                    @if ( $str = $fact->obj_id_type . ':' . $fact->obj_provider_id ) @endif
+                                        @if ( $str = $fact->obj_id_type . ':' .
+                                              $fact->obj_provider_id ) @endif
 
-                                    @if ( strlen( $str ) > 32 )
-                                        {{ substr($str,0,32)}}...
-                                    @else
-                                        {{        $str      }}
-                                    @endif
+                                        @if ( strlen( $str ) > 32 )
+                                            {{ substr($str,0,32)}}...
+                                        @else
+                                            {{        $str      }}
+                                        @endif
                                     </td>
                                 </tr>
 

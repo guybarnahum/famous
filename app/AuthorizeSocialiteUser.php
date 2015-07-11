@@ -21,6 +21,8 @@ class AuthorizeSocialiteUser{
         $this->auth      = $auth;
     }
     
+    // ................................................... get_socialiteUserData
+    
     private function get_socialiteUserData( $provider )
     {
         $s_user    = $this->socialite->with($provider)->user();
@@ -35,6 +37,8 @@ class AuthorizeSocialiteUser{
         return $s_user;
     }
     
+    // .................................................... autorizeWithProvider
+
     public function autorizeWithProvider($request, $listener, $provider)
     {
         // setup autorization scopes
@@ -57,6 +61,8 @@ class AuthorizeSocialiteUser{
         return $this->socialite->with($provider)->redirect();
     }
     
+    // .................................................. handleProviderCallback
+
     public function handleProviderCallback($request, $listener, $provider)
     {
         // TODO: FIXME: add error checks for failures!
@@ -103,6 +109,8 @@ class AuthorizeSocialiteUser{
         return $listener->updateUser( $user, $accounts, $err );
     }
     
+    // ...................................................... logoutFromProvider
+
     public function logoutFromProvider($request, $listener, $provider)
     {
         // $this->auth->logout();

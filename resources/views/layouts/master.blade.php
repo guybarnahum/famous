@@ -1,31 +1,3 @@
-
-@if ( $style=array( 'facebook' =>'',
-                    'twitter'  =>'',
-                    'linkedin' =>'',
-                    'google'   =>'' ) ) @endif
-
-@if ( $url=array( 'facebook' =>'login',
-                   'twitter'  =>'login',
-                   'linkedin' =>'login',
-                   'google'   =>'login' ) ) @endif
-
-@if (isset($accounts))
-    @foreach( $accounts as $account )
-        @if     ( $account[ 'provider'] == 'facebook' )
-            @if ( $style[ 'facebook' ] = 'color:blue;' ) @endif
-        @elseif ( $account[ 'provider'] == 'twitter'  )
-            @if ( $style[ 'twitter' ] = 'color:cyan;' ) @endif
-        @elseif ( $account[ 'provider'] == 'linkedin'  )
-            @if ( $style[ 'linkedin'] = 'color:red;' ) @endif
-        @elseif ( $account[ 'provider'] == 'google'  )
-            @if ( $style[ 'google'  ] = 'color:blue;' ) @endif
-        @endif
-
-        @if ( $url[ $account[ 'provider' ] ] = 'logout_p' ) @endif
-
-    @endforeach
-@endif
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -196,7 +168,6 @@
         }
 
         </script>
-
     </head>
 <body>
     <header id="masthead" class="navbar navbar-sticky swatch-{{ $color or "black" }}-white" role="banner">
@@ -219,23 +190,43 @@
             <nav class="collapse navbar-collapse main-navbar va-middle" role="navigation">
             <ul class="inline navbar navbar-right social-icons social-background social-small">
                 <li>
-                    <a href="{{ $url['facebook'] }}/facebook">
-                        <i class="fa fa-facebook" style="{{ $style['facebook' ]}}"></i>
+                @if (isset($user->providers['facebook']))
+                    <a href="logout_p/facebook">
+                        <i class="fa fa-facebook" style="color:blue;"></i>
+                @else
+                    <a href="login/facebook">
+                        <i class="fa fa-facebook"></i>
+                @endif
                     </a>
                 </li>
                 <li>
-                    <a href="{{ $url['twitter'] }}/twitter">
-                        <i class="fa fa-twitter"   style="{{ $style['twitter' ]}}"></i>
+                @if (isset( $user->providers['twitter'] ))
+                    <a href="logout_p/twitter">
+                        <i class="fa fa-twitter" style="color:cyan;"></i>
+                @else
+                    <a href="login/twitter">
+                        <i class="fa fa-twitter"></i>
+                @endif
                     </a>
                 </li>
                 <li>
-                    <a href="{{ $url['linkedin'] }}/linkedin">
-                        <i class="fa fa-linkedin" style="{{ $style['linkedin' ]}}"></i>
+                @if (isset($user->providers['linkedin']))
+                    <a href="logout_p/linkedin">
+                        <i class="fa fa-linkedin" style="color:red;"></i>
+                @else
+                    <a href="login/linkedin">
+                        <i class="fa fa-linkedin"></i>
+                @endif
                     </a>
                 </li>
                 <li>
-                    <a href="{{ $url['google'] }}/google">
-                        <i class="fa fa-google-plus" style="{{ $style['google' ]}}"></i>
+                @if (isset($user->providers['google']))
+                    <a href="logout_p/google">
+                        <i class="fa fa-google" style="color:blue;"></i>
+                @else
+                    <a href="login/google">
+                        <i class="fa fa-google"></i>
+                @endif
                     </a>
                 </li>
 

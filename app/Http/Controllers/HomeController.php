@@ -54,11 +54,18 @@ class HomeController extends Controller {
     {
         $user     = Session::get( 'user'     );
         $accounts = Session::get( 'accounts' );
+ 
+        $providers = [];
+        
+        foreach( $accounts as $account ){
+            $providers[ $account->provider ] = 1;
+        }
+        $user->providers = $providers;
+        
         $msg      = Session::get( 'msg'      );
         
-        return view('home')->with( 'user'    , $user     )
-        ->with( 'accounts', $accounts )
-        ->with( 'msg'     , $msg      );
+        return view('home')->with( 'user', $user     )
+                           ->with( 'msg'     , $msg      );
     }
 
     // ................................................ getUserAccountByProvider
