@@ -105,14 +105,14 @@ setAjaxById(
 
 @endforeach
 
-@if ( count( $accounts) == 1 )
+@if ( count( $accounts) > 1 )
 
-onreadyAjax( '/facts/{{ $account->uid }}/{{ $accounts[0]->provider }}', // route
+onreadyAjax( '/facts/{{ $accounts[0]->uid }}', // route
             'user-accounts-facts-div');// div_id
 
-@else
+@elseif ( count( $accounts ) == 1 )
 
-onreadyAjax( '/facts/{{ $account->uid }}', // route
+onreadyAjax( '/facts/{{ $accounts[0]->uid }}/{{ $accounts[0]->provider }}', // route
             'user-accounts-facts-div');// div_id
 
 @endif
