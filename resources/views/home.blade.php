@@ -1,4 +1,8 @@
-@extends('layouts.master', [ 'user'  => isset( $user )? $user : false ] )
+@extends('layouts.master' )
+
+@section('header')
+    @include( 'header', [ 'user'  => isset( $user )? $user : false ] )
+@endsection
 
 @section('content')
 

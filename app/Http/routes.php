@@ -43,10 +43,10 @@ Route::post('gen_facts/{uid?}/{provider?}'
 Route::post('gen_facts/{uid?}'      ,'HomeController@generateUserFactsByUid' );
 Route::post('gen_facts'             ,'HomeController@generateActiveUserFacts' );
 
-Route::get ('user/{uid}'            , 'HomeController@show' );
-Route::post('user/{uid}'            , 'HomeController@show' );
-Route::get ('user'                  , 'HomeController@showActive' );
-Route::post('user'                  , 'HomeController@showActive' );
+Route::post('user/{uid}'            , 'HomeController@getUserInfo' );
+Route::post('user'                  , 'HomeController@getActiveUserInfo' );
+Route::get('user/{uid}'            , 'HomeController@getUserInfo' );
+Route::get('user'                  , 'HomeController@getActiveUserInfo' );
     
 // ................................................................ api/callback
 
