@@ -29,17 +29,24 @@ Route::get('logout'                 , 'Auth\AuthController@logout'    );
 
 // ajax api calls
 
-Route::post('accounts'              , 'HomeController@getUserAccounts'          );
-Route::post('accounts_p/{provider?}', 'HomeController@getUserAccountByProvider' );
+Route::post('accounts/{uid?}/{provider?}'
+                                    ,'HomeController@getUserAccounts');
+Route::post('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid');
+Route::post('accounts'              ,'HomeController@getActiveUserAccounts');
 
-Route::post('facts'                 , 'HomeController@getUserFacts' );
-Route::post('facts_p/{provider?}'   , 'HomeController@getUserFactsByProvider' );
+Route::post('facts/{uid?}/{provider?}', 'HomeController@getUserFacts' );
+Route::post('facts/{uid?}'          , 'HomeController@getUserFactsByUid' );
+Route::post('facts'                 , 'HomeController@getActiveUserFacts' );
 
-Route::post('gen_facts'             , 'HomeController@generateUserFacts'           );
-Route::post('gen_facts_p/{provider?}','HomeController@generateUserFactsByProvider' );
+Route::post('gen_facts/{uid?}/{provider?}'
+                                    ,'HomeController@generateUserFacts' );
+Route::post('gen_facts/{uid?}'      ,'HomeController@generateUserFactsByUid' );
+Route::post('gen_facts'             ,'HomeController@generateActiveUserFacts' );
 
-Route::get ('user/{uid?}'           , 'HomeController@show' );
-Route::post('user/{uid?}'           , 'HomeController@show' );
+Route::get ('user/{uid}'            , 'HomeController@show' );
+Route::post('user/{uid}'            , 'HomeController@show' );
+Route::get ('user'                  , 'HomeController@showActive' );
+Route::post('user'                  , 'HomeController@showActive' );
     
 // ................................................................ api/callback
 

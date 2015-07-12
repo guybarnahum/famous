@@ -95,24 +95,24 @@
 
 setAjaxById(
             'uid-{{ $account->uid }}-{{$account->provider}}-facts', // id
-            'facts_p/{{$account->provider}}', // route
+            '/facts/{{ $account->uid }}/{{$account->provider}}', // route
             'user-accounts-facts-div'); // div_id
 
 setAjaxById(
             'uid-{{ $account->uid }}-{{$account->provider}}-gen-facts', // id
-            'gen_facts_p/{{$account->provider}}', // route
+            '/gen_facts/{{ $account->uid }}/{{$account->provider}}', // route
             false); // div_id
 
 @endforeach
 
 @if ( count( $accounts) == 1 )
 
-onreadyAjax( 'facts_p/{{ $accounts[0]->provider }}', // route
+onreadyAjax( '/facts/{{ $account->uid }}/{{ $accounts[0]->provider }}', // route
             'user-accounts-facts-div');// div_id
 
 @else
 
-onreadyAjax( 'facts', // route
+onreadyAjax( '/facts/{{ $account->uid }}', // route
             'user-accounts-facts-div');// div_id
 
 @endif

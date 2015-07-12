@@ -68,10 +68,11 @@ class HomeController extends Controller {
      *
      * @return Response
      */
-    public function show( $uid )
+    public function show( $uid = false )
     {
         \Debugbar::info( 'HomeController::show(' . $uid . ')' );
         
+        if (empty( $uid )) $uid = Session::get( 'uid' );
         $user = $this->db->getUserInfo( $uid );
         $msg  = ($user === false) ? 'User not found!' : false;
         
@@ -79,42 +80,58 @@ class HomeController extends Controller {
                            ->with( 'msg' , $msg  );
     }
     
+    /**
+     * Show the application dashboard to the user.
+     *
+     * @return Response
+     */
+    public function showActive()
+    {
+        return $this->show();
+    }
+    
     // ............................................................. getUserInfo
     
-    public function getUserInfo( $uid )
+    public function getUserInfo( $uid = false)
     {
         \Debugbar::info( 'HomeController::getUserInfo(' . $uid . ')' );
-        $user  = $this->db->getUserInfo( $uid );
         
+        if (empty( $uid )) $uid = Session::get( 'uid' );
+        $user  = $this->db->getUserInfo( $uid );
         $with  = ['user' => $user ];
 
         return $this->renderHtml( 'user.info', $with);
     }
     
-    // ................................................ getUserAccountByProvider
+    // ......................................................... getUserAccounts
     
-    public function getUserAccountByProvider( $provider )
+    public function getUserAccounts( $uid = false, $provider = false)
     {
-        \Debugbar::info( 'HomeController::getUserAccountByProvider(' . $provider . ')' );
+        \Debugbar::info( 'HomeController::getUserAccountByProvider(' . $uid . ',' . $provider . ')' );
 
-        $uid  = Session::get( 'uid' );
-        $accts = $this->db->getUserAccounts( $uid, $provider );
+        if (empty( $uid      )) $uid      = Session::get( 'uid' );
+        if (empty( $provider )) $provider = false;
         
+        $accts = $this->db->getUserAccounts( $uid, $provider );
+        if (empty( $accts )) $accts = [];
         $with  = [ 'accounts' => $accts ];
 
         return $this->renderHtml( 'user.accounts', $with);
     }
     
-    // ......................................................... getUserAccounts
-    
-    public function getUserAccounts()
+    public function getUserAccountsByUid( $uid )
     {
-        \Debugbar::info( 'HomeController::getUserAccounts()' );
-        return $this->getUserAccountByProvider( false );
+        return $this->getUserAccounts( $uid );
     }
+   
+    public function getActiveUserAccounts()
+    {
+        return $this->getUserAccounts();
+    }
+
+    // ............................................................ getUserFacts
     
-    // ...................................................... getFactsByProvider
-    public function fact_cmp_name( $a, $b )
+    private function fact_cmp_name( $a, $b )
     {
         $fct_name_a = is_array( $a )? $a[ 'fct_name' ] : $a->fct_name;
         $fct_name_b = is_array( $b )? $b[ 'fct_name' ] : $b->fct_name;
@@ -122,13 +139,16 @@ class HomeController extends Controller {
         return strcmp( $fct_name_a, $fct_name_b );
     }
     
-    public function getUserFactsByProvider( $provider )
+    public function getUserFacts( $uid = false, $provider = false)
     {
-        \Debugbar::info( 'HomeController::getUserFactsByProvider(' . $provider . ')' );
+        \Debugbar::info( 'HomeController::getUserFacts(' . $uid . ',' . $provider . ')' );
 
-        $uid  = Session::get( 'uid' );
+        if (empty( $uid      )) $uid      = Session::get( 'uid' );
+        if (empty( $provider )) $provider = false;
+
         $facts = $this->db->getUserFacts( $uid, $provider );
-        
+        if (empty( $facts )) $facts = [];
+
         // sort facts by 'fct_name'
         $cmp_fn = array( $this, 'fact_cmp_name'  );
         
@@ -142,33 +162,39 @@ class HomeController extends Controller {
         
         return $this->renderHtml( 'user.facts', $with);
     }
-    
-    // ............................................................ getUserFacts
-    
-    public function getUserFacts()
+
+    public function getUserFactsByUid( $uid  )
     {
-        \Debugbar::info( 'HomeController::getUserFacts()' );
-        return $this->getUserFactsByProvider( false );
+        return $this->getUserFacts( $uid );
     }
     
-    // ............................................. generateUserFactsByProvider
- 
-    public function generateUserFactsByProvider( $provider )
+    public function getActiveUserFacts()
     {
-        \Debugbar::info( 'HomeController::generateUserFactsByProvider(' . $provider . ')' );
+        return $this->getUserFacts();
+    }
+    
+    // ....................................................... generateUserFacts
+ 
+    public function generateUserFacts( $uid = false, $provider = false)
+    {
+        \Debugbar::info( 'HomeController::generateUserFactsByProvider(' . $uid . ',' . $provider . ')' );
 
-        $uid = Session::get( 'uid' );
+        if (empty( $uid      )) $uid      = Session::get( 'uid' );
+        if (empty( $provider )) $provider = false;
+        
         $res = $this->db->generateUserFacts( $uid, $provider );
         
         return json_encode($res);
     }
     
-    // ....................................................... generateUserFacts
-
-    public function generateUserFacts()
+    public function generateUserFactsByUid( $uid  )
     {
-        \Debugbar::info( 'HomeController::generateFactsByProvider()' );
-
-        return $this->generateFactsByProvider( false );
+        return $this->generateUserFacts( $uid );
     }
+
+    public function generateActiveUserFacts()
+    {
+        return $this->generateUserFacts();
+    }
+    
 }

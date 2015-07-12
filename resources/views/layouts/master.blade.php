@@ -12,39 +12,39 @@
 
         <!-- fav icons -->
 
-        <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicons/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/assets/images/favicons/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicons/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/favicons/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicons/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicons/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicons/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/favicons/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="/assets/images/favicons/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicons/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicons/favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/assets/images/favicons/apple-icon-57x57.png') }}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('/assets/images/favicons/apple-icon-60x60.png') }}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('/assets/images/favicons/apple-icon-72x72.png') }}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/assets/images/favicons/apple-icon-76x76.png') }}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('/assets/images/favicons/apple-icon-114x114.png') }}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('/assets/images/favicons/apple-icon-120x120.png') }}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('/assets/images/favicons/apple-icon-144x144.png') }}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('/assets/images/favicons/apple-icon-152x152.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/assets/images/favicons/apple-icon-180x180.png') }}">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('/assets/images/favicons/android-icon-192x192.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/assets/images/favicons/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('/assets/images/favicons/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/assets/images/favicons/favicon-16x16.png') }}">
         <link rel="manifest" href="/manifest.json">
 
         <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/assets/images/favicons/ms-icon-144x144.png">
+        <meta name="msapplication-TileImage" content="{{ asset('/assets/images/favicons/ms-icon-144x144.png') }}">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicons/favicon.ico" >
-        <link rel="shortcut icon" type="image/png"    href="/assets/images/favicons/favicon.png" >
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/assets/images/favicons/favicon.ico') }}" >
+        <link rel="shortcut icon" type="image/png"    href="{{ asset('/assets/images/favicons/favicon.png') }}" >
 
         <!-- iPhone 4 Retina display: -->
         <link rel="apple-touch-icon-precomposed" sizes="114x114"
-            href="/assets/images/favicons/apple-icon-114x114.png" >
+            href="{{ asset('/assets/images/favicons/apple-icon-114x114.png') }}" >
 
         <!-- iPad: -->
         <link rel="apple-touch-icon-precomposed" sizes="72x72"
-            href="/assets/images/favicons/apple-icon-72x72.png" >
+            href="{{ asset('/assets/images/favicons/apple-icon-72x72.png') }}" >
 
         <!-- iPhone: -->
         <link rel="apple-touch-icon-precomposed"
-            href="/assets/images/favicons/apple-icon-60x60.png" >
+            href="{{ asset('/assets/images/favicons/apple-icon-60x60.png') }}" >
 
         <!-- css -->
 
@@ -191,40 +191,40 @@
             <ul class="inline navbar navbar-right social-icons social-background social-small">
                 <li>
                 @if (isset($user->providers['facebook']))
-                    <a href="logout_p/facebook">
+                    <a href="/logout_p/facebook">
                         <i class="fa fa-facebook" style="color:blue;"></i>
                 @else
-                    <a href="login/facebook">
+                    <a href="/login/facebook">
                         <i class="fa fa-facebook"></i>
                 @endif
                     </a>
                 </li>
                 <li>
                 @if (isset( $user->providers['twitter'] ))
-                    <a href="logout_p/twitter">
+                    <a href="/logout_p/twitter">
                         <i class="fa fa-twitter" style="color:cyan;"></i>
                 @else
-                    <a href="login/twitter">
+                    <a href="/login/twitter">
                         <i class="fa fa-twitter"></i>
                 @endif
                     </a>
                 </li>
                 <li>
                 @if (isset($user->providers['linkedin']))
-                    <a href="logout_p/linkedin">
+                    <a href="/logout_p/linkedin">
                         <i class="fa fa-linkedin" style="color:red;"></i>
                 @else
-                    <a href="login/linkedin">
+                    <a href="/login/linkedin">
                         <i class="fa fa-linkedin"></i>
                 @endif
                     </a>
                 </li>
                 <li>
                 @if (isset($user->providers['google']))
-                    <a href="logout_p/google">
+                    <a href="/logout_p/google">
                         <i class="fa fa-google" style="color:blue;"></i>
                 @else
-                    <a href="login/google">
+                    <a href="/login/google">
                         <i class="fa fa-google"></i>
                 @endif
                     </a>
@@ -233,17 +233,17 @@
                 <li>
                 @if ( isset($user) && $user && !empty( $user ))
                     <img class='img-circle' width=64px
-                        src='{{ $user->pri_photo_large or "assets/images/user.png" }}'
-                        alt='{{ $user->name }}'/>
+                        src="{{ $user->pri_photo_large or asset(assets/images/user.png) }}"
+                        alt="{{ $user->name }}"/>
                 @else
                     <img class='img-circle' width=64px
-                        src="assets/images/user.png"
+                        src="{{ asset('assets/images/user.png') }}"
                         alt='famous'/>
                 @endif
                 </li>
                 <li>
                 @if ( isset($user) && $user && !empty( $user ))
-                    <a href='logout'>
+                    <a href='/logout'>
                 @else
                     <a href='javascript:void(0)' style='opacity:0.2;'>
                 @endif

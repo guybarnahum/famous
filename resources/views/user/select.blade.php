@@ -1,6 +1,7 @@
 
 
-<div id='selected-user-div'></div>
+<div id='selected-user-div'>
+</div>
 
 <script>
 
@@ -11,7 +12,7 @@ setAjaxById(
     'selected-user-div'            ); // div_id
 */
 
-onreadyAjax( 'user/{{ $us->selected_uid }}', 'selected-user-div' );
+onreadyAjax( '/user/{{ $us->selected_uid }}', 'selected-user-div' );
 
 </script>
 

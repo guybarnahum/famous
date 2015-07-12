@@ -60,7 +60,8 @@
     </div>
 </section>
 
-<div id='user-accounts-div'></div>
+<div id='user-accounts-div'>
+</div>
 
 <script>
 
@@ -71,19 +72,19 @@ var ids = [ 'uid-{{ $user->id }}-accounts',
 
 setAjaxById(
      ids ,  // id
-    'accounts'                     ,  // route
+    '/accounts'                    ,  // route
     'user-accounts-div'            ); // div_id
 
 @foreach( $user->providers as $provider => $value )
 
 setAjaxById(
         'uid-{{ $user->id }}-{{ $provider }}', // id
-        'accounts_p/{{ $provider }}', // route
+        '/accounts/{{ $user->id }}/{{ $provider }}', // route
         'user-accounts-div'); // div_id
 
 @endforeach
 
-onreadyAjax( 'accounts', 'user-accounts-div' );
+onreadyAjax( '/accounts/{{ $user->id }}', 'user-accounts-div' );
 
 </script>
 

@@ -77,15 +77,17 @@ class UserRepository {
         
         $user = User::where( $match )->first();
         $acts = $this->getUserAccounts( $uid );
+
         
-        if ( $acts && $user ){
-            
+        if ( $user ){
             $providers = [];
-            
-            foreach( $acts as $act ){
-                $providers[ $act->provider ] = 1;
+
+            if ( is_array( $acts ) ){
+                foreach( $acts as $act ){
+                    $providers[ $act->provider ] = 1;
+                }
             }
-            
+
             $user->providers = $providers;
         }
 
