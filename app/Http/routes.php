@@ -43,11 +43,11 @@ Route::post('gen_facts/{uid?}/{provider?}'
 Route::post('gen_facts/{uid?}'      ,'HomeController@generateUserFactsByUid' );
 Route::post('gen_facts'             ,'HomeController@generateActiveUserFacts' );
 
-Route::post('user/{uid}'            , 'HomeController@getUserInfo' );
+Route::post('user/{uid}'            , 'HomeController@getUserInfo'       );
 Route::post('user'                  , 'HomeController@getActiveUserInfo' );
-Route::get('user/{uid}'            , 'HomeController@getUserInfo' );
-Route::get('user'                  , 'HomeController@getActiveUserInfo' );
-    
+Route::get ('user/{uid}'            , 'HomeController@getUserInfo'       );
+Route::get ('user'                  , 'HomeController@getActiveUserInfo' );
+
 // ................................................................ api/callback
 
 // Disable our pesky \Debugbar for these api/callback routes..

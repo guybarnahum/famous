@@ -1,31 +1,10 @@
 
-@include('user.info',[ 'user' => $user, 'action' => 'load-acct' ] )
+@include('user.info',[ 'user' => $user, 'action' => [
+                                            'class-prefix' => 'load-acct',
+                                            'div'          => 'user-accounts-div',
+                                            'route'        => 'accounts',
+                                            'fire_on_load' => true
+                                         ]
+                     ] )
 
-<div id='user-accounts-div'>
-</div>
-
-<script>
-
-var ids = [ 'load-acct-uid-{{ $user->id }}-accounts',
-            'load-acct-uid-{{ $user->id }}-name',
-            'load-acct-uid-{{ $user->id }}-box'
-];
-
-setAjaxById(
-     ids ,  // id
-    '/accounts'                    ,  // route
-    'user-accounts-div'            ); // div_id
-
-@foreach( $user->providers as $provider => $value )
-
-setAjaxById(
-        'load-acct-uid-{{ $user->id }}-{{ $provider }}', // id
-        '/accounts/{{ $user->id }}/{{ $provider }}', // route
-        'user-accounts-div'); // div_id
-
-@endforeach
-
-onreadyAjax( '/accounts/{{ $user->id }}', 'user-accounts-div' );
-
-</script>
-
+<div id='user-accounts-div'></div>

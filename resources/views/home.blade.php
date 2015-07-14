@@ -11,16 +11,20 @@
                                     'msg'  => $msg ] )
     @endif
 
-@if( false )
+    @if ( isset($user_list) && is_array($user_list) && count( $user_list ) )
 
-    @if ( isset($user) && $user && !empty( $user ) )
-        @if ( $us = [ $user, $user, $user,$user, $user, $user,$user, $user, $user, $user ] ) @endif
-        @include( 'user.select', [ 'us' => $us ] )
-    @endif
+        <section class="section swatch-black-white has-top">
+            <div class="decor-top">
+                <svg class="decor" height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 100 L100 0 L100 100" stroke-width="0"></path>
+                </svg>
+            </div>
+        </section>
 
-@endif
+        @include( 'user.select', [ 'user_list' => $user_list ] )
 
-    @if ( isset($user) && $user && !empty( $user ) )
+    @elseif ( isset($user) && $user && !empty( $user ) )
+
         <section class="section swatch-white-black has-top">
             <div class="decor-top">
                 <svg class="decor" height="100%" preserveaspectratio="none" version="1.1" viewbox="0 0 100 100" width="100%" xmlns="http://www.w3.org/2000/svg">
@@ -28,6 +32,7 @@
                 </svg>
             </div>
         </section>
+
         @include('user.active',[ 'user' => $user ] )
     @endif
 

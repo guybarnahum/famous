@@ -95,6 +95,29 @@ class UserRepository {
     }
     
     
+    public function getUserList( $uid, $q )
+    {
+        \Debugbar::info( 'UserRepository::getUerList(uid:' . $uid . ',' . $q . ')' );
+
+        $ul = User::all();
+        
+        // TODO: BUG: HACK! TODO: BUG: HACK! TODO: BUG: HACK! TODO: BUG: HACK!
+        //
+        // Package results in an array -- lame!
+        // Very inefficient! We call Keep providers array inside user record!
+        // We call getUserInfo (again) to get accounts for each user..
+        //
+        // TODO: BUG: HACK! TODO: BUG: HACK! TODO: BUG: HACK! TODO: BUG: HACK!
+        $user_list = [];
+        foreach( $ul as $user ){
+            $user_list[] = $this->getUserInfo( $user->id );
+        }
+        
+        \Debugbar::info( 'UserRepository::getUerList(' . print_r($user_list,true) . ')' );
+
+        return $user_list;
+    }
+    
     // ............................................................ getUserFacts
     
     public function getUserFacts( $uid, $provider = false )

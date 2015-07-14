@@ -52,15 +52,24 @@ class HomeController extends Controller {
      */
     public function index()
     {
-        \Debugbar::info( 'HomeController::index()' );
+        $input = \Input::all();
+        \Debugbar::info( 'HomeController::index(' . print_r($input,true) . ')' );
 
         $uid = Session::get( 'uid' );
         $msg = Session::get( 'msg' );
 
         $user = $this->db->getUserInfo( $uid );
         
-        return view('home')->with( 'user', $user )
-                           ->with( 'msg' , $msg  );
+        $with = [ 'msg' => $msg, 'user' => $user ];
+
+        $q = \Input::get( 'q' , false );
+        
+        if ($q){
+            $user_list = $this->db->getUserList( $uid, $q );
+            $with[ 'user_list' ] = $user_list ;
+        }
+        
+        return view('home')->with( $with );
     }
 
     /**
@@ -94,13 +103,24 @@ class HomeController extends Controller {
     
     public function getUserInfo( $uid = false)
     {
-        \Debugbar::info( 'HomeController::getUserInfo(' . $uid . ')' );
+        $input = \Input::all();
+
+        \Debugbar::info( 'HomeController::getUserInfo(' . $uid . ',' .
+                                           print_r($input,true). ')' );
         
         if (empty( $uid )) $uid = Session::get( 'uid' );
         $user  = $this->db->getUserInfo( $uid );
+        
         $with  = ['user' => $user ];
-
-        return $this->renderHtml( 'user.info', $with);
+        if ( isset($input['mode'  ]) ) $with[ 'mode'   ] = $input[ 'mode'   ];
+        if ( isset($input['action']) ) $with[ 'action' ] = $input[ 'action' ];
+        
+        return $this->renderHtml( 'user.info', $with );
+    }
+    
+    public function getActiveUserInfo()
+    {
+        return $this->getUserInfo();
     }
     
     // ......................................................... getUserAccounts

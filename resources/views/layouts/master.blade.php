@@ -82,6 +82,9 @@
             cursor:pointer;
         }
 
+        td.container > div { width: 100%; height: 100%; overflow:hidden; }
+        td.container { height: 20px; }
+
         </style>
 
         <!-- scripts -->
@@ -161,7 +164,7 @@
                 if (typeof(div_id)==='undefined') div_id = '#' + id + '_div';
                 else                              div_id = '#' + div_id;
                 
-                selector  = '#' + id;
+                selector  = id;
 
                 setAjax(selector, route, div_id );
             }
@@ -170,6 +173,7 @@
         </script>
     </head>
 <body>
+
     <!-- header -->
     @yield('header')
 
