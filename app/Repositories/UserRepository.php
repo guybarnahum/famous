@@ -63,37 +63,64 @@ class UserRepository {
         return $res;
     }
     
-    // ............................................................ getUserInfo
+    // ........................................................ getUserProviders
+    
+    public function getUserProviders( $user )
+    {
+        $providers = '';
+        
+        if ( $user ){
+            
+            if ( empty( $user->providers ) ){
+            
+                $acts = $this->getUserAccounts( $user->id );
+            
+                if ( is_array( $acts ) ){
+ 
+                    $p = [];
+                    
+                    foreach( $acts as $act ){
+                        $p[] = $act->provider;
+                    }
+                    
+                    $providers = implode(',',$p);
+                }
+            }
+            else{
+                $providers = $user->providers;
+            }
+        }
+        
+        return $providers;
+    }
+    
+    // ............................................................. getUserInfo
     //
     // TODO: optimize db to keep accounts info in user object so we don't need
     // to access accounts to recreate it
     //
     // TODO: Create getUserInfo by match that returns a list of users
     //
+    
     public function getUserInfo( $uid )
     {
         \Debugbar::info( 'UserRepository::getUserInfo(uid:' . $uid . ')' );
         $match = [ 'id' => $uid ];
         
         $user = User::where( $match )->first();
-        $acts = $this->getUserAccounts( $uid );
-
         
+        // we should have a list of providers but just make sure..
         if ( $user ){
-            $providers = [];
-
-            if ( is_array( $acts ) ){
-                foreach( $acts as $act ){
-                    $providers[ $act->provider ] = 1;
-                }
+            if ( !isset( $user->providers ) ||
+                  empty( $user->providers ) ){
+                         $user->providers = $this->getUserProviders( $user );
             }
-
-            $user->providers = $providers;
         }
-
+        
         return $user;
     }
     
+    // ............................................................. getUserList
     
     public function getUserList( $uid, $q )
     {
@@ -203,6 +230,7 @@ class UserRepository {
                          'password'  => Hash::make(''), // no password (yet?)
                          'name'      => $userData->name,
                          'slogan'    => '',
+                         'providers' => $userData->provider,
                      
                          'pri_photo_large' => $userData->avatar,
                          'pri_photo_medium'=> $userData->avatar,
@@ -233,6 +261,9 @@ class UserRepository {
                          'avatar'       => $userData->avatar,
                          'active' => 1,
                          ]);
+            
+            $user->providers .= ',' . $userData->provider;
+            $user->save();
         }
         
         if ( $account && $update ){

@@ -1,3 +1,9 @@
+@if (isset($user)&&isset($user->providers))
+    @if ( $providers = explode(',', $user->providers ) ) @endif
+@else
+    @if ( $providers = [] ) @endif
+@endif
+
 <header id="masthead" class="navbar navbar-sticky swatch-{{ $color or "black" }}-white" role="banner">
     <div class="container">
         <div class="navbar-header">
@@ -18,7 +24,7 @@
         <nav class="collapse navbar-collapse main-navbar va-middle" role="navigation">
         <ul class="inline navbar navbar-right social-icons social-background social-small">
             <li>
-            @if (isset($user->providers['facebook']))
+            @if ( in_array( 'facebook', $providers ) )
                 <a href="/logout_p/facebook">
                     <i class="fa fa-facebook" style="color:blue;"></i>
             @else
@@ -28,7 +34,7 @@
                 </a>
             </li>
             <li>
-            @if (isset( $user->providers['twitter'] ))
+            @if ( in_array( 'twitter', $providers ) )
                 <a href="/logout_p/twitter">
                     <i class="fa fa-twitter" style="color:cyan;"></i>
             @else
@@ -38,7 +44,7 @@
                 </a>
             </li>
             <li>
-            @if (isset($user->providers['linkedin']))
+            @if ( in_array( 'linkedin', $providers ) )
                 <a href="/logout_p/linkedin">
                     <i class="fa fa-linkedin" style="color:red;"></i>
             @else
@@ -48,7 +54,7 @@
                 </a>
             </li>
             <li>
-            @if (isset($user->providers['google']))
+            @if ( in_array( 'google', $providers ) )
                 <a href="/logout_p/google">
                     <i class="fa fa-google" style="color:blue;"></i>
             @else

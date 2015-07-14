@@ -1,3 +1,8 @@
+@if (isset($user)&&isset($user->providers))
+    @if ( $providers = explode(',', $user->providers ) ) @endif
+@else
+    @if ( $providers = [] ) @endif
+@endif
 
 @if (!isset($mode))
     @if( $mode  = 'normal' ) @endif
@@ -102,7 +107,7 @@
                     </a>
                 </li>
 
-                @foreach( $user->providers as $provider => $value )
+                @foreach( $providers as $provider )
                 <li>
                     <a class='{{ $class }}-uid-{{ $uid }}-{{ $provider }}' href='javascript:void(0)'>
                         <i class='fa fa-{{ $provider }}'></i>
@@ -135,7 +140,7 @@ var selectors = [   '.{{ $class }}-uid-{{ $uid }}-accounts',
 
 setAjaxById( selectors, '/{{ $route }}?{{ $query }}', '{{ $div }}' );
 
-@foreach( $user->providers as $provider => $value )
+@foreach( $providers as $provider )
 
 setAjaxById('.{{ $class }}-uid-{{ $uid }}-{{ $provider }}'                  , // id
             '/{{ $route }}/{{ $uid }}/{{ $provider }}?{{ $query }}'  , // route

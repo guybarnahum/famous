@@ -27,6 +27,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                             'password'  ,
                             'name'      ,
                             'slogan'    ,
+                            'providers' ,
                             'pri_photo_large' ,
                             'pri_photo_medium',
                             'pri_photo_small' ,
