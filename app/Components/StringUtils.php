@@ -4,10 +4,24 @@ class StringUtils{
         
     // ............................................................. get_version
     
-    public static function get_version()
+    public static function getBuildVersion()
     {
         $ver = env('BUILD_VER_STRING');
         return $ver;
+    }
+    
+    public static function getDevGuid()
+    {
+        // look if we have one in cookie
+        $dev_guid = \Cookie::get('dev_guid');
+        
+        if (empty($dev_guid)){
+            $dev_guid = uniqid('dev',true);
+            $c = \Cookie::forever('dev_guid', $dev_guid);
+            \Cookie::queue( $c );
+        }
+        
+        return $dev_guid;
     }
     
     // ............................................................. getUrlParam
