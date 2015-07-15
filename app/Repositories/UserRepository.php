@@ -7,6 +7,7 @@ use App\Models\Fact;
     
 use App\Components\FactsFactory\AccountFactsFactory;
 use App\Components\FactsFactory\AccountFacts;
+use App\Components\StringUtils;
     
 use Hash;
     
@@ -65,30 +66,21 @@ class UserRepository {
     
     // ........................................................ getUserProviders
     
-    public function getUserProviders( $user )
+    public function getUserProviders( $uid )
     {
         $providers = '';
         
-        if ( $user ){
+        $acts = $this->getUserAccounts( $uid );
             
-            if ( empty( $user->providers ) ){
-            
-                $acts = $this->getUserAccounts( $user->id );
-            
-                if ( is_array( $acts ) ){
+        if ( is_array( $acts ) ){
  
-                    $p = [];
+            $p = [];
                     
-                    foreach( $acts as $act ){
-                        $p[] = $act->provider;
-                    }
+            foreach( $acts as $act ){
+                $p[] = $act->provider;
+            }
                     
-                    $providers = implode(',',$p);
-                }
-            }
-            else{
-                $providers = $user->providers;
-            }
+            $providers = implode(',',$p);
         }
         
         return $providers;
@@ -108,14 +100,6 @@ class UserRepository {
         $match = [ 'id' => $uid ];
         
         $user = User::where( $match )->first();
-        
-        // we should have a list of providers but just make sure..
-        if ( $user ){
-            if ( !isset( $user->providers ) ||
-                  empty( $user->providers ) ){
-                         $user->providers = $this->getUserProviders( $user );
-            }
-        }
         
         return $user;
     }
@@ -204,42 +188,57 @@ class UserRepository {
         return null;
     }
     
-    
-    // ................................................. find_userBySociliteUser
+    // ................................................................ findUser
 
-    public function find_userBySociliteUser( $userData      ,
-                                             $update = true ,
-                                             $create = false)
+    public function findUser( $data )
     {
-        \Debugbar::info( 'UserRepository::find_userBySociliteUser(' . $userData->email . ')' );
+        // email is the primary way to locate existing user
+        $user = User::where( 'emails', 'LIKE', '%'.$data->email.'%' )->first();
+        
+        if (!$user){
+            // try and match user signature, a combination of device
+            $signature = StringUtils::getDeviceSignature( $data->name );
+            $user = User::where( 'signatures', 'LIKE', '%'.$signature.'%' )->first();
+        }
+        
+        return $user;
+    }
+    
+    // ................................................................. getUser
+
+    public function getUser( $data, $update = true, $create = false)
+    {
+        \Debugbar::info( 'UserRepository::getUser(' . $data->email . ',' . $data->name . ')' );
 
         // attempt to locate the user for the socialite account
         // by email, need a better way to decide what is the current logged in user
-        
-        $user = User::where( 'emails', 'LIKE', '%' . $userData->email . '%' )->first();
+        $user      = $this->findUser( $data );
+        $signature = StringUtils::getDeviceSignature( $data->name );
         
         // no user for this socialite account?
         // if we are in create mode than make one!
         if ( !$user && $create ){
-
+            
                 // TODO: Add errors for when db is malformed and we throw
                 // an exception in the App\Models\User
                 $user = User::create( [
-                         'email'     => $userData->email,
-                         'emails'    => $userData->email,
+                         'email'     => $data->email,
+                         'emails'    => $data->email,
+                         'signatures'=> $signature,
                          'password'  => Hash::make(''), // no password (yet?)
-                         'name'      => $userData->name,
+                         'name'      => $data->name,
                          'slogan'    => '',
-                         'providers' => $userData->provider,
+                         'providers' => $data->provider,
                      
-                         'pri_photo_large' => $userData->avatar,
-                         'pri_photo_medium'=> $userData->avatar,
-                         'pri_photo_small' => $userData->avatar
+                         'pri_photo_large' => $data->avatar,
+                         'pri_photo_medium'=> $data->avatar,
+                         'pri_photo_small' => $data->avatar
                          ]);
         }
         
         // locate account
-        $account = Account::where( 'provider_uid', $userData->id)->first();
+        $account_update = $update;
+        $account = Account::where( 'provider_uid', $data->id)->first();
         
         // no account?
         // if we have a user and in create mode than make one!
@@ -251,23 +250,50 @@ class UserRepository {
 
             $account = Account::create([
                          'uid'          => $user->id,
-                         'provider'     => $userData->provider,
-                         'provider_uid' => $userData->id,
-                         'access_token' => $userData->token,
-                         'scope_request'=> $userData->scope_request,
-                         'name'         => $userData->name,
-                         'username'     => $userData->nickname,
-                         'email'        => $userData->email,
-                         'avatar'       => $userData->avatar,
+                         'provider'     => $data->provider,
+                         'provider_uid' => $data->id,
+                         'access_token' => $data->token,
+                         'scope_request'=> $data->scope_request,
+                         'name'         => $data->name,
+                         'username'     => $data->nickname,
+                         'email'        => $data->email,
+                         'avatar'       => $data->avatar,
                          'active' => 1,
                          ]);
             
-            $user->providers .= ',' . $userData->provider;
-            $user->save();
+            // no need to update newly created account
+            $account_update = false;
         }
         
-        if ( $account && $update ){
-            $this->update_accountBySociliteUser( $account, $userData );
+        // need to
+        if ( $account && $account_update ){
+            $this->updateAccount( $account, $data );
+        }
+        
+        // need to updates user with new providers, emails or signatures?
+        // not yet..
+        $user_update = false;
+
+        // $data->provider is not empty
+        if ( $account && strpos( $user->providers, $data->provider ) === false ){
+            $user->providers = $this->getUserProviders( $user->id );
+            $user_update = $update;
+        }
+        
+        // email may be empty! (i.e. twitter)
+        if ( $user && !empty($data->email) && strpos( $user->emails, $data->email) === false ){
+            $user->emails .= ',' . $data->email;
+            $user_update = $update;
+        }
+        
+        // signature and $user->signatures are not empty
+        if ( $user && strpos( $user->signatures, $signature) === false ){
+            $user->signatures .= ',' . $signature;
+            $user_update = $update;
+        }
+        
+        if ( $user && $user_update ){
+            $user->save();
         }
 
         return $user;
@@ -275,15 +301,15 @@ class UserRepository {
     
     // ............................................ update_accountBySociliteUser
 
-    public function update_accountBySociliteUser( $account, $userData )
+    public function updateAccount( $account, $data )
     {        
         $socialiteData = [
-                         'avatar'       => $userData->avatar,
-                         'email'        => $userData->email,
-                         'access_token' => $userData->token,
-                         'scope_request'=> $userData->scope_request,
-                         'username'     => $userData->nickname,
-                         'name'         => $userData->name,
+                         'avatar'       => $data->avatar,
+                         'email'        => $data->email,
+                         'access_token' => $data->token,
+                         'scope_request'=> $data->scope_request,
+                         'username'     => $data->nickname,
+                         'name'         => $data->name,
                          ];
         
         $dbData        = [
@@ -300,12 +326,12 @@ class UserRepository {
         
         if ( $update ) {
             
-            $account->avatar       = $userData->avatar;
-            $account->email        = $userData->email;
-            $account->access_token = $userData->token;
-            $account->scope_request= $userData->scope_request;
-            $account->name         = $userData->name;
-            $account->username     = $userData->nickname;
+            $account->avatar       = $data->avatar;
+            $account->email        = $data->email;
+            $account->access_token = $data->token;
+            $account->scope_request= $data->scope_request;
+            $account->name         = $data->name;
+            $account->username     = $data->nickname;
             
             // TODO: Add errors for when db is malformed and we throw
             // an exception in the App\Models\Account

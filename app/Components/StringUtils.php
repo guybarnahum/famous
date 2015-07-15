@@ -1,7 +1,28 @@
 <?php namespace App\Components;
     
 class StringUtils{
+    
+    public static function normalize_str( $str, $whitespace = "" )
+    {
+        // Additional Swedish filters
+        $str = str_replace(array("ä", "Ä"), "a", $str);
+        $str = str_replace(array("å", "Å"), "a", $str);
+        $str = str_replace(array("ö", "Ö"), "o", $str);
+            
+        // Remove any character that is not alphanumeric or white-space
+        $str = preg_replace("/[^a-z0-9\s]/i", "", $str);
+        // Replace multiple instances of white-space with a single space
+        $str = preg_replace("/\s\s+/", " ", $str);
+        // Replace all spaces with $whitespace
+        $str = preg_replace("/\s/", $whitespace, $str);
+        // Remove leading and trailing $whitespace
+        $str = trim($str, $whitespace);
+        // Lowercase the URL
+        $str = strtolower($str);
         
+        return $str;
+    }
+    
     // ............................................................. get_version
     
     public static function getBuildVersion()
@@ -9,6 +30,8 @@ class StringUtils{
         $ver = env('BUILD_VER_STRING');
         return $ver;
     }
+    
+    // .............................................................. getDevGuid
     
     public static function getDevGuid()
     {
@@ -22,6 +45,17 @@ class StringUtils{
         }
         
         return $dev_guid;
+    }
+ 
+    // ...................................................... getDeviceSignature
+    
+    public static function getDeviceSignature( $seed )
+    {
+        $dev_guid   = self::getDevGuid();
+        $seed       = self::normalize_str( $seed );
+        $signature  = $dev_guid . '.' . $seed;
+        
+        return $signature;
     }
     
     // ............................................................. getUrlParam

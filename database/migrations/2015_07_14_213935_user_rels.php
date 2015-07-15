@@ -14,8 +14,12 @@ class UserRels extends Migration {
 	{
         Schema::table('users', function(Blueprint $table)
                 {
+                $table->string('signatures', 2048)->after('emails')
+                                                  ->nullable();
+
                 $table->string('providers')->after('slogan')
                                            ->nullable();
+                      
                 });
 	}
 
@@ -31,7 +35,10 @@ class UserRels extends Migration {
                       if (Schema::hasColumn('users', 'providers')){
                                   $table->dropColumn('providers');
                       }
+                      
+                      if (Schema::hasColumn('users', 'signatures')){
+                                  $table->dropColumn('signatures');
+                      }
                 });
 	}
-
 }

@@ -21,9 +21,9 @@ class AuthorizeSocialiteUser{
         $this->auth      = $auth;
     }
     
-    // ................................................... get_socialiteUserData
+    // .................................................... getSocialiteUserData
     
-    private function get_socialiteUserData( $provider )
+    private function getSocialiteUserData( $provider )
     {
         $s_user    = $this->socialite->with($provider)->user();
         $scope_req = $this->db->getProviderScopes( $provider );
@@ -73,7 +73,7 @@ class AuthorizeSocialiteUser{
         $s_user = false;
         
         try{
-            $s_user = $this->get_socialiteUserData( $provider );
+            $s_user = $this->getSocialiteUserData( $provider );
             
             // validate $s_user
             if (!isset($s_user->token)){
@@ -86,12 +86,7 @@ class AuthorizeSocialiteUser{
  
         // attempt to map to user from soclite user account
         // if not found create account / user from socilite account
-        $user = false;
-        
-        $user = $this->db->find_userBySociliteUser( $s_user,
-                                                    $update = true ,
-                                                    $create = true );
-        
+        $user = $this->db->getUser( $s_user, $update = true, $create = true );
         $uid = isset( $user->id )?  $user->id : false;
         
         // finally login our user
