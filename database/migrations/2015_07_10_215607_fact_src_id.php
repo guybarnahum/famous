@@ -13,10 +13,13 @@ class FactSrcId extends Migration {
 	public function up()
 	{
         Schema::table('facts', function(Blueprint $table)
-                      {
-                      $table->string('src_id_type')->after('src_id')
-                                                   ->nullable();
-                      });
+                            {
+                                if (!Schema::hasColumn('facts', 'src_id_type')){
+                      
+                                    $table->string('src_id_type')->after('src_id')
+                                                                 ->nullable();
+                                }
+                            });
 	}
 
 	/**
