@@ -52,7 +52,7 @@ class AuthorizeSocialiteUser{
         // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
         
         if ( $provider == 'facebook' ){
-            $this->socialite->with($provider)->authType( 'reauthenticate' );
+        //    $this->socialite->with($provider)->authType( 'reauthenticate' );
         }
         
         // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
