@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('FactTypeTableSeeder');
         $this->call('PersonalityTypeTableSeeder');
         $this->call('DatasetTableSeeder');
+        $this->call('StrMapTableSeeder');
         
 //        $this->call('UserTableSeeder');
 //        $this->call('AccountTableSeeder');
@@ -235,10 +236,10 @@ class DatasetTableSeeder extends ParserSeeder {
         $this->file  = 'database/seeds/datasets.txt';
         $this->table = 'datasets';
 
-        $this->fmt   = array( 'provider',
-                              'api_key' , 'api_secret',
-                              'driver'  ,
-                              'oath_callback_uri', 'scope' );
+        $this->fmt   = [ 'provider',
+                          'api_key' , 'api_secret',
+                          'driver'  ,
+                          'oath_callback_uri', 'scope' ];
         
         $this->model = 'App\Models\Dataset';
         
@@ -255,7 +256,7 @@ class PersonalityTypeTableSeeder extends ParserSeeder {
         $this->msg   = '';
         $this->file  = 'database/seeds/personality_types.txt';
         $this->table = 'personality_types';
-        $this->fmt   = array( 'sys','name', 'display', 'desc' );
+        $this->fmt   = [ 'sys','name', 'display', 'desc' ];
         $this->model = 'App\Models\PersonalityType';
             
         ParserSeeder::run();
@@ -271,9 +272,25 @@ class FactTypeTableSeeder extends ParserSeeder {
         $this->msg   = '';
         $this->file  = 'database/seeds/fact_types.txt';
         $this->table = 'fact_types';
-        $this->fmt   = array( 'name', 'statement_fmt', 'question_fmt', 'desc', 'val_type' );
+        $this->fmt   = [ 'name', 'statement_fmt', 'question_fmt', 'desc', 'val_type' ];
         $this->model = 'App\Models\FactType';
             
+        ParserSeeder::run();
+    }
+};
+
+// ===================================================== class StrMapTableSeeder
+
+class StrMapTableSeeder extends ParserSeeder {
+    
+    public function run()
+    {
+        $this->msg   = '';
+        $this->file  = 'database/seeds/str_map.txt';
+        $this->table = 'str_map';
+        $this->fmt   = [ 'name', 'key', 'value' ];
+        $this->model = 'App\Models\StrMap';
+        
         ParserSeeder::run();
     }
 };

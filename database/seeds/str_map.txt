@@ -1,0 +1,35 @@
+# ==============================================================================
+# datasets.txt
+#
+# structure
+#
+# $table->string( 'key'   )->unique();
+# $table->string( 'value' );
+#
+# ==============================================================================
+
+--debug
+--dump_table
+
+facebook.likes:app_page:media.web.app_page
+facebook.likes:business_economy_website:media.web.economy
+facebook.likes:cars:cars
+facebook.likes:city:place.city
+facebook.likes:community_government:organization.community
+facebook.likes:local_business:services.local
+facebook.likes:school:organization.community.school
+facebook.likes:science_website:media.web.science
+facebook.likes:politician:politics.persona
+facebook.likes:political_ideology:politics.movement
+facebook.likes:organization:organization
+facebook.likes:community:organization.community
+facebook.likes:non-profit_organization:organization.non_profit
+facebook.likes:computers_technology:organization.tech
+facebook.likes:health_medical_pharmaceuticals:organization.health
+facebook.likes:professional_services:services
+facebook.likes:musician_band:media.music.artist
+facebook.likes:artist:media.art.artist
+facebook.likes:book:media.book
+facebook.likes:magazine:media.magazine
+facebook.likes:website:media.web
+facebook.likes:movie:media.movies

@@ -37,7 +37,7 @@ bio.gender:$s is $o:Is $s a $o:$desc:string
 # Place
 #
 
-place.location:a place at $o:::desc:bool
+place.location:a place at $o::desc:bool
 place.at:$s is in $place:Is $s in $place:desc:bool
 place.hometown:$s is from $place:Is $s from $place:desc:bool
 place.lived:$s lived at $place:Did $s lived at $place:desc:bool
@@ -72,11 +72,11 @@ friend.close:::desc:bool
 friend.casual:::desc:bool
 friend.distant:::desc:bool
 friend.inactive:::desc:bool
-friend.sns:::desc.bool
-friend.sns.facebook:::desc.bool
-friend.sns.linkedin:::desc.bool
-friend.sns.twitter:::desc.bool
-friend.sns.google:::desc.bool
+friend.sns:::desc:bool
+friend.sns.facebook:::desc:bool
+friend.sns.linkedin:::desc:bool
+friend.sns.twitter:::desc:bool
+friend.sns.google:::desc:bool
 friend.significant_other.girlfriend:::desc:bool
 friend.significant_other.boyfriend:::desc:bool
 friend.significant_other.dating:::desc:bool
@@ -146,5 +146,5 @@ feed.message:::desc:bool
 # App
 #
 
-app:$s is used $o:::desc:bool
+app:$s is used $o::desc:bool
 

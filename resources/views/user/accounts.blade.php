@@ -27,7 +27,7 @@
                         @foreach( $accounts as $account )
                             <tr>
                                 <td style='vertical-align:middle;'>
-                                    <a id='uid-{{ $account->uid }}-{{$account->provider}}-facts'
+                                    <a class='uid-{{ $account->uid }}-{{$account->provider}}-facts'
                                         href='javascript:void(0)'>
                                         <i class="fa fa-{{$account->provider}}"></i>
                                     </a>
@@ -72,7 +72,7 @@
                                 <td style='vertical-align:middle;'>
                                     <i class="fa fa-{{$account->provider}}"></i>
                                     <br>
-                                    <a id='uid-{{ $account->uid }}-{{$account->provider}}-gen-facts'
+                                    <a class='uid-{{ $account->uid }}-{{$account->provider}}-gen-facts'
                                         href='javascript:void(0)'>
                                         Regenerate facts!
                                     </a>
@@ -93,13 +93,12 @@
 @foreach( $accounts as $account )
 
 
-setAjaxById(
-            'uid-{{ $account->uid }}-{{$account->provider}}-facts', // id
+setAjaxById('.uid-{{ $account->uid }}-{{$account->provider}}-facts', // id
             '/facts/{{ $account->uid }}/{{$account->provider}}', // route
             'user-accounts-facts-div'); // div_id
 
 setAjaxById(
-            'uid-{{ $account->uid }}-{{$account->provider}}-gen-facts', // id
+            '.uid-{{ $account->uid }}-{{$account->provider}}-gen-facts', // id
             '/gen_facts/{{ $account->uid }}/{{$account->provider}}', // route
             false); // div_id
 
