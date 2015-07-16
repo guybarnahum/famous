@@ -49,14 +49,13 @@ class AuthorizeSocialiteUser{
             $this->socialite->with($provider)->scopes( $scopes );
         }
         
-        // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
-        
-        if ( $provider == 'facebook' ){
-            $this->socialite->with($provider)->authType( 'reauthenticate' );
+        if ( method_exists($this->socialite->with($provider), 'reauth') ){
+            $this->socialite->with($provider)->reauth();
+        }
+        else{
+            \Debugbar::info( 'reauth method not supported for ' . $provider );
         }
         
-        // HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK! HACK!
-            
         // redirect for autorization from socialite provider
         return $this->socialite->with($provider)->redirect();
     }

@@ -43,6 +43,19 @@ class FacebookProviderEx extends FacebookProvider
     protected $auth_type = false;
     
     /**
+     * For reauthentication on login
+     * @var bool set or reset reauthentication
+     *
+     * @return this
+     */
+    
+    public function reauth( $set = true  )
+    {
+        $type = $set? 'reauthenticate' : false;
+        return $this->authType( $type );
+    }
+    
+    /**
      * Set an auth_type hint for provider
      * Are we on git?
      * @param  string  $type
