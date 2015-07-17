@@ -208,10 +208,34 @@ class UserRepository {
 
     public function getUser( $data, $update = true, $create = false)
     {
-        \Debugbar::info( 'UserRepository::getUser(' . $data->email . ',' . $data->name . ')' );
+        // sanity check data
+        if (!$data){
+            \Debugbar::info( 'UserRepository::getUser( false )' );
+            return false;
+        }
+        
+        if ( !isset($data->email) || !isset($data->name) ){
+            \Debugbar::info( 'UserRepository::getUser( invalid data! )' );
+            return false;
+        }
+        
+        \Debugbar::info( 'UserRepository::getUser(' . $data->email . ',' .
+                                                      $data->name  . ')' );
 
-        // attempt to locate the user for the socialite account
-        // by email, need a better way to decide what is the current logged in user
+        // .....................................................................
+        //
+        // Attempt to locate the user for the socialite account
+        // We do this by the following heuristics:
+        //
+        // First look for her email in existing user entry
+        // Then we look for her name on the same device(!)
+        // If not found we generate a new user
+        //
+        // TODO: handle the case where we find a user but discover another user
+        // on the same device with same name!
+        //
+        // .....................................................................
+                            
         $user      = $this->findUser( $data );
         $signature = StringUtils::getDeviceSignature( $data->name );
         
@@ -229,7 +253,6 @@ class UserRepository {
                          'name'      => $data->name,
                          'slogan'    => '',
                          'providers' => $data->provider,
-                     
                          'pri_photo_large' => $data->avatar,
                          'pri_photo_medium'=> $data->avatar,
                          'pri_photo_small' => $data->avatar
@@ -261,11 +284,12 @@ class UserRepository {
                          'active' => 1,
                          ]);
             
-            // no need to update newly created account
+            // newly created account is up to date
             $account_update = false;
         }
         
-        // need to
+        // need to update existing account with latest data?
+        // for example when a user changes avatar, etc.
         if ( $account && $account_update ){
             $this->updateAccount( $account, $data );
         }

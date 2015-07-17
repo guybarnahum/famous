@@ -25,7 +25,7 @@ facebook.likes:organization:organization
 facebook.likes:community:organization.community
 facebook.likes:non-profit_organization:organization.non_profit
 facebook.likes:computers_technology:organization.tech
-facebook.likes:health_medical_pharmaceuticals:organization.health
+facebook.likes:health_medical_pharmaceuticals:organization.health,organization.pharma
 facebook.likes:professional_services:services
 facebook.likes:musician_band:media.music.artist
 facebook.likes:artist:media.art.artist
@@ -33,3 +33,9 @@ facebook.likes:book:media.book
 facebook.likes:magazine:media.magazine
 facebook.likes:website:media.web
 facebook.likes:movie:media.movies
+facebook.likes:actor_director:media.movies.actor,media.movies.director
+facebook.likes:actor:media.movies.actor
+facebook.likes:director:media.movies.director
+facebook.likes:clothing:fashion.clothing
+facebook.likes:company:organization.company
+

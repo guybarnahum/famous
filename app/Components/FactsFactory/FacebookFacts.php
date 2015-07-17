@@ -336,7 +336,11 @@ class FacebookFacts extends AccountFacts{
         $app_id         = env('FACEBOOK_CLIENT_ID');
         $app_secret     = env('FACEBOOK_CLIENT_SECRET');
         $verify_token   = md5( $app_id );
-        $token          = $app_id . '|' . $app_secret; // $this->fb->getDefaultAccessToken();
+        
+        // token is the app admin token not the account token!
+        // don't use : $this->fb->getDefaultAccessToken();
+        
+        $token          = $app_id . '|' . $app_secret;
         $endpoint       = '/' . $app_id . '/subscriptions';
         
         $params         = [ 'object'       => $obj            ,
@@ -443,6 +447,10 @@ class FacebookFacts extends AccountFacts{
         
         if ( $created ) $fact[ 'created_at' ] = new \DateTime( $created );
         if ( $updated ) $fact[ 'updated_at' ] = new \DateTime( $updated );
+        
+        if ( isset( $post[ 'id' ] ) ){
+            $fact[ 'fct_provider_id' ] = $post[ 'id' ];
+        }
         
         return $fact;
     }
@@ -596,7 +604,6 @@ class FacebookFacts extends AccountFacts{
             $fact[ 'obj_provider_id' ] = $src_id;
             $fact[ 'obj_name'        ] = $src_name;
             $fact[ 'obj_id_type'     ] = 'facebook.uid';
-            
             $all_facts[] = $fact;
         }
         
@@ -730,7 +737,7 @@ class FacebookFacts extends AccountFacts{
 
         try{
             $posts = $this->graph_api( '/me/feed' );
-            
+        
             if ( is_array( $posts ) ){
                 foreach( $posts as $post ){
                     $facts = $this->process_post( $post );
@@ -826,7 +833,7 @@ class FacebookFacts extends AccountFacts{
             try{
                 $res   = $this->graph_api( $endpoint );
                 // $this->output( 'res:', $res );
-                $facts = $this->prcess_facts( $datamap_cname , $res, $store = true );
+                $facts = $this->prcess_facts( $datamap_cname, $endpoint, $res, $store = true );
                
             }
             catch( \Exception $e ){

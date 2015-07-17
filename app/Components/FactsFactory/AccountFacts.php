@@ -93,7 +93,7 @@ abstract class AccountFacts implements AccountFactsContract{
 
     // ................................................. process_fact_collection
 
-    protected function process_fact_collection( $fc, $store = false )
+    protected function process_fact_collection( $fc, $cmd, $store = false )
     {
         if ( !is_array($fc) ){
             $this->output( 'process_fact_collection: invalid input - ', $fc );
@@ -107,6 +107,13 @@ abstract class AccountFacts implements AccountFactsContract{
                 $fact = $this->prepare_one_fact( $fact, $type );
                 
                 if ( $this->validate_fact($fact) ){
+                    
+                    // sometimes provider does not have an id just type
+                    // for the fact
+                    if (!isset($fact->fct_provider_id)){
+                        $fact[ 'fct_provider_id' ] = $cmd;
+                    }
+                    
                     $fc[ $type ][ $ix ] = $fact;
                 }
                 // failed to produce a valid fact from object
@@ -146,9 +153,9 @@ abstract class AccountFacts implements AccountFactsContract{
     
     // ........................................................... process_facts
     
-    protected function prcess_facts( $cname, $obj, $store = false )
+    protected function prcess_facts( $cname, $cmd, $obj, $store = false )
     {
         $fc = $this->mapper->map( $cname, $obj );
-        return $this->process_fact_collection( $fc, $store );
+        return $this->process_fact_collection( $fc, $cmd, $store );
     }
 }

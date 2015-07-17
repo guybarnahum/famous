@@ -27,21 +27,35 @@ Route::get('callback/{provider?}'   , 'Auth\AuthController@handleProviderCallbac
 Route::get('logout_p/{provider?}'   , 'Auth\AuthController@logoutFromProvider'    );
 Route::get('logout'                 , 'Auth\AuthController@logout'    );
 
-// ajax api calls
+// ........................................................................ ajax
+// POST ajax api calls
 
 Route::post('accounts/{uid?}/{provider?}'
-                                    ,'HomeController@getUserAccounts');
-Route::post('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid');
+                                    ,'HomeController@getUserAccounts'      );
+Route::post('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid' );
 Route::post('accounts'              ,'HomeController@getActiveUserAccounts');
 
-Route::post('facts/{uid?}/{provider?}', 'HomeController@getUserFacts' );
+Route::post('facts/{uid?}/{provider?}', 'HomeController@getUserFacts'    );
 Route::post('facts/{uid?}'          , 'HomeController@getUserFactsByUid' );
-Route::post('facts'                 , 'HomeController@getActiveUserFacts' );
+Route::post('facts'                 , 'HomeController@getActiveUserFacts');
 
+if ( false ){ // Enable GET for debugging only..
+    Route::get('facts/{uid?}/{provider?}', 'HomeController@getUserFacts' );
+    Route::get('facts/{uid?}'       , 'HomeController@getUserFactsByUid' );
+    Route::get('facts'              , 'HomeController@getActiveUserFacts');
+}
+    
 Route::post('gen_facts/{uid?}/{provider?}'
-                                    ,'HomeController@generateUserFacts' );
+                                    ,'HomeController@generateUserFacts'      );
 Route::post('gen_facts/{uid?}'      ,'HomeController@generateUserFactsByUid' );
-Route::post('gen_facts'             ,'HomeController@generateActiveUserFacts' );
+Route::post('gen_facts'             ,'HomeController@generateActiveUserFacts');
+
+if (false){ // Enable GET for debugging only..
+    Route::get('gen_facts/{uid?}/{provider?}'
+                                    ,'HomeController@generateUserFacts'      );
+    Route::get('gen_facts/{uid?}'   ,'HomeController@generateUserFactsByUid' );
+    Route::get('gen_facts'          ,'HomeController@generateActiveUserFacts');
+}
 
 Route::post('user/{uid}'            , 'HomeController@getUserInfo'       );
 Route::post('user'                  , 'HomeController@getActiveUserInfo' );
@@ -63,6 +77,6 @@ Route::post('api/callback/{namespace?}', 'api\CallbackController@show' );
 // ................................................................. controllers
 
 Route::controllers([
-//	'auth'     => 'Auth\AuthController',
-//	'password' => 'Auth\PasswordController',
-]);
+                   //	'auth'     => 'Auth\AuthController',
+                   //	'password' => 'Auth\PasswordController',
+                   ]);

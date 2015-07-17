@@ -32,8 +32,9 @@ class Fact extends Model {
             'act_id'      , // account id, who is the source
     
             // fact type
-            'fct_id'    , // fact id
+            'fct_id'    , // fact id (with us)
             'fct_name'  , // fact type name
+            'fct_provider_id', // fact id with provider
     
             // responses to fact question
             'refuse'    , 'dont_know' ,
@@ -52,6 +53,7 @@ class Fact extends Model {
     public function toString($long = false )
     {
         $str = $this->fct_name . ':' .
+               $this->fct_provider_id . ':' .
                $this->uid      . ':' .
                $this->obj_name . ':' .
                $this->obj_id_type    ;
