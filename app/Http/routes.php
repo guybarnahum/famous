@@ -35,6 +35,13 @@ Route::post('accounts/{uid?}/{provider?}'
 Route::post('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid' );
 Route::post('accounts'              ,'HomeController@getActiveUserAccounts');
 
+if ( true ){ // Enable GET for debugging only..
+    Route::get('accounts/{uid?}/{provider?}'
+                ,'HomeController@getUserAccounts'      );
+    Route::get('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid' );
+    Route::get('accounts'              ,'HomeController@getActiveUserAccounts');
+}
+
 Route::post('facts/{uid?}/{provider?}', 'HomeController@getUserFacts'    );
 Route::post('facts/{uid?}'          , 'HomeController@getUserFactsByUid' );
 Route::post('facts'                 , 'HomeController@getActiveUserFacts');

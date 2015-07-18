@@ -69,7 +69,7 @@
     </section>
 
 <div id='user-accounts-div'>
-    <img src="{{ asset('/assets/images/progress.gif') }}" alt="loading ..">
+    @include( 'message.progress' )
 </div>
 
 @endif

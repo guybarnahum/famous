@@ -170,6 +170,48 @@
             }
         }
 
+        function registerClickHandlers()
+        {
+            $('tr.collapsable').click(function(){
+                          $(this).nextUntil('.collapsable').toggle();
+                          $(this).toggleClass('expanded');
+                          
+                          expanded_html  = '<i class="fa fa-caret-down"></i>';
+                          collapsed_html = '<i class="fa fa-caret-right"></i>';
+                          
+                          if ($(this).hasClass('expanded')) {
+                          $(this).find("td:nth-child(1)").html(expanded_html);
+                          }
+                          else {
+                          $(this).find("td:nth-child(1)").html(collapsed_html);
+                          }
+                          });
+
+            $('a.collapsable').click(function(){
+                           $(this).next('.collapsee').toggle();
+                           $(this).toggleClass('expanded')
+                           
+                           expanded_html  = '<i class="fa fa-caret-down"></i>';
+                           collapsed_html = '<i class="fa fa-caret-right"></i>';
+                           
+                           if ($(this).hasClass('expanded')) {
+                           $(this).html(expanded_html);
+                           }
+                           else {
+                           $(this).html(collapsed_html);
+                           }
+                           });
+
+        }
+
+        // DOM has to be loaded..
+        if (jQuery.isReady){
+            registerClickHandlers();
+        }
+        else{
+            $(document).ready( registerClickHandlers );
+        }
+
         </script>
     </head>
 <body>

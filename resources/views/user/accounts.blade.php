@@ -11,18 +11,24 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span12">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>uid</th>
-                            <th>email/username</th>
-                            <th>state</th>
-                            <th>token</th>
-                            <th>photo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <h2 style='display:inline;'>Accounts</h2>
+                <a  class='collapsable' href='javascript:void(0);'>
+                        <i class="fa fa-caret-down"></i>
+                </a>
+                <br><br>
+                <div class='collapsee'>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>uid</th>
+                                <th>email/username</th>
+                                <th>state</th>
+                                <th>token</th>
+                                <th>photo</th>
+                                <th>facts</th>
+                            </tr>
+                        </thead>
                         <tbody>
                         @foreach( $accounts as $account )
                             <tr>
@@ -67,27 +73,30 @@
                                                 src='{{ $account->avatar or "assets/images/logo.png" }}'
                                                 alt={{ $account->name }}/>
                                     <br>
-                                    <h6><small>width x height</small></h6>
+
+@if ( $size = \App\Components\PhotoUtils::getSize($account->avatar)) @endif
+@if ( is_array($size) && (count($size) > 1))
+<h5><small>{{ $size[0] }} x {{ $size[1] }} px</small></h5>
+@endif
                                 </td>
-                                <td style='vertical-align:middle;'>
-                                    <i class="fa fa-{{$account->provider}}"></i>
-                                    <br>
-                                    <a class='uid-{{ $account->uid }}-{{$account->provider}}-gen-facts'
-                                        href='javascript:void(0)'>
-                                        Regenerate facts!
+                                <td style='vertical-align:middle;align=center;'>
+                                    <a class='btn btn-default uid-{{ $account->uid }}-{{$account->provider}}-gen-facts'
+                                        href='javascript:void(0)' role='button'>
+                                        fact(or)&nbsp;<i class="fa fa-{{$account->provider}}"></i>
                                     </a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <div id='user-accounts-facts-div' >
-    <img src="{{ asset('/assets/images/progress.gif') }}" alt="loading ..">
+    @include( 'message.progress' )
 </div>
 
 <script>

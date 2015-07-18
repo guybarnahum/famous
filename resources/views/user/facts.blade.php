@@ -12,16 +12,22 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span12">
-                <table class="table table-hover" style="table-layout:fixed;">
-                    <thead>
-                        <tr>
-                            <th style='width:30px;'></th>
-                            <th style='width:50px;'>fact</th>
-                            <th style='width:150px;'>subject</th>
-                            <th>object</th>
-                            <th>type</th>
-                        </tr>
-                    </thead>
+                <h2 style='display:inline;'>Facts</h2>
+                <a  class='collapsable clickable' href='javascript:void(0);'>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <br><br>
+                <div class='collapsee'>
+                    <table class="table table-hover" style="table-layout:fixed;">
+                        <thead>
+                            <tr>
+                                <th style='width:30px;'></th>
+                                <th style='width:50px;'>fact</th>
+                                <th style='width:150px;'>subject</th>
+                                <th>object</th>
+                                <th>type</th>
+                            </tr>
+                        </thead>
                         <tbody>
                         @if ( $fact_name = '' ) @endif
 
@@ -62,7 +68,7 @@
                                     <td style='width:30px;'></td>
                                     <td style='width:50px;'></td>
                                     <td style='vertical-align:middle;width:150px;'>
-                                        uid.{{$fact->uid}}:act.{{$fact->act_id}}
+                                        uid.{{ $fact->uid }}:act.{{ $fact->act_id }}
                                     </td>
 
                             <td style='vertical-align:middle; width:200px; word-wrap:break-word;'>
@@ -86,7 +92,8 @@
 
                         @endforeach
                         </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -94,20 +101,38 @@
     No facts found!
     @endif
 </section>
+
 <script>
 
-$('.collapsable').click(function(){
-                $(this).nextUntil('.collapsable').toggle();
-                $(this).toggleClass('expanded');
-                
-                expanded_html  = '<i class="fa fa-caret-down"></i>';
-                collapsed_html = '<i class="fa fa-caret-right"></i>';
-                        
-                if ($(this).hasClass('expanded')) {
-                    $(this).find("td:nth-child(1)").html(expanded_html);
-                } else {
-                    $(this).find("td:nth-child(1)").html(collapsed_html);
-                }
-            });
+$('tr.collapsable').click(function(){
+                          $(this).nextUntil('.collapsable').toggle();
+                          $(this).toggleClass('expanded');
+                          
+                          expanded_html  = '<i class="fa fa-caret-down"></i>';
+                          collapsed_html = '<i class="fa fa-caret-right"></i>';
+                          
+                          if ($(this).hasClass('expanded')) {
+                            $(this).find("td:nth-child(1)").html(expanded_html);
+                          }
+                          else {
+                            $(this).find("td:nth-child(1)").html(collapsed_html);
+                          }
+                          });
+
+$('a.collapsable').click(function(){
+                         // this is crazy.. basically we need the next collapsee
+                         // is there a better way?!
+                         $(this).nextUntil('.collapsee').andSelf().last().next().toggle();
+                         $(this).toggleClass('collapsed')
+                         
+                         expanded_html  = '<i class="fa fa-caret-down"></i>';
+                         collapsed_html = '<i class="fa fa-caret-right"></i>';
+                         
+                         if ($(this).hasClass('collapsed'))
+                             $(this).html(collapsed_html);
+                         else
+                             $(this).html(expanded_html);
+                         });
+
 </script>
 
