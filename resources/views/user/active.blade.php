@@ -7,4 +7,6 @@
                                          ]
                      ] )
 
-<div id='user-accounts-div'></div>
+<div id='user-accounts-div'>
+    <img src="{{ asset('/assets/images/progress.gif') }}" alt="loading ..">
+</div>

@@ -86,7 +86,9 @@
     </div>
 </section>
 
-<div id='user-accounts-facts-div'></div>
+<div id='user-accounts-facts-div' >
+    <img src="{{ asset('/assets/images/progress.gif') }}" alt="loading ..">
+</div>
 
 <script>
 
@@ -107,12 +109,12 @@ setAjaxById(
 @if ( count( $accounts) > 1 )
 
 onreadyAjax( '/facts/{{ $accounts[0]->uid }}', // route
-            'user-accounts-facts-div');// div_id
+             'user-accounts-facts-div');// div_id
 
 @elseif ( count( $accounts ) == 1 )
 
 onreadyAjax( '/facts/{{ $accounts[0]->uid }}/{{ $accounts[0]->provider }}', // route
-            'user-accounts-facts-div');// div_id
+             'user-accounts-facts-div');// div_id
 
 @endif
 
