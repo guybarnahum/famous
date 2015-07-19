@@ -15,14 +15,14 @@ class ProcessAccounts extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'accounts:process';
+	protected $name = 'mine:accounts';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Process user accounts into facts';
     
     /**
      * An abort flag on critical errors
@@ -42,6 +42,51 @@ class ProcessAccounts extends Command {
 		parent::__construct();
 	}
 
+    // ...............................................................
+    public function getAccounts()
+    {
+        $user    = $this->argument( 'user' );
+        $provider= $this->argument( 'provider' );
+        
+        if ( $user     == 'all' ) $user     = false;
+        if ( $provider == 'all' ) $provider = false;
+        
+        // build account filter
+        $where = [];
+        if ( $provider ){
+            $where[ 'provider' ] = $provider;
+        }
+        
+        // detect type of uid
+        if ( $user ){
+            
+            if (is_numeric( $user ))
+                $where[ 'uid'   ] = $user ;
+            else
+            if( filter_var( $user, FILTER_VALIDATE_EMAIL))
+                $where[ 'email' ] = $user ;
+            else
+                $where[ 'name' ]  = $user ;
+        }
+        
+        // get accounts
+        if ( count( $where ) == 0 ){
+            $this->info( 'Getting all accounts..' );
+            $accts = Account::All();
+        }
+        else{
+            $msg  = $provider? (',' . $provider . ' provider') : '';
+            $msg .= $user? (', user is ' . $user) : '';
+            $msg  = substr( $msg, 1);
+            
+            $this->info( 'Getting accounts with ' . $msg );
+            $accts = Account::where( $where )->get();
+        }
+        
+        return $accts;
+    }
+    
+    
 	/**
 	 * Execute the console command.
 	 *
@@ -50,7 +95,12 @@ class ProcessAccounts extends Command {
     public function handle()
 	{
         $options = $this->option();
-        $accts   = Account::All();
+        $accts   = $this->getAccounts();
+        
+        if ( empty( $accts ) ){
+            $this->error( 'No accounts found!' );
+            return;
+        }
         
         foreach( $accts as $act ){
             
@@ -124,7 +174,9 @@ class ProcessAccounts extends Command {
 	protected function getArguments()
 	{
 		return [
-//			['example', InputArgument::REQUIRED, 'An example argument.'],
+			['user'     , InputArgument::OPTIONAL, 'user identification', 'all' ],
+            ['provider' , InputArgument::OPTIONAL, 'account provider '  , 'all' ],
+       
 		];
 	}
 
