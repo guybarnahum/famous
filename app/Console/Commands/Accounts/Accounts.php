@@ -5,32 +5,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 use App\Models\Account;    
-use App\Components\FactsFactory\AccountFactsFactory;
-use App\Components\FactsFactory\AccountFactsContract;
     
-class ProcessAccounts extends Command {
-
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'mine:accounts';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Process user accounts into facts';
-    
-    /**
-     * An abort flag on critical errors
-     *
-     * @var bool
-     */
-    protected $abort_req = false;
-    protected $err       = false;
+class Accounts extends Command {
     
 	/**
 	 * Create a new command instance.
@@ -86,6 +62,11 @@ class ProcessAccounts extends Command {
         return $accts;
     }
     
+    public function process_one_account( Account $act, $options )
+    {
+        $this->info( 'Accounts::process_one_account(' . $act->toString() . ')');
+        return $this;
+    }
     
 	/**
 	 * Execute the console command.
@@ -104,67 +85,34 @@ class ProcessAccounts extends Command {
         
         foreach( $accts as $act ){
             
+            $abort = false;
+            $err   = false;
+
             $this->info( '--> Start processing ' . $act->toString() );
-            $msg = '';
             
             try{
-                $facts  = AccountFactsFactory::make( $act );
-                
-                if ( $facts instanceof AccountFactsContract ){
-                    
-                    $output = array($this, 'info');
-                    
-                    $facts->set_output ( $output  )
-                          ->set_options( $options )
-                          ->process    ( $act     );
-                }
-                else{
-                    $msg = 'Failed to make fact factory for '. $act->toString();
-                }
+                $this->process_one_account( $act, $options );
             }
             catch( \InvalidArgumentException $e )
             {
-                $msg = '\InvalidArgumentException : ' . $e->getMessage();
+                $err = '\InvalidArgumentException : ' . $e->getMessage();
             }
             catch( \Exception $e) {
                 
-                $msg = '\Exception : ' . $e->getMessage();
-                $this->abort_request();
+                $err   = '\Exception : ' . $e->getMessage();
+                $abort = true;
             }
             
-            $this->info( $msg );
+            if ( $err) $this->error( $err );
             $this->info( '<-- End processing ' . $act->toString());
             
             // When we find a problem that is beyond a single account problem..
-            if ( $this->needsAbort() ){
-                $this->error( 'Aborting! >> ' . $this->needsAbort() );
+            if ( $abort ){
+                $this->error( 'Aborting! >> ' );
                 break;
             }
         }
 	}
-
-    /**
-     * Set an abort request on critical errors
-     *
-     *
-     * @return $this
-     */
-    public function abort_request( $set = true )
-    {
-        $this->abort_req = $set;
-        return $this;
-    }
-    
-    /**
-     *
-     * Does it need an abort?
-     *
-     * @return bool
-     */
-    public function needsAbort()
-    {
-        return $this->abort_req;
-    }
         
 	/**
 	 * Get the console command arguments.
@@ -174,23 +122,21 @@ class ProcessAccounts extends Command {
 	protected function getArguments()
 	{
 		return [
-			['user'     , InputArgument::OPTIONAL, 'user identification', 'all' ],
-            ['provider' , InputArgument::OPTIONAL, 'account provider '  , 'all' ],
-       
+			['user'    , InputArgument::OPTIONAL, 'user identification', 'all'],
+            ['provider', InputArgument::OPTIONAL, 'account provider '  , 'all'],
 		];
 	}
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return [
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
             ['x', null, InputOption::VALUE_NONE, 'Invoke only experimental options.', null],
-            ['s', null, InputOption::VALUE_NONE, 'Subscribe callback to accounts.', null],
-		];
-	}
-
+            ['s', null, InputOption::VALUE_NONE, 'Subscribe callback to accounts.'  , null],
+        ];
+    }
 }

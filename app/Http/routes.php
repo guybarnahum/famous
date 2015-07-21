@@ -46,7 +46,7 @@ Route::post('facts/{uid?}/{provider?}', 'HomeController@getUserFacts'    );
 Route::post('facts/{uid?}'          , 'HomeController@getUserFactsByUid' );
 Route::post('facts'                 , 'HomeController@getActiveUserFacts');
 
-if ( false ){ // Enable GET for debugging only..
+if ( true ){ // Enable GET for debugging only..
     Route::get('facts/{uid?}/{provider?}', 'HomeController@getUserFacts' );
     Route::get('facts/{uid?}'       , 'HomeController@getUserFactsByUid' );
     Route::get('facts'              , 'HomeController@getActiveUserFacts');

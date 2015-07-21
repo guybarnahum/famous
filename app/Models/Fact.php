@@ -33,7 +33,8 @@ class Fact extends Model {
     
             // fact type
             'fct_id'    , // fact id (with us)
-            'fct_name'  , // fact type name
+            'fct_name'  , // fact name
+            'fct_type'  , // fact sub-type
             'fct_provider_id', // fact id with provider
     
             // responses to fact question
@@ -52,7 +53,8 @@ class Fact extends Model {
     
     public function toString($long = false )
     {
-        $str = $this->fct_name . ':' .
+        $str = $this->fct_name .
+         '(' . $this->fct_type . ').' .
                $this->fct_provider_id . ':' .
                $this->uid      . ':' .
                $this->obj_name . ':' .

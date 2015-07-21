@@ -29,24 +29,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @if ( $fact_name = '' ) @endif
+                        @if ( $fct_name_last = '' ) @endif
 
                         @foreach( $facts as $fact )
 
-                            @if ( $fact->fct_name != $fact_name )
+                           @if ( $fct_name = $fact->fct_name ) @endif
+                           @if ( !empty($fact->fct_type) )
+                                @if ( $fct_name .= '.' . $fact->fct_type ) @endif
+                           @endif
+
+                           @if ( $fct_name != $fct_name_last )
 
                                 @if ( $fact_num  = 0  ) @endif
                                 <tr class='collapsable clickable expanded'>
                                     <td style='width:30px;' ><i class="fa fa-caret-down"></i></td>
                                     <td style='vertical-align:middle;width:50px;'>
-                                        {{$fact->fct_name}}
+                                        {{ $fct_name }}
                                     </td>
                                     <td style='width:150px;'></td>
                                     <td></td>
                                     <td></td>
                                 </tr>
 
-                                @if ( $fact_name = $fact->fct_name ) @endif
+                                @if ( $fct_name_last = $fct_name ) @endif
 
                             @endif
 

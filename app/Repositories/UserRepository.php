@@ -131,11 +131,24 @@ class UserRepository {
     
     // ............................................................ getUserFacts
     
-    public function getUserFacts( $uid, $provider = false )
+    public function getUserFacts( $uid, $provider = false, $where = [] )
     {
-        \Debugbar::info( 'UserRepository::getUserFacts(uid:' . $uid . ',' . $provider . ')' );
+        // disable to eliminate debug message..
+        if ( true ){
+            $where_str = '';
+            if ( !empty($where) ){
+                
+                foreach( $where as $field => $val ){
+                    $where_str .= ',' . $field . '=' . $val;
+                }
+            }
+            
+            \Debugbar::info( 'UserRepository::getUserFacts(uid:' . $uid . ','  .
+                                                                   $provider   .
+                                                                    $where_str . ')' );
+        }
         
-        $match = [ 'uid' => $uid ];
+        $match[ 'uid' ] = $uid;
         $facts = false;
         
         if ( $provider ){
@@ -144,12 +157,16 @@ class UserRepository {
             $match[ 'provider' ] = $provider;
             $act = Account::where( $match )->first();
             
-            // look for facts with the act_id of $act
-            $facts = Fact::where( 'act_id', $act->id )->get();
+            if ( $act instanceof Account ){
+                $where[ 'act_id' ]   = $act->id;
+                // look for facts with the act_id of $act
+                $facts = Fact::where( $where )->get();
+            }
         }
         else{
             // look for facts of uid
-            $facts = Fact::where( 'uid'   , $uid     )->get();
+            $where[ 'uid' ] = $uid;
+            $facts = Fact::where( $where )->get();
         }
         
         // repackage as an array

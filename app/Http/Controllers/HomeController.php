@@ -153,8 +153,11 @@ class HomeController extends Controller {
     
     private function fact_cmp_name( $a, $b )
     {
-        $fct_name_a = is_array( $a )? $a[ 'fct_name' ] : $a->fct_name;
-        $fct_name_b = is_array( $b )? $b[ 'fct_name' ] : $b->fct_name;
+        if (is_array( $a )) $fct_name_a = $a['fct_name'] . '.' . $a['fct_type'];
+        else                $fct_name_a = $a->fct_name   . '.' . $a->fct_type  ;
+   
+        if (is_array( $b )) $fct_name_b = $b['fct_name'] . '.' . $b['fct_type'];
+        else                $fct_name_b = $b->fct_name   . '.' . $b->fct_type  ;
         
         return strcmp( $fct_name_a, $fct_name_b );
     }
@@ -169,7 +172,7 @@ class HomeController extends Controller {
         $facts = $this->db->getUserFacts( $uid, $provider );
         if (empty( $facts )) $facts = [];
 
-        // sort facts by 'fct_name'
+        // sort facts by 'fct_name.fct_type'
         $cmp_fn = array( $this, 'fact_cmp_name'  );
         
         if ( is_callable($cmp_fn) ){

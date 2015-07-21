@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
 		'App\Console\Commands\Inspire',
-        'App\Console\Commands\Accounts\ProcessAccounts',
+        'App\Console\Commands\Accounts\MineAccounts',
+        'App\Console\Commands\Accounts\MineInsights',
 	];
 
 	/**
@@ -26,5 +27,4 @@ class Kernel extends ConsoleKernel {
 		$schedule->command('inspire')
 				 ->hourly();
 	}
-
 }

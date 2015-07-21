@@ -96,7 +96,7 @@
 </section>
 
 <div id='user-accounts-facts-div' >
-    @include( 'message.progress' )
+                    @include( 'message.progress' )
 </div>
 
 <script>

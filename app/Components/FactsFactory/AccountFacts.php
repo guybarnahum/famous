@@ -71,7 +71,10 @@ abstract class AccountFacts implements AccountFactsContract{
         // on the object data..
         
         if ( !isset( $fact[ 'fct_name' ] ) && $type){
-            $fact[ 'fct_name' ] = $type ;
+            
+            $parts = explode( '.', $type, 2 );
+            $fact[ 'fct_name' ] = isset( $parts[0] )? $parts[0] : $type;
+            $fact[ 'fct_type' ] = isset( $parts[1] )? $parts[1] : '';
         }
         
         $fact[ 'uid'       ] = $this->act->uid; // subject of the fact
