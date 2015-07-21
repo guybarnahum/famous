@@ -1,13 +1,17 @@
 <?php namespace App\Console\Commands\Accounts;
     
 use App\Models\Account;
+use App\Models\PersonalityEntry;
+    
 use App\Components\FactsFactory\AccountFactsFactory;
 use App\Components\FactsFactory\AccountFactsContract;
     
 use Papi\Client\Exception\NoPredictionException;
 use Papi\Client\Model\TraitName;
 use Papi\Client\PapiClient;
-
+use Papi\Client\Model\PredictionResult;
+use Papi\Client\Model\Prediction;
+    
 use App\Repositories\UserRepository;
     
 spl_autoload_register(
@@ -89,45 +93,82 @@ class PapiInsights{
         
         foreach( $facts as $fact ){
             $likes_ids[] = $fact->obj_provider_id;
-            $this->output( 'id:' . $fact->obj_provider_id );
         }
         
         return $likes_ids;
     }
     
+    private function process_result( $act, $res )
+    {
+        $uid = $act->uid;
+        
+        if ( $res instanceOf PredictionResult ){
+        
+            $predictions = $res->getPredictions();
+         
+            foreach( $predictions as $prediction ){
+            
+                if ( $prediction instanceOf Prediction ){
+                    
+                    $trait  = $prediction->getTrait();
+                    $value  = $prediction->getValue();
+                    
+                    $p = [ 'uid'  => $uid   ,
+                           'src'  => 'papi2',
+                           'sys'  => 'papi2',
+                           'name' => $trait ,
+                           'value'=> $value ];
+                    
+                    $p_obj = PersonalityEntry::firstOrCreate( $p );
+                    $this->output( 'Fact::firstOrCreate>>' . $p_obj->toString() );
+                    
+                }
+            }
+        }
+    }
+    
     public function process_one_account( Account $act, $options )
     {
+        $err = false;
+        
         if ( $act->provider != 'facebook' ){
-            $msg = 'PapiInsights supports only facebook accounts!';
-            throw new \InvalidArgumentException( $msg );
+            return $err = 'PapiInsights supports only facebook accounts!';
         }
         
-        $ok = true;
-        $this->getToken();
-        
-        $uid    = $act->provider_uid;
-        $likes  = $this->getLikes( $act, [ 'fct_name' => 'likes' ] );
-        $traits = [TraitName::BIG5, TraitName::GAY ];
         $token  = $this->getToken()->getTokenString();
+        $uid    = $act->provider_uid;
         
+        $likes  = $this->getLikes( $act, [ 'fct_name' => 'likes' ] );
+        
+        $traits = [ TraitName::BIG5,
+                    TraitName::SATISFACTION_WITH_LIFE,
+                    TraitName::INTELLIGENCE,
+                    TraitName::FEMALE,
+                    TraitName::GAY ,
+                    TraitName::LESBIAN,
+                    TraitName::CONCENTRATION,
+                    TraitName::POLITICS,
+                    TraitName::RELIGION,
+                    TraitName::RELATIONSHIP
+                ];
+
         try {
-            
+
             $this->output( 'Prediction for uid:' . $uid . ', token:' . $token );
             
             $res = $this->client->getPredictionResource()
                                 ->getByLikeIds( $traits, $token, $uid, $likes );
             
-            $this->output( 'Papi prediction:' , $res);
-            
+            $err = $this->process_result( $act, $res );
         }
         catch( NoPredictionException $e) {
-            $this->output( $e->getMessage() );
+            $err = $e->getMessage();
         }
         catch( \Exception $e ){
-            $this->output( $e->getMessage() );
+            $err= $e->getMessage();
         }
 
-        return $ok;
+        return $err;
     }
 };
     

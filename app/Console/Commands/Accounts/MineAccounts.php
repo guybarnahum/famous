@@ -39,6 +39,8 @@ class MineAccounts extends Accounts {
 	 */
     public function process_one_account( Account $act, $options )
 	{
+        $err = false;
+        
         $facts  = AccountFactsFactory::make( $act );
                 
         if ( $facts instanceof AccountFactsContract ){
@@ -51,9 +53,8 @@ class MineAccounts extends Accounts {
         }
         else{
             $err = 'Failed to make fact factory for '. $act->toString();
-            $this->error( $err );
         }
     
-        return $this;
+        return $err;
     }
 }

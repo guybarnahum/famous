@@ -1,11 +1,13 @@
 # ==============================================================================
 # personality_types.txt
-# Based on © 2009 HOGAN ASSESSMENT SYSTEMS INC.
 # structure sys:name:display:desc
 # ==============================================================================
 
 #--debug
 --dump_table
+
+# .......................................................................... hpi
+# Based on © 2009 HOGAN ASSESSMENT SYSTEMS INC.
 
 # Personality:
 hpi:adjustment:adjustment:conﬁdence, self-esteem, and composure under pressure
@@ -40,3 +42,48 @@ hpi:security:security:need for predictability, structure, and order
 hpi:commerce:commerce:interest in money, profits, investment, and business opportunities
 hpi:aesthetics:aesthetics:need for self-expression, concern over look, feel, and design of work products
 hpi:science:science:quest for knowledge, research, technology, and data
+
+# ........................................................................ papi2
+# Based on
+papi2:BIG5_Openness:openness:
+papi2:BIG5_Conscientiousness:conscientiousness:
+papi2:BIG5_Extraversion:extraversion:
+papi2:BIG5_Agreeableness:agreeableness:
+papi2:BIG5_Neuroticism:neuroticism:
+
+papi2:Satisfaction_Life:satisfaction:
+papi2:Intelligence:intelligence:
+papi2:Female:female:
+papi2:Age:age:
+papi2:Gay:gay:
+papi2:Lesbian:lesbian:
+
+papi2:Concentration_Art:art:
+papi2:Concentration_Biology:biology:
+papi2:Concentration_Business:business:
+papi2:Concentration_IT:it:
+papi2:Concentration_Education:education:
+papi2:Concentration_Engineering:engineering:
+papi2:Concentration_Journalism:journalism:
+papi2:Concentration_Finance:finance:
+papi2:Concentration_History:history:
+papi2:Concentration_Law:law:
+papi2:Concentration_Nursing:nursing:
+papi2:Concentration_Psychology:psychology:
+
+papi2:Politics_Liberal:liberal:
+papi2:Politics_Conservative:conservative:
+papi2:Politics_Uninvolved:uninvolved:
+papi2:Politics_Libertanian:libertanian:
+
+papi2:Religion_None:none religious:
+papi2:Religion_Christian_Other:christian:
+papi2:Religion_Catholic:catholic:
+papi2:Religion_Jewish:jewish:
+papi2:Religion_Lutheran:lutheran:
+papi2:Religion_Mormon:mormon:
+
+papi2:Relationship_None:no relationship:
+papi2:Relationship_Yes:in relationship:
+papi2:Relationship_Married:married:
+

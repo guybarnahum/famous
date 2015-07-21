@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel {
 	protected $commands = [
 		'App\Console\Commands\Inspire',
         'App\Console\Commands\Accounts\MineAccounts',
-//        'App\Console\Commands\Accounts\MineInsights',
+        'App\Console\Commands\Accounts\MineInsights',
 	];
 
 	/**

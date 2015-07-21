@@ -50,8 +50,8 @@ class CreatePersonalityTable extends Migration {
                        $table->string( 'sys'   );
                        $table->string( 'src'   )->nullable();
                        $table->string( 'name'  )->nullable();
-                       $table->float ( 'value' );
-                       $table->float ( 'error' )->nullable();
+                       $table->double( 'value' );
+                       $table->double( 'error' )->nullable();
                        
                        $table->timestamps();
                        });

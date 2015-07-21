@@ -91,7 +91,7 @@ class Accounts extends Command {
             $this->info( '--> Start processing ' . $act->toString() );
             
             try{
-                $this->process_one_account( $act, $options );
+                $err = $this->process_one_account( $act, $options );
             }
             catch( \InvalidArgumentException $e )
             {
@@ -103,7 +103,7 @@ class Accounts extends Command {
                 $abort = true;
             }
             
-            if ( $err) $this->error( $err );
+            if ( $err ) $this->error( $err );
             $this->info( '<-- End processing ' . $act->toString());
             
             // When we find a problem that is beyond a single account problem..
