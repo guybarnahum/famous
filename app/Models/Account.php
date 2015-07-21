@@ -32,6 +32,7 @@ class Account extends Model {
                             'scope_request' ,
                             'scope_granted' ,
                             'scope_denied'  ,
+                            'avatar'        ,
                             'email'         ,
                             'username'      ,
                             'name'          ,

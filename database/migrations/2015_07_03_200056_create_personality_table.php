@@ -47,15 +47,11 @@ class CreatePersonalityTable extends Migration {
                                              ->onDelete('cascade')
                                              ->onUpdate('cascade');
                        
-                       $table->unsignedInteger('ptid');
-                       $table->foreign('ptid')->references('id')
-                                              ->on('personality_types')
-                                              ->onDelete('cascade')
-                                              ->onUpdate('cascade');
-
-                       $table->string( 'name' )->nullable();
-                       $table->integer( 'value' );
-                       $table->integer( 'error' );
+                       $table->string( 'sys'   );
+                       $table->string( 'src'   )->nullable();
+                       $table->string( 'name'  )->nullable();
+                       $table->float ( 'value' );
+                       $table->float ( 'error' )->nullable();
                        
                        $table->timestamps();
                        });

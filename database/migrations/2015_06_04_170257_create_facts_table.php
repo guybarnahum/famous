@@ -73,9 +73,6 @@ class CreateFactsTable extends Migration {
                        $table->string( 'obj_name'   );
 
                        // source (accroding to) (null is truth)
-                       $table->unsignedInteger('src_id')
-                             ->nullable();
-                       
                        $table->string('src_id')->nullable();
                        $table->string('src_id_type')->nullable();
                        

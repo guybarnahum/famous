@@ -16,5 +16,5 @@ class PersonalityEntry extends Model {
      *
      * @var array
      */
-    protected $fillable = [ 'uid', 'ptid', 'name', 'value', 'error' ];
+    protected $fillable = [ 'uid', 'src', 'sys', 'name', 'value', 'error' ];
 }

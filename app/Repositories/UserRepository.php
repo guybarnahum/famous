@@ -209,8 +209,12 @@ class UserRepository {
 
     public function findUser( $data )
     {
+        $user = false;
+        
         // email is the primary way to locate existing user
-        $user = User::where( 'emails', 'LIKE', '%'.$data->email.'%' )->first();
+        if (!empty($data->email)){
+            $user = User::where( 'emails', 'LIKE', '%'.$data->email.'%' )->first();
+        }
         
         if (!$user){
             // try and match user signature, a combination of device
@@ -231,13 +235,15 @@ class UserRepository {
             return false;
         }
         
-        if ( !isset($data->email) || !isset($data->name) ){
+        if ( !isset($data->name) ){
             \Debugbar::info( 'UserRepository::getUser( invalid data! )' );
             return false;
         }
         
-        \Debugbar::info( 'UserRepository::getUser(' . $data->email . ',' .
-                                                      $data->name  . ')' );
+        $msg = $data->name;
+        if ( !empty( $data->email ) ) $msg .= ',' . $data->email;
+        
+        \Debugbar::info( 'UserRepository::getUser(' . $msg . ')' );
 
         // .....................................................................
         //
@@ -289,17 +295,19 @@ class UserRepository {
             // an exception in the App\Models\Account
 
             $account = Account::create([
-                         'uid'          => $user->id,
+                         'uid'          => $user->id    ,
                          'provider'     => $data->provider,
-                         'provider_uid' => $data->id,
-                         'access_token' => $data->token,
+                         'provider_uid' => $data->id    ,
+                         'access_token' => $data->token ,
                          'scope_request'=> $data->scope_request,
-                         'name'         => $data->name,
+                         'name'         => $data->name  ,
                          'username'     => $data->nickname,
-                         'email'        => $data->email,
+                         'email'        => $data->email ,
                          'avatar'       => $data->avatar,
-                         'active' => 1,
-                         ]);
+                         'state'        => 'active'     ,
+                         'provider_state'=>'active'     ,
+                        ]);
+            
             
             // newly created account is up to date
             $account_update = false;

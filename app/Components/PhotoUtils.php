@@ -4,6 +4,8 @@ class PhotoUtils{
     
     static public function getSize( $url )
     {
+        if (empty($url)) return false;
+        
         \Debugbar::info( 'PhotoUtils::getSize(' . $url . ')' );
         
         $size = self::getJpegSize( $url );
@@ -23,6 +25,8 @@ class PhotoUtils{
     
     static public function getJpegSize( $url )
     {
+        
+        if ( empty($url)) return false;
         
         try{
             $handle = fopen( $url, "rb");
