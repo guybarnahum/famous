@@ -220,4 +220,53 @@ class HomeController extends Controller {
         return $this->generateUserFacts();
     }
     
+    // ......................................................... getUserInsights
+    
+    private function insight_cmp_name( $a, $b )
+    {
+        if (is_array( $a )) $i_a = $a['sys'] . '.' . $a['name'];
+        else                $i_a = $a->sys   . '.' . $a->name  ;
+        
+        if (is_array( $a )) $i_b = $b['sys'] . '.' . $b['name'];
+        else                $i_b = $b->sys   . '.' . $b->name  ;
+        
+        return strcmp( $i_a, $i_b );
+    }
+
+    public function getUserInsights( $uid = false, $system = false)
+    {
+        \Debugbar::info( 'HomeController::getUserInsights(' . $uid . ',' . $system . ')' );
+        
+        if (empty( $uid    )) $uid    = Session::get( 'uid' );
+        if (empty( $system )) $system = false;
+        
+        $insights = $this->db->getUserInsights( $uid, $system );
+        if ( empty( $insights )) $insights = [];
+        
+        // sort $insights by 'sys.name'
+        $cmp_fn = array( $this, 'insight_cmp_name'  );
+        
+        if ( is_callable($cmp_fn) ){
+            usort( $insights, $cmp_fn );
+        }
+        
+        // TODO: format further for display..
+        
+        $with  = [ 'insights' => $insights ];
+        
+        return $this->renderHtml( 'user.insights', $with );
+    }
+
+    
+    public function getUserInsightsByUid( $uid )
+    {
+        return $this->getUserInsights( $uid );
+
+    }
+    
+    
+    public function getActiveUserInsights()
+    {
+        return $this->getUserInsights();
+    }
 }

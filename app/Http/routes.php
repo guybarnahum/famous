@@ -31,43 +31,55 @@ Route::get('logout'                 , 'Auth\AuthController@logout'    );
 // POST ajax api calls
 
 Route::post('accounts/{uid?}/{provider?}'
-                                    ,'HomeController@getUserAccounts'      );
-Route::post('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid' );
-Route::post('accounts'              ,'HomeController@getActiveUserAccounts');
+                                    ,'HomeController@getUserAccounts'       );
+Route::post('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid'  );
+Route::post('accounts'              ,'HomeController@getActiveUserAccounts' );
 
 if ( true ){ // Enable GET for debugging only..
     Route::get('accounts/{uid?}/{provider?}'
-                ,'HomeController@getUserAccounts'      );
-    Route::get('accounts/{uid?}'       ,'HomeController@getUserAccountsByUid' );
-    Route::get('accounts'              ,'HomeController@getActiveUserAccounts');
+                                    ,'HomeController@getUserAccounts'       );
+    Route::get('accounts/{uid?}'    ,'HomeController@getUserAccountsByUid'  );
+    Route::get('accounts'           ,'HomeController@getActiveUserAccounts' );
 }
 
-Route::post('facts/{uid?}/{provider?}', 'HomeController@getUserFacts'    );
-Route::post('facts/{uid?}'          , 'HomeController@getUserFactsByUid' );
-Route::post('facts'                 , 'HomeController@getActiveUserFacts');
+Route::post('facts/{uid?}/{provider?}', 'HomeController@getUserFacts'       );
+Route::post('facts/{uid?}'          , 'HomeController@getUserFactsByUid'    );
+Route::post('facts'                 , 'HomeController@getActiveUserFacts'   );
 
 if ( true ){ // Enable GET for debugging only..
-    Route::get('facts/{uid?}/{provider?}', 'HomeController@getUserFacts' );
-    Route::get('facts/{uid?}'       , 'HomeController@getUserFactsByUid' );
-    Route::get('facts'              , 'HomeController@getActiveUserFacts');
+    Route::get('facts/{uid?}/{provider?}', 'HomeController@getUserFacts'    );
+    Route::get('facts/{uid?}'       , 'HomeController@getUserFactsByUid'    );
+    Route::get('facts'              , 'HomeController@getActiveUserFacts'   );
 }
     
 Route::post('gen_facts/{uid?}/{provider?}'
-                                    ,'HomeController@generateUserFacts'      );
-Route::post('gen_facts/{uid?}'      ,'HomeController@generateUserFactsByUid' );
+                                    ,'HomeController@generateUserFacts'     );
+Route::post('gen_facts/{uid?}'      ,'HomeController@generateUserFactsByUid');
 Route::post('gen_facts'             ,'HomeController@generateActiveUserFacts');
 
 if (false){ // Enable GET for debugging only..
     Route::get('gen_facts/{uid?}/{provider?}'
-                                    ,'HomeController@generateUserFacts'      );
-    Route::get('gen_facts/{uid?}'   ,'HomeController@generateUserFactsByUid' );
+                                    ,'HomeController@generateUserFacts'     );
+    Route::get('gen_facts/{uid?}'   ,'HomeController@generateUserFactsByUid');
     Route::get('gen_facts'          ,'HomeController@generateActiveUserFacts');
 }
 
-Route::post('user/{uid}'            , 'HomeController@getUserInfo'       );
-Route::post('user'                  , 'HomeController@getActiveUserInfo' );
-Route::get ('user/{uid}'            , 'HomeController@getUserInfo'       );
-Route::get ('user'                  , 'HomeController@getActiveUserInfo' );
+Route::post('get_insights/{uid?}/{provider?}'
+                                    ,'HomeController@getUserInsights'       );
+Route::post('get_insights/{uid?}'   ,'HomeController@getUserInsightsByUid'  );
+Route::post('get_insights'          ,'HomeController@getActiveUserInsights' );
+
+if (true){ // Enable GET for debugging only..
+    Route::get('get_insights/{uid?}/{provider?}'
+                                    ,'HomeController@getUserInsights'       );
+    Route::get('get_insights/{uid?}','HomeController@getUserInsightsByUid'  );
+    Route::get('get_insights'       ,'HomeController@getActiveUserInsights' );
+}
+    
+Route::post('user/{uid}'            , 'HomeController@getUserInfo'          );
+Route::post('user'                  , 'HomeController@getActiveUserInfo'    );
+Route::get ('user/{uid}'            , 'HomeController@getUserInfo'          );
+Route::get ('user'                  , 'HomeController@getActiveUserInfo'    );
 
 // ................................................................ api/callback
 

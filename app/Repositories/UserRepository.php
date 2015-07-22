@@ -4,6 +4,8 @@ use App\Models\Account;
 use App\Models\User;
 use App\Models\Dataset;
 use App\Models\Fact;
+use App\Models\PersonalityType;
+use App\Models\PersonalityEntry;
     
 use App\Components\FactsFactory\AccountFactsFactory;
 use App\Components\FactsFactory\AccountFacts;
@@ -124,8 +126,6 @@ class UserRepository {
             $user_list[] = $this->getUserInfo( $user->id );
         }
         
-        \Debugbar::info( 'UserRepository::getUerList(' . print_r($user_list,true) . ')' );
-
         return $user_list;
     }
     
@@ -179,7 +179,84 @@ class UserRepository {
         }
         
         // $facts is empty!
-        return null;
+        return false;
+    }
+    
+    // ......................................................... getUserInsights
+    
+    public function getUserInsights( $uid, $system = false, $where = [] )
+    {
+        // disable to eliminate debug message..
+        if ( true ){
+            
+            $where_str = '';
+            if ( !empty($where) ){
+                
+                foreach( $where as $field => $val ){
+                    $where_str .= ',' . $field . '=' . $val;
+                }
+            }
+            
+            \Debugbar::info(
+                    'UserRepository::getUserInsights(uid:' . $uid . ',' .
+                                                             $system    .
+                                                             $where_str . ')' );
+        }
+        
+        $insights = false;
+        
+        $where[ 'uid' ] = $uid;
+        if ($system) $where[ 'sys' ] = $system;
+        
+        $insights = PersonalityEntry::where( $where )->get();
+        
+        if ( empty($insights) ){
+            return false;
+        }
+        
+        // serach for the results type..
+        $where_in = [];
+        foreach( $insights as $insight ){
+            $where_in[] = $insight->name;
+        }
+        
+        // this may get some other system with same trait name..
+        $types = PersonalityType::whereIn( 'name', $where_in )->get();
+        
+        $map  = [];
+        
+        if ( !empty($types) ){
+            
+            foreach( $types as $type ){
+                
+                $key = $type->sys . '.' . $type->name ;
+                
+                $val = [ 'name' => $type->display,
+                         'desc' => $type->desc
+                     ];
+                
+                $map[ $key ] = $val;
+            }
+        }
+        
+        // pack insights with display name and desc from their type
+        $i = [];
+
+        foreach( $insights as $insight ){
+            $key = $insight->sys . '.' . $insight->name ;
+            $val = [];
+            
+            if (isset( $map[ $key ] ) ){
+                $val = $map[ $key ] ;
+                
+                $insight->name = $val[ 'name' ];
+                $insight->desc = $val[ 'desc' ];
+            }
+            
+            $i[] = $insight;
+        }
+
+        return $i;
     }
     
     // ......................................................... getUserAccounts
