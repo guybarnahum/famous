@@ -224,13 +224,18 @@ class HomeController extends Controller {
     
     private function insight_cmp_name( $a, $b )
     {
-        if (is_array( $a )) $i_a = $a['sys'] . '.' . $a['name'];
-        else                $i_a = $a->sys   . '.' . $a->name  ;
+        $a_group = is_array( $a )? $a['group'] : $a->group;
+        $b_group = is_array( $b )? $b['group'] : $b->group;
         
-        if (is_array( $a )) $i_b = $b['sys'] . '.' . $b['name'];
-        else                $i_b = $b->sys   . '.' . $b->name  ;
+        if ( $a_group != $b_group ){
+            return strcmp( $a_group, $b_group );
+        }
         
-        return strcmp( $i_a, $i_b );
+        // a_group is same as b_group
+        $a_value = is_array( $a )? $a['value'] : $a->value;
+        $b_value = is_array( $b )? $b['value'] : $b->value;
+        
+        return -1 * strcmp( $a_value, $b_value );
     }
 
     public function getUserInsights( $uid = false, $system = false)

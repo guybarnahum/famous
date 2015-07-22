@@ -10,80 +10,80 @@
 # Based on © 2009 HOGAN ASSESSMENT SYSTEMS INC.
 
 # Personality:
-hpi:adjustment:adjustment:conﬁdence, self-esteem, and composure under pressure
-hpi:ambltlon:ambltlon:initiative, competitiveness, and desire for leadership roles
-hpi:sociability:sociability:extraversion, gregarious, and need for social interaction
-hpi:sensitivity:sensitivity:tact, perceptiveness, and ability to maintain relationships
-hpi:prudence:prudence:self-discipline, responsibility and conscientiousness
-hpi:inquisitlve:inquisitlve:imagination, curiosity, and creative potential
-hpi:learning:learning:achievement-oriented, stays up-to-date on business and technical matters
+hpi:adjustment:Personality:Adjustment:Conﬁdence, self-esteem, and composure under pressure
+hpi:ambltlon:Personality:Ambltlon:Initiative, competitiveness, and desire for leadership roles
+hpi:sociability:Personality:Sociability:Extraversion, gregarious, and need for social interaction
+hpi:sensitivity:Personality:Sensitivity:Tact, perceptiveness, and ability to maintain relationships
+hpi:prudence:Personality:Prudence:Self-discipline, responsibility and conscientiousness
+hpi:inquisitlve:Personality:Inquisitlve:Imagination, curiosity, and creative potential
+hpi:learning:Personality:Learning:Achievement-oriented, stays up-to-date on business and technical matters
 
 # Development
-hpi:excitable:excitable:moody, easily annoyed, hard to please, and emotionally volatile
-hpi:skeptical:skeptical:distrustful, cynical, sensitive to criticism, and focused on the negative
-hpi:cautious:cautious:unassertive, resistant to change, risk-averse, and slow to make decisions
-hpi:reserved:reserved:aloof, indifferent to the feelings of others, and uncommunicative
-hpi:lelsurely:lelsurely:overtly cooperative, but privately irritable, stubborn, and uncooperative
-hpi:bold:bold:overly self-conﬁdent, arrogant, with inflated feelings of self-worth
-hpi:mischievous:mischievous:charming, risk-taking, limit-testing and excitement-seeking
-hpi:colorful:colorful:dramatic, attention-seeking, interruptive, and poor listening skills
-hpi:imaglnatlve:imaglnatlve:creative, but thinking and acting in unusual or eccentric ways
-hpi:diligent:diligent:meticulous, precise, hard to please, and tends to micromanage
-hpi:dutiful:dutiful:eager to please and reluctant to act independently or against popular opinion
+hpi:excitable:Development:Excitable:moody, easily annoyed, hard to please, and emotionally volatile
+hpi:skeptical:Development:Skeptical:distrustful, cynical, sensitive to criticism, and focused on the negative
+hpi:cautious:Development:Cautious:unassertive, resistant to change, risk-averse, and slow to make decisions
+hpi:reserved:Development:Reserved:aloof, indifferent to the feelings of others, and uncommunicative
+hpi:lelsurely:Development:Lelsurely:overtly cooperative, but privately irritable, stubborn, and uncooperative
+hpi:bold:Development:Bold:Overly self-conﬁdent, arrogant, with inflated feelings of self-worth
+hpi:mischievous:Development:Mischievous:Charming, risk-taking, limit-testing and excitement-seeking
+hpi:colorful:Development:Colorful:Dramatic, attention-seeking, interruptive, and poor listening skills
+hpi:imaglnatlve:Development:Imaglnatlve:Creative, but thinking and acting in unusual or eccentric ways
+hpi:diligent:Development:Diligent:Meticulous, precise, hard to please, and tends to micromanage
+hpi:dutiful:Development:Dutiful:Eager to please and reluctant to act independently or against popular opinion
 
 # Motives, Values & Preferences
-hpi:recognltlon:recognltlon:responsive to attention, approval, and praise
-hpi:power:power:desire for success, accomplishment, status and control
-hpi:hedonism:hedonism:orientation for fun, pleasure, and enjoyment
-hpi:altrulstlc:altrulstlc:desire to help others and contribute to society
-hpi:afilllatlon:afilllatlon:desire for and enjoyment of social interaction
-hpi:tradition:tradition:dedication, strong personal beliefs, and obligation
-hpi:security:security:need for predictability, structure, and order
-hpi:commerce:commerce:interest in money, profits, investment, and business opportunities
-hpi:aesthetics:aesthetics:need for self-expression, concern over look, feel, and design of work products
-hpi:science:science:quest for knowledge, research, technology, and data
+hpi:recognltlon:Motives & Values:Recognltlon:Responsive to attention, approval, and praise
+hpi:power:Motives & Values:power:Desire for success, accomplishment, status and control
+hpi:hedonism:Motives & Values:Hedonism:Orientation for fun, pleasure, and enjoyment
+hpi:altrulstlc:Motives & Values:Altrulstlc:Desire to help others and contribute to society
+hpi:afilllatlon:Motives & Values:Afilllatlon:Desire for and enjoyment of social interaction
+hpi:tradition:Motives & Values:Tradition:Dedication, strong personal beliefs, and obligation
+hpi:security:Motives & Values:Security:Need for predictability, structure, and order
+hpi:commerce:Motives & Values:Commerce:Interest in money, profits, investment, and business opportunities
+hpi:aesthetics:Motives & Values:Aesthetics:Need for self-expression, concern over look, feel, and design of work products
+hpi:science:Motives & Values:Science:Quest for knowledge, research, technology, and data
 
 # ........................................................................ papi2
 # Based on
-papi2:BIG5_Openness:openness:
-papi2:BIG5_Conscientiousness:conscientiousness:
-papi2:BIG5_Extraversion:extraversion:
-papi2:BIG5_Agreeableness:agreeableness:
-papi2:BIG5_Neuroticism:neuroticism:
+papi2:BIG5_Openness:Canonical:Openness:
+papi2:BIG5_Conscientiousness:Canonical:Conscientiousness:
+papi2:BIG5_Extraversion:Canonical:Extraversion:
+papi2:BIG5_Agreeableness:Canonical:Agreeableness:
+papi2:BIG5_Neuroticism:Canonical:Neuroticism:
 
-papi2:Satisfaction_Life:satisfaction:
-papi2:Intelligence:intelligence:
-papi2:Female:female:
-papi2:Age:age:
-papi2:Gay:gay:
-papi2:Lesbian:lesbian:
+papi2:Satisfaction_Life::Satisfaction:
+papi2:Intelligence::Intelligence:
+papi2:Female:Personal:Female:
+papi2:Age:Personal:Age:
+papi2:Gay:Personal:Gay:
+papi2:Lesbian:Personal:Lesbian:
 
-papi2:Concentration_Art:art:
-papi2:Concentration_Biology:biology:
-papi2:Concentration_Business:business:
-papi2:Concentration_IT:it:
-papi2:Concentration_Education:education:
-papi2:Concentration_Engineering:engineering:
-papi2:Concentration_Journalism:journalism:
-papi2:Concentration_Finance:finance:
-papi2:Concentration_History:history:
-papi2:Concentration_Law:law:
-papi2:Concentration_Nursing:nursing:
-papi2:Concentration_Psychology:psychology:
+papi2:Concentration_Art:Concentration:Art:
+papi2:Concentration_Biology:Concentration:Biology:
+papi2:Concentration_Business:Concentration:Business:
+papi2:Concentration_IT:Concentration:Information Technology:
+papi2:Concentration_Education:Concentration:Education:
+papi2:Concentration_Engineering:Concentration:Engineering:
+papi2:Concentration_Journalism:Concentration:Journalism:
+papi2:Concentration_Finance:Concentration:Finance:
+papi2:Concentration_History:Concentration:History:
+papi2:Concentration_Law:Concentration:Law:
+papi2:Concentration_Nursing:Concentration:Nursing:
+papi2:Concentration_Psychology:Concentration:Psychology:
 
-papi2:Politics_Liberal:liberal:
-papi2:Politics_Conservative:conservative:
-papi2:Politics_Uninvolved:uninvolved:
-papi2:Politics_Libertanian:libertanian:
+papi2:Politics_Liberal:Politics:Liberal:
+papi2:Politics_Conservative:Politics:Conservative:
+papi2:Politics_Uninvolved:Politics:Uninvolved:
+papi2:Politics_Libertanian:Politics:Libertanian:
 
-papi2:Religion_None:none religious:
-papi2:Religion_Christian_Other:christian:
-papi2:Religion_Catholic:catholic:
-papi2:Religion_Jewish:jewish:
-papi2:Religion_Lutheran:lutheran:
-papi2:Religion_Mormon:mormon:
+papi2:Religion_None:Religion:Not Religious:
+papi2:Religion_Christian_Other:Religion:Christian:
+papi2:Religion_Catholic:Religion:Catholic:
+papi2:Religion_Jewish:Religion:Jewish:
+papi2:Religion_Lutheran:Religion:Lutheran:
+papi2:Religion_Mormon:Religion:Mormon:
 
-papi2:Relationship_None:no relationship:
-papi2:Relationship_Yes:in relationship:
-papi2:Relationship_Married:married:
+papi2:Relationship_None:Relationship:No relationship:
+papi2:Relationship_Yes:Relationship:In relationship:
+papi2:Relationship_Married:Relationship:Married:
 

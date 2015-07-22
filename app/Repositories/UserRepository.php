@@ -143,9 +143,10 @@ class UserRepository {
                 }
             }
             
-            \Debugbar::info( 'UserRepository::getUserFacts(uid:' . $uid . ','  .
-                                                                   $provider   .
-                                                                    $where_str . ')' );
+            \Debugbar::info(
+                'UserRepository::getUserFacts(uid:' . $uid        . ',' .
+                                                      $provider   .
+                                                      $where_str  . ')' );
         }
         
         $match[ 'uid' ] = $uid;
@@ -231,8 +232,9 @@ class UserRepository {
                 
                 $key = $type->sys . '.' . $type->name ;
                 
-                $val = [ 'name' => $type->display,
-                         'desc' => $type->desc
+                $val = [ 'group' => $type->group    ,
+                         'name'  => $type->display  ,
+                         'desc'  => $type->desc     ,
                      ];
                 
                 $map[ $key ] = $val;
@@ -249,8 +251,9 @@ class UserRepository {
             if (isset( $map[ $key ] ) ){
                 $val = $map[ $key ] ;
                 
-                $insight->name = $val[ 'name' ];
-                $insight->desc = $val[ 'desc' ];
+                $insight->group = $val[ 'group' ];
+                $insight->name = $val[ 'name'  ];
+                $insight->desc = $val[ 'desc'  ];
             }
             
             $i[] = $insight;
@@ -401,9 +404,10 @@ class UserRepository {
         $user_update = false;
 
         // $data->provider is not empty
-        if ( $account && strpos( $user->providers, $data->provider ) === false ){
-            $user->providers = $this->getUserProviders( $user->id );
-            $user_update = $update;
+             $user_providers   = $this->getUserProviders( $user->id );
+        if ( $user->providers != $user_providers ){
+             $user->providers  = $user_providers ;
+             $user_update = $update;
         }
         
         // email may be empty! (i.e. twitter)

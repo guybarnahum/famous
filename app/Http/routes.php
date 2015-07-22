@@ -64,16 +64,16 @@ if (false){ // Enable GET for debugging only..
     Route::get('gen_facts'          ,'HomeController@generateActiveUserFacts');
 }
 
-Route::post('get_insights/{uid?}/{provider?}'
+Route::post('insights/{uid?}/{provider?}'
                                     ,'HomeController@getUserInsights'       );
-Route::post('get_insights/{uid?}'   ,'HomeController@getUserInsightsByUid'  );
-Route::post('get_insights'          ,'HomeController@getActiveUserInsights' );
+Route::post('insights/{uid?}'       ,'HomeController@getUserInsightsByUid'  );
+Route::post('insights'              ,'HomeController@getActiveUserInsights' );
 
 if (true){ // Enable GET for debugging only..
-    Route::get('get_insights/{uid?}/{provider?}'
+    Route::get('insights/{uid?}/{provider?}'
                                     ,'HomeController@getUserInsights'       );
-    Route::get('get_insights/{uid?}','HomeController@getUserInsightsByUid'  );
-    Route::get('get_insights'       ,'HomeController@getActiveUserInsights' );
+    Route::get('insights/{uid?}'    ,'HomeController@getUserInsightsByUid'  );
+    Route::get('insights'           ,'HomeController@getActiveUserInsights' );
 }
     
 Route::post('user/{uid}'            , 'HomeController@getUserInfo'          );

@@ -256,7 +256,7 @@ class PersonalityTypeTableSeeder extends ParserSeeder {
         $this->msg   = '';
         $this->file  = 'database/seeds/personality_types.txt';
         $this->table = 'personality_types';
-        $this->fmt   = [ 'sys','name', 'display', 'desc' ];
+        $this->fmt   = [ 'sys','name', 'group', 'display', 'desc' ];
         $this->model = 'App\Models\PersonalityType';
             
         ParserSeeder::run();
