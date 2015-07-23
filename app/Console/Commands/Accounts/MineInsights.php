@@ -21,6 +21,7 @@ spl_autoload_register(
                                          
                 $dirs = [
                             'App/Components/Insights/',
+                            '/var/www/famous-dev/app/Components/Insights/',
                         ];
                 
                 foreach( $dirs as $dir ){
