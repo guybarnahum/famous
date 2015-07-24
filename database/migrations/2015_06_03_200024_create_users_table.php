@@ -75,10 +75,7 @@ class CreateUsersTable extends Migration {
                        
                        // dataset provider
                        $table->string ('provider');
-                       $table->foreign('provider')->references('provider')
-                                                  ->on('datasets')
-                                                  ->onDelete('cascade')
-                                                  ->onUpdate('cascade');
+
 
                        // dataset provider access
                        $table->string('provider_uid' );
