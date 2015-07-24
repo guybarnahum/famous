@@ -234,6 +234,8 @@ class UserRepository {
                 
                 $val = [ 'group' => $type->group    ,
                          'name'  => $type->display  ,
+                         'v_units' => $type->value_units,
+                         'e_units' => $type->error_units,
                          'desc'  => $type->desc     ,
                      ];
                 
@@ -251,9 +253,11 @@ class UserRepository {
             if (isset( $map[ $key ] ) ){
                 $val = $map[ $key ] ;
                 
-                $insight->group = $val[ 'group' ];
-                $insight->name = $val[ 'name'  ];
-                $insight->desc = $val[ 'desc'  ];
+                $insight->group   = $val[ 'group'   ];
+                $insight->v_units = $val[ 'v_units' ];
+                $insight->e_units = $val[ 'e_units' ];
+                $insight->name    = $val[ 'name'    ];
+                $insight->desc    = $val[ 'desc'    ];
             }
             
             $i[] = $insight;

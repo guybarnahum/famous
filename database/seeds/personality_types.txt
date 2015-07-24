@@ -1,6 +1,6 @@
 # ==============================================================================
 # personality_types.txt
-# structure sys:name:display:desc
+# structure sys:name:value_units:error_units:group:display:desc
 # ==============================================================================
 
 #--debug
@@ -10,80 +10,81 @@
 # Based on © 2009 HOGAN ASSESSMENT SYSTEMS INC.
 
 # Personality:
-hpi:adjustment:Personality:Adjustment:Conﬁdence, self-esteem, and composure under pressure
-hpi:ambltlon:Personality:Ambltlon:Initiative, competitiveness, and desire for leadership roles
-hpi:sociability:Personality:Sociability:Extraversion, gregarious, and need for social interaction
-hpi:sensitivity:Personality:Sensitivity:Tact, perceptiveness, and ability to maintain relationships
-hpi:prudence:Personality:Prudence:Self-discipline, responsibility and conscientiousness
-hpi:inquisitlve:Personality:Inquisitlve:Imagination, curiosity, and creative potential
-hpi:learning:Personality:Learning:Achievement-oriented, stays up-to-date on business and technical matters
+hpi:adjustment:pct:pct:Personality:Adjustment:Conﬁdence, self-esteem, and composure under pressure
+hpi:ambltlon:pct:pct:Personality:Ambltlon:Initiative, competitiveness, and desire for leadership roles
+hpi:sociability:pct:pct:Personality:Sociability:Extraversion, gregarious, and need for social interaction
+hpi:sensitivity:pct:pct:Personality:Sensitivity:Tact, perceptiveness, and ability to maintain relationships
+hpi:prudence:pct:pct:Personality:Prudence:Self-discipline, responsibility and conscientiousness
+hpi:inquisitlve:pct:pct:Personality:Inquisitlve:Imagination, curiosity, and creative potential
+hpi:learning:pct:pct:Personality:Learning:Achievement-oriented, stays up-to-date on business and technical matters
 
 # Development
-hpi:excitable:Development:Excitable:moody, easily annoyed, hard to please, and emotionally volatile
-hpi:skeptical:Development:Skeptical:distrustful, cynical, sensitive to criticism, and focused on the negative
-hpi:cautious:Development:Cautious:unassertive, resistant to change, risk-averse, and slow to make decisions
-hpi:reserved:Development:Reserved:aloof, indifferent to the feelings of others, and uncommunicative
-hpi:lelsurely:Development:Lelsurely:overtly cooperative, but privately irritable, stubborn, and uncooperative
-hpi:bold:Development:Bold:Overly self-conﬁdent, arrogant, with inflated feelings of self-worth
-hpi:mischievous:Development:Mischievous:Charming, risk-taking, limit-testing and excitement-seeking
-hpi:colorful:Development:Colorful:Dramatic, attention-seeking, interruptive, and poor listening skills
-hpi:imaglnatlve:Development:Imaglnatlve:Creative, but thinking and acting in unusual or eccentric ways
-hpi:diligent:Development:Diligent:Meticulous, precise, hard to please, and tends to micromanage
-hpi:dutiful:Development:Dutiful:Eager to please and reluctant to act independently or against popular opinion
+hpi:excitable:pct:pct:Development:Excitable:moody, easily annoyed, hard to please, and emotionally volatile
+hpi:skeptical:pct:pct:Development:Skeptical:distrustful, cynical, sensitive to criticism, and focused on the negative
+hpi:cautious:pct:pct:Development:Cautious:unassertive, resistant to change, risk-averse, and slow to make decisions
+hpi:reserved:pct:pct:Development:Reserved:aloof, indifferent to the feelings of others, and uncommunicative
+hpi:lelsurely:pct:pct:Development:Lelsurely:overtly cooperative, but privately irritable, stubborn, and uncooperative
+hpi:bold:pct:pct:Development:Bold:Overly self-conﬁdent, arrogant, with inflated feelings of self-worth
+hpi:mischievous:pct:pct:Development:Mischievous:Charming, risk-taking, limit-testing and excitement-seeking
+hpi:colorful:pct:pct:Development:Colorful:Dramatic, attention-seeking, interruptive, and poor listening skills
+hpi:imaglnatlve:pct:pct:Development:Imaglnatlve:Creative, but thinking and acting in unusual or eccentric ways
+hpi:diligent:pct:pct:Development:Diligent:Meticulous, precise, hard to please, and tends to micromanage
+hpi:dutiful:pct:pct:Development:Dutiful:Eager to please and reluctant to act independently or against popular opinion
 
 # Motives, Values & Preferences
-hpi:recognltlon:Motives & Values:Recognltlon:Responsive to attention, approval, and praise
-hpi:power:Motives & Values:power:Desire for success, accomplishment, status and control
-hpi:hedonism:Motives & Values:Hedonism:Orientation for fun, pleasure, and enjoyment
-hpi:altrulstlc:Motives & Values:Altrulstlc:Desire to help others and contribute to society
-hpi:afilllatlon:Motives & Values:Afilllatlon:Desire for and enjoyment of social interaction
-hpi:tradition:Motives & Values:Tradition:Dedication, strong personal beliefs, and obligation
-hpi:security:Motives & Values:Security:Need for predictability, structure, and order
-hpi:commerce:Motives & Values:Commerce:Interest in money, profits, investment, and business opportunities
-hpi:aesthetics:Motives & Values:Aesthetics:Need for self-expression, concern over look, feel, and design of work products
-hpi:science:Motives & Values:Science:Quest for knowledge, research, technology, and data
+hpi:recognltlon:pct:pct:Motives & Values:Recognltlon:Responsive to attention, approval, and praise
+hpi:power:pct:pct:Motives & Values:power:Desire for success, accomplishment, status and control
+hpi:hedonism:pct:pct:Motives & Values:Hedonism:Orientation for fun, pleasure, and enjoyment
+hpi:altrulstlc:pct:pct:Motives & Values:Altrulstlc:Desire to help others and contribute to society
+hpi:afilllatlon:pct:pct:Motives & Values:Afilllatlon:Desire for and enjoyment of social interaction
+hpi:tradition:pct:pct:Motives & Values:Tradition:Dedication, strong personal beliefs, and obligation
+hpi:security:pct:pct:Motives & Values:Security:Need for predictability, structure, and order
+hpi:commerce:pct:pct:Motives & Values:Commerce:Interest in money, profits, investment, and business opportunities
+hpi:aesthetics:pct:pct:Motives & Values:Aesthetics:Need for self-expression, concern over look, feel, and design of work products
+hpi:science:pct:pct:Motives & Values:Science:Quest for knowledge, research, technology, and data
 
 # ........................................................................ papi2
 # Based on
-papi2:BIG5_Openness:Canonical:Openness:
-papi2:BIG5_Conscientiousness:Canonical:Conscientiousness:
-papi2:BIG5_Extraversion:Canonical:Extraversion:
-papi2:BIG5_Agreeableness:Canonical:Agreeableness:
-papi2:BIG5_Neuroticism:Canonical:Neuroticism:
+papi2:BIG5_Openness:pct:pct:Canonical:Openness:
+papi2:BIG5_Conscientiousness:pct:pct:Canonical:Conscientiousness:
+papi2:BIG5_Extraversion:pct:pct:Canonical:Extraversion:
+papi2:BIG5_Agreeableness:pct:pct:Canonical:Agreeableness:
+papi2:BIG5_Neuroticism:pct:pct:Canonical:Neuroticism:
 
-papi2:Satisfaction_Life::Satisfaction:
-papi2:Intelligence::Intelligence:
-papi2:Female:Personal:Female:
-papi2:Age:Personal:Age:
-papi2:Gay:Personal:Gay:
-papi2:Lesbian:Personal:Lesbian:
+papi2:Satisfaction_Life:pct:pct:Personal:Satisfaction:
+papi2:Intelligence:pct:pct:Personal:Intelligence:
+papi2:Age:num:num:Personal:Age:
+papi2:Female:prob:prob:Gender:Female:
+papi2:Male:prob:prob:Gender:Male:
+papi2:Gay:prob:prob:Sexual Preference:Gay:
+papi2:Lesbian:prob:prob:Sexual Preference:Lesbian:
 
-papi2:Concentration_Art:Concentration:Art:
-papi2:Concentration_Biology:Concentration:Biology:
-papi2:Concentration_Business:Concentration:Business:
-papi2:Concentration_IT:Concentration:Information Technology:
-papi2:Concentration_Education:Concentration:Education:
-papi2:Concentration_Engineering:Concentration:Engineering:
-papi2:Concentration_Journalism:Concentration:Journalism:
-papi2:Concentration_Finance:Concentration:Finance:
-papi2:Concentration_History:Concentration:History:
-papi2:Concentration_Law:Concentration:Law:
-papi2:Concentration_Nursing:Concentration:Nursing:
-papi2:Concentration_Psychology:Concentration:Psychology:
+papi2:Concentration_Art:group_prob:prob:Concentration:Art:
+papi2:Concentration_Biology:group_prob:prob:Concentration:Biology:
+papi2:Concentration_Business:group_prob:prob:Concentration:Business:
+papi2:Concentration_IT:group_prob:prob:Concentration:Information Technology:
+papi2:Concentration_Education:group_prob:prob:Concentration:Education:
+papi2:Concentration_Engineering:group_prob:prob:Concentration:Engineering:
+papi2:Concentration_Journalism:group_prob:prob:Concentration:Journalism:
+papi2:Concentration_Finance:group_prob:prob:Concentration:Finance:
+papi2:Concentration_History:group_prob:prob:Concentration:History:
+papi2:Concentration_Law:group_prob:prob:Concentration:Law:
+papi2:Concentration_Nursing:group_prob:prob:Concentration:Nursing:
+papi2:Concentration_Psychology:group_prob:prob:Concentration:Psychology:
 
-papi2:Politics_Liberal:Politics:Liberal:
-papi2:Politics_Conservative:Politics:Conservative:
-papi2:Politics_Uninvolved:Politics:Uninvolved:
-papi2:Politics_Libertanian:Politics:Libertanian:
+papi2:Politics_Liberal:group_prob:prob:Politics:Liberal:
+papi2:Politics_Conservative:group_prob:prob:Politics:Conservative:
+papi2:Politics_Uninvolved:group_prob:prob:Politics:Uninvolved:
+papi2:Politics_Libertanian:group_prob:prob:Politics:Libertanian:
 
-papi2:Religion_None:Religion:Not Religious:
-papi2:Religion_Christian_Other:Religion:Christian:
-papi2:Religion_Catholic:Religion:Catholic:
-papi2:Religion_Jewish:Religion:Jewish:
-papi2:Religion_Lutheran:Religion:Lutheran:
-papi2:Religion_Mormon:Religion:Mormon:
+papi2:Religion_None:group_prob:prob:Religion:Not Religious:
+papi2:Religion_Christian_Other:group_prob:prob:Religion:Christian:
+papi2:Religion_Catholic:group_prob:prob:Religion:Catholic:
+papi2:Religion_Jewish:group_prob:prob:Religion:Jewish:
+papi2:Religion_Lutheran:group_prob:prob:Religion:Lutheran:
+papi2:Religion_Mormon:group_prob:prob:Religion:Mormon:
 
-papi2:Relationship_None:Relationship:No relationship:
-papi2:Relationship_Yes:Relationship:In relationship:
-papi2:Relationship_Married:Relationship:Married:
+papi2:Relationship_None:group_prob:prob:Relationship:No relationship:
+papi2:Relationship_Yes:group_prob:prob:Relationship:In relationship:
+papi2:Relationship_Married:group_prob:prob:Relationship:Married:
 

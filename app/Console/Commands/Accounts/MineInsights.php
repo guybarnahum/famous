@@ -99,6 +99,88 @@ class PapiInsights{
         return $likes_ids;
     }
     
+    // This should be on the other side of the papi..
+    private function get_trait_error( $trait )
+    {
+        $error = -1; // invalid
+        
+        switch( $trait ){
+            
+            // Precentile in the poplulation, with error range
+            // also as a precentile of the population
+            
+            case "BIG5_Openness"        :
+            case "BIG5_Conscientiousness": 
+            case "BIG5_Extraversion"    :
+            case "BIG5_Agreeableness"   :
+            case "BIG5_Neuroticism"     : $error = 0.5; break;
+        
+            case "Satisfaction_Life"    : $error = 0.17; break;
+                
+            case "Intelligence"         : $error = 0.47; break;
+
+            // Value in years, with +/- 0.75 year error
+            case "Age"                  : $error = 0.75; break;
+
+            // Probablity of being Female of Male, with 7%
+            // error rate
+            case "Female"               :
+            case "Male"                 : $error = 0.93; break;
+            
+            // Value : if man what is the probablity of being gay?
+            // Error : 12 % error rate
+            case "Gay"                  : $error = 0.88; break;
+                
+            // Value If woman what is the probablity of being lesbian?
+            // Error : 25 % error rate
+            case "Lesbian"              : $error = 0.75; break;
+        
+            // Concentration group:
+            // value_units group probablity (sum to 1)
+            // err_units ?
+            case "Concentration_Art"    :
+            case "Concentration_Biology": 
+            case "Concentration_Business": 
+            case "Concentration_IT"     :
+            case "Concentration_Education": 
+            case "Concentration_Engineering": 
+            case "Concentration_Journalism": 
+            case "Concentration_Finance": 
+            case "Concentration_History": 
+            case "Concentration_Law"    :
+            case "Concentration_Nursing": 
+            case "Concentration_Psychology":
+                                          $error = 0.72; break;
+        
+            // Politics group:
+            // value_units group probablity (sum to 1)
+            // err_units ?
+            case "Politics_Liberal"     :
+            case "Politics_Conservative": 
+            case "Politics_Uninvolved"  :
+            case "Politics_Libertanian" : $error = 0.79; break;
+        
+            // Religion group:
+            // value_units group probablity (sum to 1)
+            // err_units ?
+            case "Religion_None"        :
+            case "Religion_Christian_Other": 
+            case "Religion_Catholic"    :
+            case "Religion_Jewish"      :
+            case "Religion_Lutheran"    :
+            case "Religion_Mormon"      : $error = 0.76; break;
+        
+            // Relationship group:
+            // value_units group probablity (sum to 1)
+            // err_units ?
+            case "Relationship_None"    :
+            case "Relationship_Yes"     :
+            case "Relationship_Married" : $error = 0.67; break;
+        }
+        
+        return $error;
+    }
+    
     private function process_result( $act, $res )
     {
         $uid = $act->uid;
@@ -113,12 +195,14 @@ class PapiInsights{
                     
                     $trait  = $prediction->getTrait();
                     $value  = $prediction->getValue();
+                    $error  = $this->get_trait_error( $trait );
                     
                     $p = [ 'uid'  => $uid   ,
                            'src'  => 'papi2',
                            'sys'  => 'papi2',
                            'name' => $trait ,
-                           'value'=> $value ];
+                           'value'=> $value ,
+                           'error'=> $error ];
                     
                     $p_obj = PersonalityEntry::firstOrCreate( $p );
                     $this->output( 'Fact::firstOrCreate>>' . $p_obj->toString() );

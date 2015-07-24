@@ -16,5 +16,11 @@ class PersonalityType extends Model {
      *
      * @var array
      */
-    protected $fillable = [ 'sys', 'name', 'group', 'display', 'desc' ];
+    protected $fillable = [ 'sys'        ,
+                            'name'       ,
+                            'value_units',
+                            'error_units',
+                            'group'      ,
+                            'display'    ,
+                            'desc'      ];
 }

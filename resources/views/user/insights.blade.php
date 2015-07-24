@@ -9,6 +9,7 @@
                             <th>Group</th>
                             <th>Trait</th>
                             <th>Value</th>
+                            <th>+/-</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +29,10 @@
                                 {{ $insight->name }}
                             </td>
                             <td style='vertical-align:middle;'>
-                                {{ $insight->value }}
+                                {{ $insight->value }}&nbsp;{{ $insight->v_units }}
+                            </td>
+                            <td style='vertical-align:middle;'>
+                                {{ $insight->error }}&nbsp;{{ $insight->e_units }}
                             </td>
                         </tr>
                         @endforeach
