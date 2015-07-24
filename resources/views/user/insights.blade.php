@@ -40,6 +40,7 @@
 @else
     No insights found!
 @endif
+
 </section>
 
 

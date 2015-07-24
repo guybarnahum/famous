@@ -172,7 +172,11 @@
 
         function registerClickHandlers()
         {
-            $('tr.collapsable').click(function(){
+            // Thankfully on registers handlers to DOM all existing and
+            // *future* elements. Praise the lord!
+
+            $(document).on( 'click', 'tr.collapsable',
+                    function(){
                           $(this).nextUntil('.collapsable').toggle();
                           $(this).toggleClass('expanded');
                           
@@ -180,37 +184,31 @@
                           collapsed_html = '<i class="fa fa-caret-right"></i>';
                           
                           if ($(this).hasClass('expanded')) {
-                          $(this).find("td:nth-child(1)").html(expanded_html);
+                            $(this).find("td:nth-child(1)").html(expanded_html);
                           }
                           else {
-                          $(this).find("td:nth-child(1)").html(collapsed_html);
+                            $(this).find("td:nth-child(1)").html(collapsed_html);
                           }
-                          });
+                    });
 
-            $('a.collapsable').click(function(){
-                           $(this).next('.collapsee').toggle();
-                           $(this).toggleClass('expanded')
-                           
-                           expanded_html  = '<i class="fa fa-caret-down"></i>';
-                           collapsed_html = '<i class="fa fa-caret-right"></i>';
-                           
-                           if ($(this).hasClass('expanded')) {
-                           $(this).html(expanded_html);
-                           }
-                           else {
-                           $(this).html(collapsed_html);
-                           }
-                           });
-
+            $(document).on( 'click', 'a.collapsable',
+                    function(){
+                         // this is crazy.. basically we need the next collapsee
+                         // is there a better way?!
+                         $(this).nextUntil('.collapsee').andSelf().last().next().toggle();
+                         $(this).toggleClass('collapsed')
+                         
+                         expanded_html  = '<i class="fa fa-caret-down"></i>';
+                         collapsed_html = '<i class="fa fa-caret-right"></i>';
+                         
+                         if ($(this).hasClass('collapsed'))
+                             $(this).html(collapsed_html);
+                         else
+                             $(this).html(expanded_html);
+                     });
         }
 
-        // DOM has to be loaded..
-        if (jQuery.isReady){
-            registerClickHandlers();
-        }
-        else{
-            $(document).ready( registerClickHandlers );
-        }
+        registerClickHandlers();
 
         </script>
     </head>

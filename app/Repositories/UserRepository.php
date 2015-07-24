@@ -262,6 +262,30 @@ class UserRepository {
         return $i;
     }
     
+    public function getUserReports( $uid, $type = false )
+    {
+        \Debugbar::info( 'UserRepository::getUserReports(uid:' . $uid . ','  .
+                                                                 $type . ')' );
+
+        // this may get some other system with same trait name..
+        $hpi    = PersonalityType::where( 'sys', 'hpi' )->get();
+        $report = [];
+        
+        // fabricate report..
+        foreach( $hpi as $trait ){
+            
+            $group = $trait->group;
+            $name  = $trait->name;
+            
+            if ( !isset( $report[ $group ]) )  $report[ $group ] = [];
+            $report[ $group ][ $name ] = rand( 0, 100 );
+        }
+
+        \Debugbar::info( 'UserRepository::getUserReports(' .
+                                   print_r( $report, true) . ')' );
+
+        return $report;
+    }
     // ......................................................... getUserAccounts
 
     public function getUserAccounts( $uid, $provider = false )

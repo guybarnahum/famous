@@ -64,18 +64,30 @@ if (false){ // Enable GET for debugging only..
     Route::get('gen_facts'          ,'HomeController@generateActiveUserFacts');
 }
 
-Route::post('insights/{uid?}/{provider?}'
+Route::post('insights/{uid?}/{system?}'
                                     ,'HomeController@getUserInsights'       );
 Route::post('insights/{uid?}'       ,'HomeController@getUserInsightsByUid'  );
 Route::post('insights'              ,'HomeController@getActiveUserInsights' );
 
 if (true){ // Enable GET for debugging only..
-    Route::get('insights/{uid?}/{provider?}'
+    Route::get('insights/{uid?}/{system?}'
                                     ,'HomeController@getUserInsights'       );
     Route::get('insights/{uid?}'    ,'HomeController@getUserInsightsByUid'  );
     Route::get('insights'           ,'HomeController@getActiveUserInsights' );
 }
     
+Route::post('reports/{uid?}/{type?}'
+                                    ,'HomeController@getUserReports'        );
+Route::post('reports/{uid?}'        ,'HomeController@getUserReportsByUid'   );
+Route::post('reports'               ,'HomeController@getActiveUserReports'  );
+
+if (true){ // Enable GET for debugging only..
+    Route::get('reports/{uid?}/{type?}'
+                                    ,'HomeController@getUserReports'        );
+    Route::get('reports/{uid?}'     ,'HomeController@getUserReportsByUid'   );
+    Route::get('reports'            ,'HomeController@getActiveUserReports'  );
+}
+
 Route::post('user/{uid}'            , 'HomeController@getUserInfo'          );
 Route::post('user'                  , 'HomeController@getActiveUserInfo'    );
 Route::get ('user/{uid}'            , 'HomeController@getUserInfo'          );

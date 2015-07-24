@@ -192,8 +192,11 @@
         <input type="radio" name="tabGroup1" id="rad2" class="tab2"/>
         <label for="rad2"><h2>Insights</h2></label>
 
+        <input type="radio" name="tabGroup1" id="rad3" class="tab3"/>
+        <label for="rad3"><h2>Reports</h2></label>
+
         <br/>
-     
+
         <div class="tab1">
             <div id='user-accounts-facts-div' >
                 @include( 'message.progress' )
@@ -205,6 +208,12 @@
                 @include( 'message.progress' )
             </div>
         </div>
+        <div class="tab3">
+            <div id='user-accounts-reports-div' >
+                @include( 'message.progress' )
+            </div>
+        </div>
+
     </div>
 
 </section>
@@ -237,16 +246,11 @@ onreadyAjax( '/facts/{{ $accounts[0]->uid }}/{{ $accounts[0]->provider }}', // r
 
 @endif
 
-@if ( count( $accounts) > 1 )
 
 onreadyAjax( '/insights/{{ $accounts[0]->uid }}', // route
             'user-accounts-insights-div');// div_id
 
-@elseif ( count( $accounts ) == 1 )
-
-onreadyAjax( '/insights/{{ $accounts[0]->uid }}/{{ $accounts[0]->provider }}', // route
-            'user-accounts-insights-div');// div_id
-
-@endif
+onreadyAjax( '/reports/{{ $accounts[0]->uid }}', // route
+            'user-accounts-reports-div');// div_id
 
 </script>
