@@ -8,6 +8,4 @@
                      ] )
 
 
-<div id='user-accounts-div' >
-    @include( 'message.progress' )
-</div>
+<div id='user-accounts-div' ></div>

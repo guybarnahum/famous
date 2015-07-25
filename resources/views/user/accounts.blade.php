@@ -198,20 +198,13 @@
         <br/>
 
         <div class="tab1">
-            <div id='user-accounts-facts-div' >
-                @include( 'message.progress' )
-            </div>
-
+            <div id='user-accounts-facts-div' ></div>
         </div>
         <div class="tab2">
-            <div id='user-accounts-insights-div' >
-                @include( 'message.progress' )
-            </div>
+            <div id='user-accounts-insights-div' ></div>
         </div>
         <div class="tab3">
-            <div id='user-accounts-reports-div' >
-                @include( 'message.progress' )
-            </div>
+            <div id='user-accounts-reports-div' ></div>
         </div>
 
     </div>

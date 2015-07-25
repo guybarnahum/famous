@@ -96,6 +96,15 @@
             document.write( unescape('%3Cscript%20src%3D%22/path/to/your/scripts/jquery-2.1.4.min.js%22%3E%3C/script%3E'));
         }
 
+        function get_default_progress_html(){
+            var url = "{{ asset('/assets/images/progress.gif') }}";
+            return "<img src='" + url + "' alt='loading ..'>";
+        }
+
+        function get_default_failure_html(){
+            return "<b>Failed to load data!</b>"
+        }
+
         function ajax_html(e)
         {
             // alert( 'ajax_html:' + e.data.url + ',div:' + e.data.div );
@@ -103,9 +112,14 @@
             $.ajax( e.data.url,
                    {
                         type: 'POST',
-                        context: { div:e.data.div },
-                       
+                        context: { div:         e.data.div          ,
+                                  failure_html: e.data.failure_html },
+                   
                         beforeSend: function (xhr) {
+                   
+                           var html = e.data.progress;
+                           $(this.div).html( html );
+                   
                            var token = $('meta[name="csrf_token"]').attr('content');
                            if (token){
                                 return xhr.setRequestHeader('X-CSRF-TOKEN', token);
@@ -119,43 +133,55 @@
                    
                         error:function(){
                             // alert('failure:' + this.div );
-                            $(this.div).html('Failed to load data');
+                            $(this.div).html( this.failure );
                         }
                    }); //end of ajax
         }
 
-        function build_postAjax( route, div_id )
+        function build_postAjax( data_args )
         {
             // since $.ready does not accept args, we build dynamic
             // no argument function from args!
             return function(){
-                        var e = { data: {url: route, div: div_id } };
+                        var e = { data: data_args };
                         ajax_html( e );
                     };
         }
 
-        function onreadyAjax( route, div_id )
+        function onreadyAjax( route, div_id, progress_html, failure_html )
         {
             div_id = '#' + div_id;
+            
+            if (typeof(progress_html )==='undefined')
+                progress_html = get_default_progress_html();
+            
+            if (typeof(failure_html )==='undefined')
+                failure_html = get_default_failure_html();
 
+            data = { url: route, div: div_id,
+                     progress: progress_html,
+                     failure: failure_html  };
+            
             if (jQuery.isReady){
-                build_postAjax( route, div_id )();
+                build_postAjax( data )();
             }
             else{
-                $(document).ready( build_postAjax( route, div_id ) );
+                $(document).ready( build_postAjax( data ) );
             }
         }
 
-        function setAjax( id, route, div_id )
+        function setAjax( id, data )
         {
-            $(id).click({url: route, div: div_id }, ajax_html );
+            
+            $(id).click( data, ajax_html );
         }
 
-        function setAjaxById( id, route, div_id )
+        function setAjaxById( id, route, div_id, progress_html, failure_html )
         {
             if (id instanceof Array){
+
                 for (ix = 0; ix < id.length; ++ix) {
-                    setAjaxById(id[ix],route,div_id);
+                    setAjaxById( id[ix],route,div_id,progress_html, failure_html);
                 }
             }
             else{
@@ -164,14 +190,30 @@
                 if (typeof(div_id)==='undefined') div_id = '#' + id + '_div';
                 else                              div_id = '#' + div_id;
                 
+                if (typeof(progress_html )==='undefined')
+                    progress_html = get_default_progress_html();
+                
+                
+                if (typeof(failure_html )==='undefined')
+                    failure_html = get_default_failure_html();
+                
                 selector  = id;
 
-                setAjax(selector, route, div_id );
+                data = { url: route, div: div_id ,
+                         progress: progress_html ,
+                         failure: failure_html   };
+
+                setAjax(selector, data );
             }
         }
 
-        function registerClickHandlers()
+        function jQueryRegisterHandlers()
         {
+            // tool tip init
+            $(document).ready(function(){
+                            $('[data-toggle="tooltip"]').tooltip();
+                        });
+            
             // Thankfully on registers handlers to DOM all existing and
             // *future* elements. Praise the lord!
 
@@ -208,7 +250,7 @@
                      });
         }
 
-        registerClickHandlers();
+        jQueryRegisterHandlers();
 
         </script>
     </head>
