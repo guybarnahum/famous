@@ -9,11 +9,15 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a href="#">
+            <a href="javascript:void(0);"
+                data-toggle="tooltip" data-placement="bottom"
+                title="build:{{ \App\Components\StringUtils::getBuildVersion() }}">
                 <strong>famous</strong>
+            </a>
+            <a href="javascript:void(0);"
+                data-toggle="tooltip" data-placement="bottom"
+                title="device-guid: {{\App\Components\StringUtils::getDevGuid()}}">
                 <image src="{{ asset('assets/images/logo.png') }}" alt='famous' width=128>
-                <h5 style='font-size:xx-small'>{{ \App\Components\StringUtils::getBuildVersion() }}</h5>
-                <h5 style='font-size:xx-small'>{{ \App\Components\StringUtils::getDevGuid() }}</h5>
             </a>
         </div>
 
