@@ -61,8 +61,12 @@ Route::get('mine/{what}/{uid?}'     , 'HomeController@mineByUid' );
 Route::get('mine/{what}'            , 'HomeController@mineActive');
 }
 
-Route::get( 'widget/{which}'        , 'HomeController@widget'    );
-    
+if ( true ){ // Enable GET for debugging only..
+    Route::get( 'widget/{which}'    , 'HomeController@widget'    );
+}
+
+Route::post( 'widget/{which}'       , 'HomeController@widget'    );
+   
 // ................................................................ api/callback
 
 // Disable our pesky \Debugbar for these api/callback routes..

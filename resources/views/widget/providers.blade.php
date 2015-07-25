@@ -1,3 +1,7 @@
+@if ( !isset($providers) || !is_string($providers) )
+    @if ( $providers = '' ) @endif
+@endif
+
 @if ( $providers = explode( ',', $providers ) ) @endif
 
 <ul class="inline navbar navbar-right social-icons social-background social-small">
@@ -43,18 +47,15 @@
     </li>
 
     <li>
-    @if ( isset($user) && $user && !empty( $user ))
         <img class='img-circle' width=64px
-            src="{{ $user->pri_photo_large or asset(assets/images/user.png) }}"
-            alt="{{ $user->name }}"/>
-    @else
-        <img class='img-circle' width=64px
-            src="{{ asset('assets/images/user.png') }}"
-            alt='famous'/>
-    @endif
+@if ( isset( $photo) && $photo && !empty( $photo ))
+            src="{{ $photo }}" />
+@else
+            src="{{ asset('assets/images/user.png') }}" />
+@endif
     </li>
     <li>
-    @if ( isset( $user) && $user && !empty( $user ))
+    @if ( isset( $photo) && $photo && !empty( $photo ))
         <a href='/logout'>
     @else
         <a href='javascript:void(0)' style='opacity:0.2;'>

@@ -18,24 +18,15 @@
         </div>
 
         <nav class="collapse navbar-collapse main-navbar va-middle" role="navigation">
-            <div id="header-user-providers">
-                @if ( isset($user->providers))
-                    @if ( $providers = $user->providers ) @endif
-                @else
-                    @if ( $providers = '' ) @endif
-                @endif
-
-                @if ( !isset( $user ) )
-                    @if ( $user = false ) @endif
-                @endif
-
-                @include( 'widget.providers', [ 'user'      => $user,
-                                                'providers' => $providers ] )
+            <div id="header-widget-providers">
             </div>
         </nav>
     </div>
 </header>
 
 <script>
+
+onreadyAjax( 'widget/providers', // route
+             'header-widget-providers');// div_id
 
 </script>

@@ -86,7 +86,9 @@ class AuthorizeSocialiteUser{
         // attempt to map to user from soclite user account
         // if not found create account / user from socilite account
         $user = $this->db->getUser( $s_user, $update = true, $create = true );
-        $uid = isset( $user->id )?  $user->id : false;
+        
+        $uid    = isset( $user->id              )?  $user->id              : false;
+        $photo  = isset( $user->pri_photo_large )?  $user->pri_photo_large : false;
         
         // finally login our user
         if ( $uid ){
@@ -101,19 +103,20 @@ class AuthorizeSocialiteUser{
             \Debugbar::info( $err );
         }
         
-        return $listener->updateUser( $uid, $err );
+        return $listener->updateUser( $uid, $photo, $err );
     }
     
     // .......................................................... logoutProvider
 
     public function logoutProvider( $request, $listener, $provider)
     {
-        $uid = \Session::get( 'uid' );
+        $uid    = \Session::get( 'uid'   );
+        $photo  = \Session::get( 'photo' );
         
         if ( !empty( $uid ) ){
             $this->db->logoutProvider( $uid, $provider );
         }
         
-        return $listener->updateUser($uid);
+        return $listener->updateUser($uid, $photo );
     }
 }

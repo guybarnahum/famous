@@ -70,14 +70,15 @@ class AuthController extends Controller {
     
     public function resetUser( $msg=false )
     {
-        return $this->updateUser( false, $msg );
+        return $this->updateUser( false, false, $msg );
     }
     
     // .............................................................. updateUser
     
-    public function updateUser( $uid=false, $msg=false)
+    public function updateUser( $uid=false, $photo=false, $msg=false)
     {
-        \Session::put( 'uid', $uid );
+        \Session::put( 'uid'  , $uid   );
+        \Session::put( 'photo', $photo );
         
         if ( empty($msg) ) $msg = false;
         \Session::flash('msg',$msg );

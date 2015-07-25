@@ -351,12 +351,16 @@ class HomeController extends Controller {
     
     private function makeWidgetProviders()
     {
-        $uid = Session::get( 'uid' );
+        $uid    = \Session::get( 'uid'   );
+        $photo  = \Session::get( 'photo' );
+        
         $providers = $this->db->makeUserProviders( $uid );
         
         \Debugbar::info( 'HomeController::makeWidgetProviders(' . $providers . ')' );
 
-        return $this->renderHtml( 'widget.providers', [ 'providers' => $providers ] );
+        return $this->renderHtml( 'widget.providers',
+                                 [ 'providers' => $providers,
+                                   'photo'     => $photo    ] );
     }
     
     public function widget( $what )
