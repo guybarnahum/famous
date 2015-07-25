@@ -89,19 +89,42 @@ class HomeController extends Controller {
                            ->with( 'msg' , $msg  );
     }
     
-    /**
-     * Show the application dashboard to the user.
-     *
-     * @return Response
-     */
-    public function showActive()
+    // ============================================================== GET ROUTES
+    
+    public function get( $what, $uid = false, $filter = false )
     {
-        return $this->show();
+        if ( empty( $uid    ) || ( $uid == 'me' ) ) $uid = Session::get( 'uid' );
+        if ( empty( $filter ) ) $fliter = false;
+        
+        \Debugbar::info( 'HomeController::get(' . $what   . ',' .
+                        $uid    . ',' .
+                        $filter . ')' );
+        
+        switch( $what ){
+            case 'user'     : return $this->getUserInfo    ( $uid, $filter );
+            case 'accounts' : return $this->getUserAccounts( $uid, $filter );
+            case 'facts'    : return $this->getUserFacts   ( $uid, $filter );
+            case 'insights' : return $this->getUserInsights( $uid, $filter );
+            case 'reports'  : return $this->getUserReports ( $uid, $filter );
+        }
+        
+        $msg = 'Invalid get request (' . $what . ')';
+        return $msg;
     }
     
+    public function getByUid( $what, $uid )
+    {
+        return $this->get( $what, $uid );
+    }
+    
+    public function getActive( $what )
+    {
+        return $this->get( $what );
+    }
+
     // ............................................................. getUserInfo
     
-    public function getUserInfo( $uid = false)
+    public function getUserInfo( $uid = false )
     {
         $input = \Input::all();
 
@@ -118,17 +141,13 @@ class HomeController extends Controller {
         return $this->renderHtml( 'user.info', $with );
     }
     
-    public function getActiveUserInfo()
-    {
-        return $this->getUserInfo();
-    }
-    
     // ......................................................... getUserAccounts
     
     public function getUserAccounts( $uid = false, $provider = false)
     {
-        \Debugbar::info( 'HomeController::getUserAccountByProvider(' . $uid . ',' . $provider . ')' );
-
+        \Debugbar::info( 'HomeController::getUserAccountByProvider(' . $uid      . ',' .
+                                                                       $provider . ')' );
+        
         if (empty( $uid      )) $uid      = Session::get( 'uid' );
         if (empty( $provider )) $provider = false;
         
@@ -139,16 +158,6 @@ class HomeController extends Controller {
         return $this->renderHtml( 'user.accounts', $with);
     }
     
-    public function getUserAccountsByUid( $uid )
-    {
-        return $this->getUserAccounts( $uid );
-    }
-   
-    public function getActiveUserAccounts()
-    {
-        return $this->getUserAccounts();
-    }
-
     // ............................................................ getUserFacts
     
     private function fact_cmp_name( $a, $b )
@@ -185,42 +194,6 @@ class HomeController extends Controller {
         $with  = [ 'facts' => $facts ];
         
         return $this->renderHtml( 'user.facts', $with);
-    }
-
-    public function getUserFactsByUid( $uid  )
-    {
-        return $this->getUserFacts( $uid );
-    }
-    
-    public function getActiveUserFacts()
-    {
-        return $this->getUserFacts();
-    }
-    
-    // ....................................................... generateUserFacts
- 
-    public function generateUserFacts( $uid = false, $provider = false)
-    {
-        \Debugbar::info(
-                'HomeController::generateUserFactsByProvider(' . $uid . ',' .
-                                                            $provider . ')' );
-
-        if (empty( $uid      )) $uid      = Session::get( 'uid' );
-        if (empty( $provider )) $provider = false;
-        
-        $res = $this->db->generateUserFacts( $uid, $provider );
-        
-        return json_encode($res);
-    }
-    
-    public function generateUserFactsByUid( $uid  )
-    {
-        return $this->generateUserFacts( $uid );
-    }
-
-    public function generateActiveUserFacts()
-    {
-        return $this->generateUserFacts();
     }
     
     // ......................................................... getUserInsights
@@ -267,18 +240,6 @@ class HomeController extends Controller {
         
         return $this->renderHtml( 'user.insights', $with );
     }
-
-    public function getUserInsightsByUid( $uid )
-    {
-        return $this->getUserInsights( $uid );
-
-    }
-    
-    public function getActiveUserInsights()
-    {
-        return $this->getUserInsights();
-    }
-    
     
     // .......................................................... getUserReports
     
@@ -321,16 +282,93 @@ class HomeController extends Controller {
         $with = [ 'entries' => $entries ];
         return $this->renderHtml( 'user.reports.sanchita', $with );
     }
-
-    public function getUserReportsByUid( $uid )
+    
+    // ============================================================= MINE ROUTES
+    
+    // ........................................................... mineUserFacts
+    
+    public function mineUserFacts( $uid = false, $provider = false)
     {
-        return $this->getUserReports( $uid );
+        \Debugbar::info(
+                        'HomeController::mineUserFacts(' . $uid      . ',' .
+                                                           $provider . ')' );
+        
+        if (empty( $uid      )) $uid      = Session::get( 'uid' );
+        if (empty( $provider )) $provider = false;
+        
+        $res = $this->db->mineUserFacts( $uid, $provider );
+        
+        return json_encode($res);
+    }
 
+    // ........................................................ mineUserInsights
+    
+    public function mineUserInsights( $uid = false, $provider = false)
+    {
+        \Debugbar::info(
+                        'HomeController::mineUserFacts(' . $uid . ',' .
+                                                           $provider . ')' );
+        
+        if (empty( $uid      )) $uid      = Session::get( 'uid' );
+        if (empty( $provider )) $provider = false;
+        
+        $res = false;
+        
+        return json_encode($res);
+    }
+
+    // .............................................................. mine route
+    
+    public function mine( $what, $uid = false, $filter = false )
+    {
+        if ( empty( $uid    ) || ( $uid == 'me' ) ) $uid = Session::get( 'uid' );
+        if ( empty( $filter ) ) $fliter = false;
+        
+        \Debugbar::info( 'HomeController::mine(' . $what   . ',' .
+                                                   $uid    . ',' .
+                                                   $filter . ')' );
+        
+        switch( $what ){
+            case 'facts'    : return $this->mineUserFacts   ( $uid, $filter );
+            case 'insights' : return $this->mineUserInsights( $uid, $filter );
+        }
+        
+        $msg = 'Invalid mine request (' . $what . ')';
+        return $msg;
     }
     
-    public function getActiveUserReports()
+    public function mineByUid( $what, $uid )
     {
-        return $this->getUserReports();
+        return $this->mine( $what, $uid );
     }
+    
+    public function mineActive( $what )
+    {
+        return $this->mine( $what );
+    }
+    
+    // =========================================================== WIDGET ROUTES
+    
+    private function makeWidgetProviders()
+    {
+        $uid = Session::get( 'uid' );
+        $providers = $this->db->makeUserProviders( $uid );
+        
+        \Debugbar::info( 'HomeController::makeWidgetProviders(' . $providers . ')' );
 
+        return $this->renderHtml( 'widget.providers', [ 'providers' => $providers ] );
+    }
+    
+    public function widget( $what )
+    {
+        \Debugbar::info( 'HomeController::widget(' . $what . ')' );
+
+        switch( $what )
+        {
+            case 'providers' : return $this->makeWidgetProviders();
+        }
+        
+        $msg = 'Invalid widget request (' . $what . ')';
+        return $msg;
+    }
 }

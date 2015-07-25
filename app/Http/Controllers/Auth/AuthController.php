@@ -38,11 +38,11 @@ class AuthController extends Controller {
     
     // .................................................... autorizeWithProvider
     // Issue
-    public function autorizeWithProvider(AuthorizeSocialiteUser $au ,
-                                         Request $req               ,
-                                         $provider = null           )
+    public function autorizeProvider(AuthorizeSocialiteUser $au ,
+                                     Request $req               ,
+                                     $provider = null           )
     {
-        return $au->autorizeWithProvider($req->all(), $this, $provider);
+        return $au->autorizeProvider($req->all(), $this, $provider);
     }
     
     // .................................................. handleProviderCallback
@@ -58,12 +58,12 @@ class AuthController extends Controller {
     // What should we do here? Revoke the social login?
     // Disable the social account until it is re-enabled by user?
     // ??
-    public function logoutFromProvider( AuthorizeSocialiteUser  $au,
-                                        Request                 $req,
-                                        $provider = null            )
+    public function logoutProvider( AuthorizeSocialiteUser  $au,
+                                    Request                 $req,
+                                    $provider = null            )
     {
-        $au->logoutFromProvider($req->all(), $this, $provider);
-        return \Redirect::back()->with('msg', $provider . ' logout');
+        $au->logoutProvider($req->all(), $this, $provider);
+        return redirect('home')->with('msg', $provider . ' logout');
     }
     
     // .............................................................. resetUser
@@ -75,7 +75,7 @@ class AuthController extends Controller {
     
     // .............................................................. updateUser
     
-    public function updateUser( $uid, $msg=false)
+    public function updateUser( $uid=false, $msg=false)
     {
         \Session::put( 'uid', $uid );
         

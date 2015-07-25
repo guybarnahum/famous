@@ -80,7 +80,7 @@
 @endif
                                 </td>
                                 <td style='vertical-align:middle;align=center;'>
-                                    <a class='btn btn-default uid-{{ $account->uid }}-{{$account->provider}}-gen-facts'
+                                    <a class='btn btn-default uid-{{ $account->uid }}-{{$account->provider}}-mine-facts'
                                         href='javascript:void(0)' role='button'>
                                         fact(or)&nbsp;<i class="fa fa-{{$account->provider}}"></i>
                                     </a>
@@ -224,33 +224,33 @@
 
 
 setAjaxById('.uid-{{ $account->uid }}-{{$account->provider}}-facts', // id
-            '/facts/{{ $account->uid }}/{{$account->provider}}', // route
+            'mine/facts/{{ $account->uid }}/{{$account->provider}}', // route
             'user-accounts-facts-div'); // div_id
 
 setAjaxById(
-            '.uid-{{ $account->uid }}-{{$account->provider}}-gen-facts', // id
-            '/gen_facts/{{ $account->uid }}/{{$account->provider}}', // route
+            '.uid-{{ $account->uid }}-{{$account->provider}}-mine-facts', // id
+            'mine/facts/{{ $account->uid }}/{{$account->provider}}', // route
             false); // div_id
 
 @endforeach
 
 @if ( count( $accounts) > 1 )
 
-onreadyAjax( '/facts/{{ $accounts[0]->uid }}', // route
+onreadyAjax( '/get/facts/{{ $accounts[0]->uid }}', // route
              'user-accounts-facts-div');// div_id
 
 @elseif ( count( $accounts ) == 1 )
 
-onreadyAjax( '/facts/{{ $accounts[0]->uid }}/{{ $accounts[0]->provider }}', // route
+onreadyAjax( 'get/facts/{{ $accounts[0]->uid }}/{{ $accounts[0]->provider }}', // route
              'user-accounts-facts-div');// div_id
 
 @endif
 
 
-onreadyAjax( '/insights/{{ $accounts[0]->uid }}', // route
+onreadyAjax( 'get/insights/{{ $accounts[0]->uid }}', // route
             'user-accounts-insights-div');// div_id
 
-onreadyAjax( '/reports/{{ $accounts[0]->uid }}', // route
+onreadyAjax( 'get/reports/{{ $accounts[0]->uid }}', // route
             'user-accounts-reports-div');// div_id
 
 </script>

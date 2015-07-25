@@ -39,7 +39,7 @@ class AuthorizeSocialiteUser{
     
     // .................................................... autorizeWithProvider
 
-    public function autorizeWithProvider($request, $listener, $provider)
+    public function autorizeProvider($request, $listener, $provider)
     {
         // setup autorization scopes
         $scope_request =  $this->db->getProviderScopes( $provider );
@@ -104,11 +104,16 @@ class AuthorizeSocialiteUser{
         return $listener->updateUser( $uid, $err );
     }
     
-    // ...................................................... logoutFromProvider
+    // .......................................................... logoutProvider
 
-    public function logoutFromProvider($request, $listener, $provider)
+    public function logoutProvider( $request, $listener, $provider)
     {
-        // $this->auth->logout();
-        // return $listener->updateUser( false );
+        $uid = \Session::get( 'uid' );
+        
+        if ( !empty( $uid ) ){
+            $this->db->logoutProvider( $uid, $provider );
+        }
+        
+        return $listener->updateUser($uid);
     }
 }

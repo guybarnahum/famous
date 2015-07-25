@@ -24,11 +24,13 @@ class UserRepository {
         return $scopes;
     }
     
-    // ....................................................... generateUserFacts
+    // ........................................................... mineUserFacts
 
-    public function generateUserFacts( $uid, $provider = false )
+    public function mineUserFacts( $uid, $provider = false )
     {
-        \Debugbar::info( 'UserRepository::generateUserFacts(uid:' . $uid . ',' . $provider . ')' );
+        \Debugbar::info(
+            'UserRepository::mineUserFacts(uid:' . $uid . ',' .
+                                                   $provider . ')' );
 
         $accounts = false;
         
@@ -66,10 +68,20 @@ class UserRepository {
         return $res;
     }
     
-    // ........................................................ getUserProviders
+    // ....................................................... makeUserProviders
     
-    public function getUserProviders( $uid )
+    public function makeUserProviders( $uid, $update_act = false )
     {
+        $update = ($update_act instanceof Account);
+        
+        if ( true ){
+            $update_act_str = $update? ',' . $update_act->provider: '';
+            
+            \Debugbar::info(
+                    'UserRepository::makeUserProviders(' . $uid .
+                                                $update_act_str . ')' );
+        }
+        
         $providers = '';
         
         $acts = $this->getUserAccounts( $uid );
@@ -79,13 +91,40 @@ class UserRepository {
             $p = [];
                     
             foreach( $acts as $act ){
-                $p[] = $act->provider;
+            
+                if ( $update && ( $act->id == $update_act->id ) ){
+                     $act->state = $update_act->state;
+                }
+            
+                $p[] = $act->provider . ':' . $act->state;
             }
                     
             $providers = implode(',',$p);
         }
         
+        \Debugbar::info(
+                    'UserRepository::makeUserProviders(' . $providers . ')' );
+
         return $providers;
+    }
+    
+    // ..................................................... updateUserProviders
+    
+    public function updateUserProviders( $uid, $act = false)
+    {
+        if ( true ){
+            $provider_str = ($act instanceof Account)? $act->provider : 'false';
+            \Debugbar::info(
+            'UserRepository::updateUserProviders(' . $uid . ',' .
+                                                     $provider_str . ')' );
+        }
+        
+        $providers = $this->makeUserProviders( $uid, $act );
+        
+        $where     = ['id'        => $uid      ];
+        $update    = ['providers' => $providers];
+        
+        User::where( $where )->update( $update );
     }
     
     // ............................................................. getUserInfo
@@ -99,9 +138,9 @@ class UserRepository {
     public function getUserInfo( $uid )
     {
         \Debugbar::info( 'UserRepository::getUserInfo(uid:' . $uid . ')' );
-        $match = [ 'id' => $uid ];
+        $which = [ 'id' => $uid ];
         
-        $user = User::where( $match )->first();
+        $user = User::where( $which )->first();
         
         return $user;
     }
@@ -266,6 +305,8 @@ class UserRepository {
         return $i;
     }
     
+    // .......................................................... getUserReports
+    
     public function getUserReports( $uid, $type = false )
     {
         \Debugbar::info( 'UserRepository::getUserReports(uid:' . $uid . ','  .
@@ -290,11 +331,14 @@ class UserRepository {
 
         return $report;
     }
+
     // ......................................................... getUserAccounts
 
     public function getUserAccounts( $uid, $provider = false )
     {
-        \Debugbar::info( 'UserRepository::getUserAccounts(uid:' . $uid . ',' . $provider . ')' );
+        \Debugbar::info(
+                'UserRepository::getUserAccounts(uid:' . $uid      . ',' .
+                                                         $provider . ')' );
 
         $match = ['uid' => $uid ];
         if ( $provider ) $match[ 'provider' ] = $provider;
@@ -311,6 +355,27 @@ class UserRepository {
         }
         
         return null;
+    }
+    
+    // .......................................................... logoutProvider
+
+    public function logoutProvider( $uid, $provider )
+    {
+        \Debugbar::info(
+            'UserRepository::logoutProvider(uid:' . $uid      . ',' .
+                                                    $provider . ')' );
+        
+        $ok = !empty($uid) && !empty($provider) ;
+        
+        if ( $ok ){ // find account for uid & provider
+            $where  = [ 'uid'   => $uid, 'provider' => $provider ];
+            $update = [ 'state' => 'logout' ];
+            
+            Account::where( $where )->update( $update );
+            $this->updateUserProviders( $uid );
+        }
+        
+        return $ok;
     }
     
     // ................................................................ findUser
@@ -431,11 +496,14 @@ class UserRepository {
         // not yet..
         $user_update = false;
 
-        // $data->provider is not empty
-             $user_providers   = $this->getUserProviders( $user->id );
-        if ( $user->providers != $user_providers ){
-             $user->providers  = $user_providers ;
-             $user_update = $update;
+       // recalc user providers, possibly with account state..
+        if ( $user instanceof User ){
+             $user_providers   = $this->makeUserProviders( $user->id );
+        
+            if ( $user->providers != $user_providers ){
+                 $user->providers  = $user_providers ;
+                 $user_update = $update;
+            }
         }
         
         // email may be empty! (i.e. twitter)
@@ -457,7 +525,7 @@ class UserRepository {
         return $user;
     }
     
-    // ............................................ update_accountBySociliteUser
+    // ........................................................... updateAccount
 
     public function updateAccount( $account, $data )
     {        
@@ -468,6 +536,7 @@ class UserRepository {
                          'scope_request'=> $data->scope_request,
                          'username'     => $data->nickname,
                          'name'         => $data->name,
+                         'state'        => 'active',
                          ];
         
         $dbData        = [
@@ -477,6 +546,7 @@ class UserRepository {
                          'scope_request'=> $account->scope_request,
                          'username'     => $account->username,
                          'name'         => $account->name,
+                         'state'        => $account->state,
                          ];
         
         $diff   = array_diff($socialiteData, $dbData);
@@ -484,13 +554,14 @@ class UserRepository {
         
         if ( $update ) {
             
-            $account->avatar       = $data->avatar;
-            $account->email        = $data->email;
-            $account->access_token = $data->token;
-            $account->scope_request= $data->scope_request;
-            $account->name         = $data->name;
-            $account->username     = $data->nickname;
-            
+            $account->avatar       = $socialiteData[ 'avatar'   ];
+            $account->email        = $socialiteData[ 'email'    ];
+            $account->access_token = $socialiteData[ 'access_token'  ];
+            $account->scope_request= $socialiteData[ 'scope_request' ];
+            $account->name         = $socialiteData[ 'name'     ];
+            $account->username     = $socialiteData[ 'username' ];
+            $account->state        = $socialiteData[ 'state'    ];
+
             // TODO: Add errors for when db is malformed and we throw
             // an exception in the App\Models\Account
             

@@ -90,6 +90,7 @@ class CreateUsersTable extends Migration {
                        // accoutn state
                        $account_states = array( 'pending'   ,
                                                 'active'    ,
+                                                'logout'    ,
                                                 'suspended' ,
                                                 'disabled'  );
 

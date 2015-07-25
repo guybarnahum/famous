@@ -108,6 +108,7 @@
                 </li>
 
                 @foreach( $providers as $provider )
+                @if ( list($provider,$state) = explode(':',$provider,2)) @endif
                 <li>
                     <a class='{{ $class }}-uid-{{ $uid }}-{{ $provider }}' href='javascript:void(0)'>
                         <i class='fa fa-{{ $provider }}'></i>
@@ -142,9 +143,11 @@ setAjaxById( selectors, '/{{ $route }}?{{ $query }}', '{{ $div }}' );
 
 @foreach( $providers as $provider )
 
-setAjaxById('.{{ $class }}-uid-{{ $uid }}-{{ $provider }}'                  , // id
-            '/{{ $route }}/{{ $uid }}/{{ $provider }}?{{ $query }}'  , // route
-            '{{ $div }}'                                                    ); // div_id
+@if ( list($provider,$state) = explode(':',$provider,2)) @endif
+
+setAjaxById('.{{ $class }}-uid-{{ $uid }}-{{ $provider }}'          , // id
+            '/{{ $route }}/{{ $uid }}/{{ $provider }}?{{ $query }}' , // route
+            '{{ $div }}'                                            ); // div_id
 
 @endforeach
 
