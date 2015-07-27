@@ -7,5 +7,5 @@
                                          ]
                      ] )
 
-
-<div id='user-accounts-div' ></div>
+<div id='user-accounts-div' >
+</div>

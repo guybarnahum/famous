@@ -38,7 +38,8 @@
     </li>
     <li>
     @if ( isset( $photo) && $photo && !empty( $photo ))
-        <a href='/logout'>
+        <a href='/logout'
+            data-toggle="tooltip" data-placement="bottom" title="logout!">
     @else
         <a href='javascript:void(0)' style='opacity:0.2;'>
     @endif

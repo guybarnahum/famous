@@ -3,6 +3,24 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span12">
+                <table style='width:100%;'>
+                    <tbody>
+                        <tr>
+                            <td width='100%'>
+                                <a class='btn btn-default uid-mine-insights-me'
+                                    href='javascript:void(0)' role='button'>
+                                    <i class="fa fa-user"></i>
+                                    Regenrate insights
+                                </a>
+                            </td>
+                        <tr>
+                            <td width='100%' height='40px;'>
+                                <div id='uid-mine-insights-state' >
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <table class="table table-hover" style="table-layout:fixed;">
                     <thead>
                         <tr>
@@ -47,4 +65,9 @@
 
 </section>
 
+<script>
+
+setAjaxById( '.uid-mine-insights-me', 'mine/insights/me', 'uid-mine-insights-state');
+
+</script>
 

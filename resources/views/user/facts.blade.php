@@ -3,6 +3,51 @@
     <div class="container">
         <div class="row-fluid">
             <div class="span12">
+                <table style='width:100%;'>
+                    <tbody>
+                          <tr>
+                            <td width='100%'>
+                                <a class='btn btn-default uid-mine-facts-me'
+                                    href='javascript:void(0)' role='button'>
+                                    <i class="fa fa-user"></i>
+                                    Regenrate facts
+
+                                </a>
+                            </td>
+                            <td nowrap>
+                                <a class='btn btn-default uid-mine-facts-me-facebook'
+                                    href='javascript:void(0)' role='button'>
+                                        <i class="fa fa-facebook"></i>
+                                </a>
+                            </td>
+                            <td nowrap>
+                                <a class='btn btn-default uid-mine-facts-me-twitter'
+                                    href='javascript:void(0)' role='button'>
+                                        <i class="fa fa-twitter"></i>
+                                </a>
+                            </td>
+                            <td nowrap>
+                                <a class='btn btn-default uid-mine-facts-me-linkedin'
+                                    href='javascript:void(0)' role='button'>
+                                        <i class="fa fa-linkedin"></i>
+                                </a>
+                            </td>
+                            <td nowrap>
+                                <a class='btn btn-default uid-mine-facts-me-google'
+                                    href='javascript:void(0)' role='button'>
+                                        <i class="fa fa-google"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan='6' width='100%' height='40px;'>
+                                <div id='uid-mine-fact-state' >
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
                 <table class="table table-hover" style="table-layout:fixed;">
                     <thead>
                         <tr>
@@ -91,5 +136,16 @@
 @endif
 
 </section>
+
+<script>
+
+setAjaxById( '.uid-mine-facts-me'         , 'mine/facts/me'         , 'uid-mine-fact-state');
+setAjaxById( '.uid-mine-facts-me-facebook', 'mine/facts/me/facebook', 'uid-mine-fact-state');
+setAjaxById( '.uid-mine-facts-me-linkedin', 'mine/facts/me/linkedin', 'uid-mine-fact-state');
+setAjaxById( '.uid-mine-facts-me-twitter' , 'mine/facts/me/twitter' , 'uid-mine-fact-state');
+setAjaxById( '.uid-mine-facts-me-google'  , 'mine/facts/me/google'  , 'uid-mine-fact-state');
+
+</script>
+
 
 

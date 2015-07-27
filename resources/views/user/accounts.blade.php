@@ -26,7 +26,6 @@
                                 <th>state</th>
                                 <th>token</th>
                                 <th>photo</th>
-                                <th>facts</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,12 +77,6 @@
 @if ( is_array($size) && (count($size) > 1))
 <h5><small>{{ $size[0] }} x {{ $size[1] }} px</small></h5>
 @endif
-                                </td>
-                                <td style='vertical-align:middle;align=center;'>
-                                    <a class='btn btn-default uid-{{ $account->uid }}-{{$account->provider}}-mine-facts'
-                                        href='javascript:void(0)' role='button'>
-                                        fact(or)&nbsp;<i class="fa fa-{{$account->provider}}"></i>
-                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -187,13 +180,19 @@
 
     <div class="tabGroup">
         <input type="radio" name="tabGroup1" id="rad1" class="tab1" checked="checked"/>
-        <label for="rad1"><h2>Facts</h2></label>
+        <label for="rad1">
+           <h2>Facts</h2>
+        </label>
      
         <input type="radio" name="tabGroup1" id="rad2" class="tab2"/>
-        <label for="rad2"><h2>Insights</h2></label>
+        <label for="rad2">
+            <h2>Insights</h2>
+        </label>
 
         <input type="radio" name="tabGroup1" id="rad3" class="tab3"/>
-        <label for="rad3"><h2>Reports</h2></label>
+        <label for="rad3">
+            <h2>Reports</h2>
+        </label>
 
         <br/>
 
@@ -217,20 +216,14 @@
 
 
 setAjaxById('.uid-{{ $account->uid }}-{{$account->provider}}-facts', // id
-            'mine/facts/{{ $account->uid }}/{{$account->provider}}', // route
+            'get/facts/{{ $account->uid }}/{{$account->provider}}', // route
             'user-accounts-facts-div'); // div_id
-
-setAjaxById(
-            '.uid-{{ $account->uid }}-{{$account->provider}}-mine-facts', // id
-            'mine/facts/{{ $account->uid }}/{{$account->provider}}', // route
-            false); // div_id
 
 @endforeach
 
 @if ( count( $accounts) > 1 )
 
-onreadyAjax( '/get/facts/{{ $accounts[0]->uid }}', // route
-             'user-accounts-facts-div');// div_id
+onreadyAjax( '/get/facts/{{ $accounts[0]->uid }}', 'user-accounts-facts-div');
 
 @elseif ( count( $accounts ) == 1 )
 
