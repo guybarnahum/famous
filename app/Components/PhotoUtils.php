@@ -2,11 +2,27 @@
     
 class PhotoUtils{
     
+    static public function validate_url( $url )
+    {
+        $ok =!empty($url );
+        
+        if ($ok){
+            $headers = @get_headers( $url );
+            $ok = is_array( $headers ) && count( $headers );
+        }
+        if ($ok){
+            $ok = ( false !== strpos( $headers[0] ,"200" ) );
+        }
+        
+        return $ok;
+    }
+    
     static public function getSize( $url )
     {
-        if (empty($url)) return false;
-        
-        \Debugbar::info( 'PhotoUtils::getSize(' . $url . ')' );
+        // sanity check url
+        if (!self::validate_url( $url )){
+            return false;
+        }
         
         $size = self::getJpegSize( $url );
         
@@ -14,8 +30,6 @@ class PhotoUtils{
             $size = getimagesize($url);
         }
         
-        \Debugbar::info( 'PhotoUtils::getSize(' . print_r($size,true) . ')' );
-       
         return $size;
     }
     
@@ -26,7 +40,7 @@ class PhotoUtils{
     static public function getJpegSize( $url )
     {
         
-        if ( empty($url)) return false;
+        if ( empty($url) ) return false;
         
         try{
             $handle = fopen( $url, "rb");
@@ -37,10 +51,15 @@ class PhotoUtils{
             $ok = false;
         }
         
-        if (!$ok) return false;
+        if (!$ok){
+            return false;
+        }
         
         $ok = !feof( $handle );
-        if (!$ok) return false;
+        if (!$ok){
+            fclose( $handle );
+            return false;
+        }
         
         $new_block = fread( $handle, 32);
         $ix = 0;
@@ -53,7 +72,10 @@ class PhotoUtils{
               $new_block[ $ix + 3 ]=="\xE0" ;
         
         // Not a JPEG?
-        if (!$ok) return false;
+        if (!$ok){
+            fclose( $handle );
+            return false;
+        }
         
         $ix += 4;
                 
@@ -64,8 +86,10 @@ class PhotoUtils{
               $new_block[ $ix + 6 ]=="\x00" ;
         
         // Malformed JPEG?
-        if (!$ok) return false;
-        
+        if (!$ok){
+            fclose( $handle );
+            return false;
+        }
         // Read block size and skip ahead to begin cycling through blocks
         // in search of SOF marker
                 
@@ -99,7 +123,8 @@ class PhotoUtils{
                     $unpacked = $unpacked[1];
                     $height = hexdec( $unpacked[ 6] . $unpacked[ 7] . $unpacked[ 8] . $unpacked[ 9]);
                     $width  = hexdec( $unpacked[10] . $unpacked[11] . $unpacked[12] . $unpacked[13]);
-                    
+                
+                    fclose( $handle );
                     return [ $width, $height ];
             }
             
