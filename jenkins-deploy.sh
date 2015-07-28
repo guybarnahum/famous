@@ -29,15 +29,6 @@ fi
 if [[ "$PWD" =~ "/var/lib/jenkins" ]]; then
     echo "Running post jenkins deployment script for $DST, $DT";
 
-    #
-    # Copy files and setup permissions
-    sudo cp -R * "$DST/"
-    sudo chown --recursive www-data:www-data "$DST/"
-    sudo chmod --recursive 777 "$DST/storage"
-
-    cd "$DST"
-    sudo cp --no-clobber --parents conf/famous.ini.dist "$DST"
-
     # Prime and migrate laraval
     # not sure how to resolve db conflicts!
     if [[ $OPT == *"composer"*  ]];then
@@ -49,6 +40,17 @@ if [[ "$PWD" =~ "/var/lib/jenkins" ]]; then
         sudo composer --no-interaction dumpautoload
         echo "- composer dumpautoload"
     fi
+
+    #
+    # Copy files and setup permissions
+    echo "insall into $DST"
+
+    sudo cp -R * "$DST/"
+    sudo chown --recursive www-data:www-data "$DST/"
+    sudo chmod --recursive 777 "$DST/storage"
+
+    cd "$DST"
+    sudo cp --no-clobber --parents conf/famous.ini.dist "$DST"
 
     if [[ $OPT == *"migrate"* ]];then
         echo "+ artisan migrate"
