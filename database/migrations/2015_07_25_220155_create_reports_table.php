@@ -13,7 +13,7 @@ class CreateReportsTable extends Migration {
 	public function up()
 	{
         // ............................................................. reports
-
+        // Test Jenkins with benign git change!
         Schema::dropIfExists( 'reports' );
         
         Schema::create( 'reports',
