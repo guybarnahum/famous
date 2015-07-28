@@ -1,7 +1,6 @@
 /vendor
 /node_modules
 /build
-composer.lock
 .env
 famous.xcodeproj
 .idea/
