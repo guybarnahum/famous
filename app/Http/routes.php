@@ -42,7 +42,7 @@ Route::post('get/{what}/{uid?}/{filter?}', 'HomeController@get'      );
 Route::post('get/{what}/{uid?}'          , 'HomeController@getByUid' );
 Route::post('get/{what}'                 , 'HomeController@getActive');
 
-if ( true ){ // Enable GET for debugging only..
+if ( false ){ // Enable GET for debugging only..
 Route::get('get/{what}/{uid?}/{filter?}'
                                     , 'HomeController@get'        );
 Route::get('get/{what}/{uid?}'      , 'HomeController@getByUid'   );
@@ -54,14 +54,14 @@ Route::post('mine/{what}/{uid?}/{filter?}'
 Route::post('mine/{what}/{uid?}'    , 'HomeController@mineoByUid' );
 Route::post('mine/{what}'           , 'HomeController@mineActive' );
 
-if ( true ){ // Enable GET for debugging only..
+if ( false ){ // Enable GET for debugging only..
 Route::get('mine/{what}/{uid?}/{filter?}'
                                     , 'HomeController@mine'      );
 Route::get('mine/{what}/{uid?}'     , 'HomeController@mineByUid' );
 Route::get('mine/{what}'            , 'HomeController@mineActive');
 }
 
-if ( true ){ // Enable GET for debugging only..
+if ( false ){ // Enable GET for debugging only..
     Route::get( 'widget/{which}'    , 'HomeController@widget'    );
 }
 
